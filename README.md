@@ -3,7 +3,7 @@
 ## Products
 - Users should be able to view all Products.
 - Users should be able to create a Product.
--Users should be able to update their Product(s).
+- Users should be able to update their Product(s).
 - Users should be able to delete their Product(s).
 ## Reviews
 - Users should be able to view all reviews on a Product.
