@@ -21,7 +21,31 @@ class Product(db.Model):
     # seller = db.relationship("Member",back_populates="seller_products")
 
     # not returning members (through wishlist) or orders(through order_details)
+    # only returning total rating and review length
     def to_dict(self):
+        preview_image = [image for image in self.product_images if image.previewImage][0]
+        reviews_length = len(self.reviews)
+        rating_sum = 0
+        for review in self.reviews:
+            rating_sum+= int(review.rating)
+        product_dict =  {
+            "id": self.id,
+            "seller": self.seller,
+            "name": self.name,
+            "description": self.description,
+            "price": self.price,
+            "category": self.category,
+            "origin":(self.origin_city,self.origin_state),
+            "reviews":reviews_length,
+            "rating_total":rating_sum,
+            "preview":preview_image,
+            "available":self.available
+        }
+        return product_dict
+
+    # not returning members (through wishlist) or orders(through order_details)
+    # returning all images and all reviews
+    def to_dict_descriptive(self):
         product_dict =  {
             "id": self.id,
             "seller": self.seller,

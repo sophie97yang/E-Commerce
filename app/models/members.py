@@ -18,4 +18,4 @@ class Member(db.Model):
     orders = db.relationship("Order",back_populates='member')
     products = db.relationship("Product",secondary=wishlists,back_populates='members')
 
-    seller_products = db.relationship("Product",back_populates="seller")
+    # seller_products = db.relationship("Product",back_populates="seller")
