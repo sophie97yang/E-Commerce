@@ -15,5 +15,7 @@ class Member(db.Model):
 
     #members to reviews are not a 1 to 1 - it's one to many so we need to remove uselist!
     reviews = db.relationship("Review", back_populates="member")
-    shopping_carts = db.relationship("ShoppingCart",back_populates='member')
+    orders = db.relationship("Order",back_populates='member')
     products = db.relationship("Product",secondary=wishlists,back_populates='members')
+
+    seller_products = db.relationship("Product",back_populates="seller")
