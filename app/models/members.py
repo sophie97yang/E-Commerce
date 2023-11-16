@@ -12,6 +12,7 @@ class Member(db.Model):
     city = db.Column(db.String(20), nullable=False)
     state = db.Column(db.String(10), nullable=False)
     seller = db.Column(db.Boolean, nullable=False)
+    account_balance = db.Column(db.Float, default=3000)
 
     #members to reviews are not a 1 to 1 - it's one to many so we need to remove uselist!
     reviews = db.relationship("Review", back_populates="member")

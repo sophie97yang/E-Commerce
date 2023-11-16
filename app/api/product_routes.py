@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint,request
 from ..models.products import Product
 from ..models import db
 from ..forms.product_form import ProductForm
