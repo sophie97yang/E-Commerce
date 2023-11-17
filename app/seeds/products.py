@@ -1,4 +1,5 @@
 from ..models.products import Product
+from ..models.product_images import ProductImage
 from ..models import db
 from sqlalchemy.sql import text
 
@@ -16,7 +17,12 @@ def seed_products():
         origin_state="California",
         available=10
         )
+    image1= ProductImage(
+        preview_image = True,
+        url="https://store.pagelsponderosa.com/wp-content/uploads/2020/08/Mild-Cheddar-Block-resized.jpg",
+        product_id=1
 
+    )
     product2 = Product(
         name= "Brie Cheese",
         seller=1,
@@ -28,6 +34,12 @@ def seed_products():
         available=20
         )
 
+    image2= ProductImage(
+        preview_image = True,
+        url="https://www.allrecipes.com/thmb/M-8SHLikGW_zRe8CdCjqbBut2Y0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-527437499-2000-e87019ade85842ccb97785805474983b.jpg",
+        product_id=2
+
+    )
     product3 = Product(
         name= "Gouda Cheese",
         seller=2,
@@ -38,6 +50,14 @@ def seed_products():
         origin_state="Texas",
         available=10
         )
+
+    image3= ProductImage(
+        preview_image = True,
+        url="https://m.media-amazon.com/images/I/81CyK+H6jxL.jpg",
+        product_id=3
+
+    )
+
 
     product4 = Product(
         name= "Blue Cheese",
@@ -50,6 +70,13 @@ def seed_products():
         available=5
         )
 
+    image4= ProductImage(
+        preview_image = True,
+        url="https://cdn.britannica.com/09/3809-004-50E1BB9B/Roquefort-cheese.jpg",
+        product_id=4
+
+    )
+
     product5 = Product(
         name= "Mozzarella Cheese",
         seller=4,
@@ -60,6 +87,13 @@ def seed_products():
         origin_state="New Jersey",
         available=50
         )
+
+    image5= ProductImage(
+        preview_image = True,
+        url="https://cdn.britannica.com/09/3809-004-50E1BB9B/Roquefort-cheese.jpg",
+        product_id=5
+
+    )
 
     product6 = Product(
         name= "Cream Cheese",
@@ -72,6 +106,13 @@ def seed_products():
         available=100
         )
 
+    image6= ProductImage(
+        preview_image = True,
+        url="https://upload.wikimedia.org/wikipedia/commons/f/f7/Philly_cream_cheese.jpg",
+        product_id=6
+
+    )
+
     product7 = Product(
         name= "Ricotta Cheese",
         seller=8,
@@ -83,9 +124,16 @@ def seed_products():
         available=3
         )
 
+    image7= ProductImage(
+        preview_image = True,
+        url="https://i5.walmartimages.com/seo/Great-Value-Original-Ricotta-Cheese-15-oz-Refrigerated_833dbb9b-8fd8-4538-a86f-76aed6db343e.ce509fb7a5c093ceb56407bd5419767d.jpeg",
+        product_id=7
+
+    )
 
 
 
+    images = [image1,image2,image3,image4,image5,image6,image7]
     db.session.add(product1)
     db.session.add(product2)
     db.session.add(product3)
@@ -93,6 +141,7 @@ def seed_products():
     db.session.add(product5)
     db.session.add(product6)
     db.session.add(product7)
+    add_images = [db.session.add(image) for image in images]
 
     db.session.commit()
 
