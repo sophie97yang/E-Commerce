@@ -11,16 +11,16 @@ order_details = db.Table(
 class OrderDetail(db.Model):
     __tablename__= "order_details"
     id = db.Column(db.Integer, primary_key=True)
-    quantity = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer,default=1)
     product_id = db.Column(db.Integer, ForeignKey=("products.id"))
     order_id = db.Column(db.Integer, ForeignKey=("orders.id"))
 
 
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "quantity": self.quantity,
-            "product_id": self.product_id,
-            "order_id": self.order_id
-        }
+#no need to return order details, this will get returned with orders
+    # def to_dict(self):
+    #     return {
+    #         "id": self.id,
+    #         "quantity": self.quantity,
+    #         "product_id": self.product_id,
+    #         "order_id": self.order_id
+    #     }

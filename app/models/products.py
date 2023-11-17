@@ -18,7 +18,6 @@ class Product(db.Model):
     members = db.relationship("Member",secondary=wishlists,back_populates='products')
     product_images = db.relationship("ProductImage",back_populates="product")
     orders = db.relationship("orders",secondary=order_details,back_populates="products")
-    # seller = db.relationship("Member",back_populates="seller_products")
 
     # not returning members (through wishlist) or orders(through order_details)
     # only returning total rating and review length

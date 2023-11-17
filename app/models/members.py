@@ -19,8 +19,8 @@ class Member(db.Model):
     orders = db.relationship("Order",back_populates='member')
     products = db.relationship("Product",secondary=wishlists,back_populates='members')
 
-    # seller_products = db.relationship("Product",back_populates="seller")
 
+    # get user without reviews,orders,wishlist
     def to_dict(self):
         return {
             "id": self.id,
@@ -34,4 +34,21 @@ class Member(db.Model):
             "seller": self.seller,
             "account_balance": self.account_balance
 
+        }
+
+    def to_dict_descriptive(self):
+        return {
+            "id": self.id,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "email": self.email,
+            "password": self.password,
+            "address": self.address,
+            "city": self.city,
+            "state": self.state,
+            "seller": self.seller,
+            "account_balance": self.account_balance,
+            "reviews":self.reviews,
+            "products":self.products,
+            "orders": self.orders
         }
