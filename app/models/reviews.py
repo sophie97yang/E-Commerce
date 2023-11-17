@@ -11,3 +11,14 @@ class Review(db.Model):
     member = db.relationship("Member", back_populates="reviews") #?
     product = db.relationship("Product",back_populates="reviews")
     review_images = db.relationship("ReviewImage",back_populates="review")
+
+
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "rating": self.rating,
+            "review_date": self.review_date,
+            "product_id": self.product_id,
+            "member_id": self.member_id
+        }

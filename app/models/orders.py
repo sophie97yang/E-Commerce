@@ -10,3 +10,12 @@ class Order(db.Model):
 
     member = db.relationship("Member",back_populates="orders")
     products = db.relationship("Product",secondary=order_details,back_populates="orders")
+
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "purchase_date": self.purchase_date,
+            "purchased": self.purchased,
+            "member_id": self.member_id
+        }

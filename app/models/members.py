@@ -4,8 +4,8 @@ from .wishlists import wishlists
 class Member(db.Model):
     __tablename__= "members"
     id = db.Column(db.Integer, primary_key=True)
-    firstName = db.Column(db.String(20), nullable=False)
-    lastName = db.Column(db.String(20), nullable=False)
+    first_name = db.Column(db.String(20), nullable=False)
+    last_name = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(30), nulalble=False)
     password = db.Column(db.String(20), nullable=False)
     address = db.Column(db.String(20), nullable=False)
@@ -20,3 +20,18 @@ class Member(db.Model):
     products = db.relationship("Product",secondary=wishlists,back_populates='members')
 
     # seller_products = db.relationship("Product",back_populates="seller")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "email": self.email,
+            "password": self.password,
+            "address": self.address,
+            "city": self.city,
+            "state": self.state,
+            "seller": self.seller,
+            "account_balance": self.account_balance
+
+        }
