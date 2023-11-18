@@ -2,6 +2,7 @@ from flask import Flask,Blueprint
 from .auth_routes import auth_routes
 from .member_routes import member_routes
 from .product_routes import product_routes
+from .review_routes import review_routes
 
 bp = Blueprint('api',__name__,url_prefix='/api')
 
@@ -10,6 +11,7 @@ bp = Blueprint('api',__name__,url_prefix='/api')
 bp.register_blueprint(auth_routes, url_prefix='/auth')
 bp.register_blueprint(member_routes, url_prefix='/members')
 bp.register_blueprint(product_routes, url_prefix='/products')
+bp.register_blueprint(review_routes,url_prefix='/reviews')
 
 
 
