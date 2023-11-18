@@ -1,4 +1,4 @@
-from ..models import db
+from ..models import db, SCHEMA, environment
 from ..models.members import Member
 from sqlalchemy.sql import text
 
@@ -7,8 +7,8 @@ def seed_members():
     print("seeding members NOWWWWWW")
 
     member1 = Member(
-        firstName= "Sophie",
-        lastName= "Yang",
+        first_name= "Sophie",
+        last_name= "Yang",
         email= "sophie@gmail.com",
         password= "peteristhebest", #I think these need to be hashed somehow
         address= "123 Red Ave",
@@ -18,8 +18,8 @@ def seed_members():
         )
 
     member2 = Member(
-        firstName= "Peang",
-        lastName= "Ngo",
+        first_name= "Peang",
+        last_name= "Ngo",
         email= "peang@gmail.com",
         password= "peteristhebest",
         address= "501 Blue Ave",
@@ -29,8 +29,8 @@ def seed_members():
         )
 
     member3 = Member(
-        firstName= "Yoseph",
-        lastName= "Latif",
+        first_name= "Yoseph",
+        last_name= "Latif",
         email= "yoseph@gmail.com",
         password= "peteristhebest",
         address= "967 Purple St",
@@ -40,8 +40,8 @@ def seed_members():
         )
 
     member4 = Member(
-        firstName= "Peter",
-        lastName= "Dinh",
+        first_name= "Peter",
+        last_name= "Dinh",
         email= "peter@gmail.com",
         password= "peteristhebest",
         address= "267 Royal Ave",
@@ -51,8 +51,8 @@ def seed_members():
         )
 
     member5 = Member(
-        firstName= "Brad",
-        lastName= "Simpson",
+        first_name= "Brad",
+        last_name= "Simpson",
         email= "brad@gmail.com",
         password= "password1",
         address= "564 Wyncote Ave",
@@ -62,8 +62,8 @@ def seed_members():
         )
 
     member6 = Member(
-        firstName= "David",
-        lastName= "Nash",
+        first_name= "David",
+        last_name= "Nash",
         email= "david@gmail.com",
         password= "password2",
         address= "933 Spruce St",
@@ -73,8 +73,8 @@ def seed_members():
         )
 
     member7 = Member(
-        firstName= "Andrew",
-        lastName= "Tran",
+        first_name= "Andrew",
+        last_name= "Tran",
         email= "andrew@gmail.com",
         password= "password3",
         address= "155 Lehigh St",
@@ -84,8 +84,8 @@ def seed_members():
         )
     #demo seller
     member8 = Member(
-        firstName= "Tom",
-        lastName= "Cat",
+        first_name= "Tom",
+        last_name= "Cat",
         email= "ih8Jerry@gmail.com",
         password= "killhim",
         address= "123 Cheese Avenue",
@@ -96,8 +96,8 @@ def seed_members():
 
     #demo member
     member9 = Member(
-        firstName= "Jerry",
-        lastName= "Mouse",
+        first_name= "Jerry",
+        last_name= "Mouse",
         email= "givemecheese@gmail.com",
         password= "geniusmouse123",
         address= "123 Cheese Avenue",
@@ -123,5 +123,9 @@ def seed_members():
     return [member1, member2, member3, member4, member5, member6, member7,member8,member9]
 
 def undo_members():
-    db.session.execute(text("DELETE FROM members"))
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.members RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM members"))
+
     db.session.commit()

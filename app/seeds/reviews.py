@@ -1,6 +1,6 @@
 from ..models.reviews import Review
 from ..models.review_images import ReviewImage
-from ..models import db
+from ..models import db, SCHEMA, environment
 from datetime import datetime
 from sqlalchemy.sql import text
 
@@ -8,11 +8,12 @@ def seed_reviews():
 
     print("seeding reviews NOWWWWWW ")
 
-    review1 = Review(
+    review1 = Review (
         rating= 3,
         review_date= datetime.now(),
         product_id= 1,
         member_id= 1,
+        headline="No melty",
         content="Didn't melt the way I wanted it to. Not the best topping for cheesy potatoes"
         )
     image1 = ReviewImage(
@@ -24,6 +25,7 @@ def seed_reviews():
         review_date= datetime.now(),
         product_id= 1,
         member_id= 9,
+        headline="Death!",
         content="I almost got killed with the purchase! Will never be buying again."
         )
     image2= ReviewImage(
@@ -36,8 +38,8 @@ def seed_reviews():
         review_date= datetime.now(),
         product_id= 2,
         member_id= 2,
+        headline="Fantastic!!!",
         content="A crowd favorite! Brought for a charcuterie night and it was the most eaten cheese!"
-
         )
     image3 = ReviewImage(
         url="https://i.redd.it/eldfr5c0af841.jpg",
@@ -48,6 +50,7 @@ def seed_reviews():
         review_date= datetime.now(),
         product_id= 3,
         member_id= 5,
+        headline="Not bad",
         content="My friend Sebastian Hastings told me to get this! I'm happy I listened, but I do think I like a milder taste more"
         )
 
@@ -56,6 +59,7 @@ def seed_reviews():
         review_date= datetime.now(),
         product_id= 3,
         member_id= 4,
+        headline="Never again...",
         content="Why is this still on the market?"
         )
 
@@ -64,6 +68,7 @@ def seed_reviews():
         review_date= datetime.now(),
         product_id= 7,
         member_id= 6,
+        headline="Classic!!",
         content="What a classic! Best with honey and toast"
         )
 
@@ -71,8 +76,9 @@ def seed_reviews():
         rating= 2,
         review_date= datetime.now(),
         product_id= 5,
-        member_id= 7
-        #no content
+        member_id= 7,
+        headline="Avoid this!",
+        content="It sucked"
         )
 
     images = [image1,image2,image3]
@@ -92,5 +98,10 @@ def seed_reviews():
     return [review1, review2, review3, review4, review5, review6, review7]
 
 def undo_reviews():
-    db.session.execute(text("DELETE FROM reviews"))
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.reviews RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM reviews"))
+        db.session.execute(text("DELETE FROM review_images"))
+
     db.session.commit()

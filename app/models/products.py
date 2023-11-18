@@ -1,9 +1,13 @@
-from .db import db
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .wishlists import wishlists
 from .order_details import order_details
 
 class Product(db.Model):
     __tablename__ = "products"
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
     id = db.Column(db.Integer, primary_key=True)
     seller = db.Column(db.Integer,db.ForeignKey("members.id"))
     name = db.Column(db.String(30), nullable=False)
@@ -17,10 +21,11 @@ class Product(db.Model):
     reviews = db.relationship("Review",back_populates='product')
     members = db.relationship("Member",secondary=wishlists,back_populates='products')
     product_images = db.relationship("ProductImage",back_populates="product")
-    orders = db.relationship("orders",secondary=order_details,back_populates="products")
+    orders = db.relationship("Order",secondary=order_details,back_populates="products")
 
     # not returning members (through wishlist) or orders(through order_details)
     # only returning total rating and review length
+    #get all products
     def to_dict(self):
         preview_image = [image for image in self.product_images if image.previewImage][0]
         reviews_length = len(self.reviews)
@@ -53,8 +58,8 @@ class Product(db.Model):
             "price": self.price,
             "category": self.category,
             "origin":(self.origin_city,self.origin_state),
-            "reviews":self.reviews,
-            "images":self.product_images,
+            "reviews":[review.to_dict() for review in self.reviews],
+            "images":[image.to_dict() for image in self.product_images],
             "available":self.available
         }
         return product_dict
