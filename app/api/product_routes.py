@@ -5,10 +5,10 @@ from ..models import db, Member, Product
 from ..forms.product_form import ProductForm
 from .AWS_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
-products = Blueprint("products",__name__,url_prefix='/products')
+product_routes = Blueprint("products",__name__,url_prefix='/products')
 
 #get all products
-@products.route('/all')
+@product_routes.route('/all')
 def get_all_products():
     products = Product.query.filter(Product.available>0).order_by(Product.category).all()
     print(products)
@@ -20,12 +20,12 @@ def get_all_products():
 
 
 #get product description
-@products.route('/<int:id>')
+@product_routes.route('/<int:id>')
 # why are we not passing id in the paramater??
 def get_product_details(id):
     product = Product.query.get(id)
     # print(product.to_dict_descriptive())
-    
+
     # if returning none
     if product is None:
         return {"message": "Product doesn't exist"}, 404
@@ -33,7 +33,7 @@ def get_product_details(id):
 
 #create a product
 @login_required
-@products.route('/new',methods=['POST'])
+@product_routes.route('/new',methods=['POST'])
 def create_new_product():
     # get current user using flask-login
     #seller,origin_city,origin_state comes from current_user
@@ -41,10 +41,10 @@ def create_new_product():
     form['csrf_token'].data = request.cookies['csrf_token']
     # imported current_user, no need to create variablee
     # current_user=0
-    # remember, if you have an if statement, you must have an else statement as will. 
+    # remember, if you have an if statement, you must have an else statement as will.
     if form.validate_on_submit():
         data = form.data
-        
+
         newProduct = Product (
             seller=current_user.id,
             name=data["name"],
@@ -63,7 +63,7 @@ def create_new_product():
     else:
         return {"errors": form.errors}, 400
 
-@products.route('/current', methods=['GET'])
+@product_routes.route('/current', methods=['GET'])
 @login_required
 def get_user_products():
     user_products = Product.query.filter_by(seller=current_user.id).all()
@@ -71,27 +71,27 @@ def get_user_products():
 
 #update a product
 @login_required
-@products.route('/<int:id>',methods=['PUT'])
+@product_routes.route('/<int:id>',methods=['PUT'])
 def update_product(id):
-    
+
     product = Product.query.get(id)
-    
+
     if product is None:
-        return {'message': "Product doesn't exist"}, 404  
-    
-    
+        return {'message': "Product doesn't exist"}, 404
+
+
     if current_user.id != product.seller:
         return {'message': "You do not have permission to update this product"}, 403
 
-    
-    
+
+
     # get current user using flask-login
     #seller,origin_city,origin_state comes from current_user
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     # imported current_user, no need to create variablee
     # current_user=0
-    # remember, if you have an if statement, you must have an else statement as will. 
+    # remember, if you have an if statement, you must have an else statement as will.
     if form.validate_on_submit():
         data = form.data
 
@@ -113,7 +113,7 @@ def update_product(id):
 
 
 @login_required
-@products.route('/<int:id>', methods=['DELETE'])
+@product_routes.route('/<int:id>', methods=['DELETE'])
 def delete_product(id):
 
     product = Product.query.get(id)
