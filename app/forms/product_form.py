@@ -19,5 +19,5 @@ class ProductForm(FlaskForm):
     name = StringField("Product Name", validators=[DataRequired(), Length(max=30)])
     description = TextAreaField("Description", validators=[DataRequired(), Length(max=500)])
     price = DecimalField("Price", validators=[DataRequired(), NumberRange(min=0)], places=2)
-    category = SelectField("Category", validators=[DataRequired()], choices=[...])  # Populate choices
+    category = SelectField("Category", validators=[DataRequired()], choices=[('Fresh', 'Fresh'), ('Bloomy Rind', 'Bloomy Rind'), ('Wash Rind', 'Wash Rind'), ])  # Populate choices
     available = IntegerField("Stock Quantity", validators=[DataRequired(), NumberRange(min=0)])

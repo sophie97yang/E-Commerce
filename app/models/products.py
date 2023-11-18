@@ -27,7 +27,13 @@ class Product(db.Model):
     # only returning total rating and review length
     #get all products
     def to_dict(self):
-        preview_image = [image for image in self.product_images if image.previewImage][0]
+        # accessing previewImage, but should be preview_image
+        # should invoke todict method because using arrtibutes from products images
+        # had to remove [0], for now, preview image null updon creating products
+        preview_image = [image.to_dict() for image in self.product_images if image.preview_image]
+        
+        print("PRODUCT MODELLL Preview Image:", preview_image)
+        
         reviews_length = len(self.reviews)
         rating_sum = 0
         for review in self.reviews:

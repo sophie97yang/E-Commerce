@@ -26,6 +26,7 @@ class Review(db.Model):
             "rating": self.rating,
             "review_date": self.review_date,
             "product_id": self.product_id, #do not need to return all product info (just id)
-            "member":self.member,
+            # Serialize the Member object
+            "member":self.member.to_dict(),
             "images":[image.to_dict() for image in self.review_images]
         }

@@ -30,6 +30,7 @@ class Order(db.Model):
             "id": self.id,
             "purchase_date": self.purchase_date,
             "purchased": self.purchased,
-            "member": self.member,
+            # Serialize the Member object
+            "member": self.member.to_dict(),
             "products":[product.to_dict_descriptive() for product in self.products]
         }
