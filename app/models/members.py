@@ -10,13 +10,13 @@ class Member(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(20), nullable=False)
-    last_name = db.Column(db.String(20), nullable=False)
-    email = db.Column(db.String(30), nullable=False)
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(50), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
-    address = db.Column(db.String(20), nullable=False)
-    city = db.Column(db.String(20), nullable=False)
-    state = db.Column(db.String(10), nullable=False)
+    address = db.Column(db.String(50), nullable=False)
+    city = db.Column(db.String(50), nullable=False)
+    state = db.Column(db.String(50), nullable=False)
     seller = db.Column(db.Boolean, nullable=False)
     account_balance = db.Column(db.Float, default=3000)
 
