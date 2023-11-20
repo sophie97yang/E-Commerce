@@ -37,14 +37,14 @@ class Product(db.Model):
         # should invoke todict method because using arrtibutes from products images
         # had to remove [0], for now, preview image null updon creating products
         # preview_image = [image.to_dict() for image in self.product_images if image.preview_image]
-        
+
         # print("PRODUCT MODELLL Preview Image:", preview_image)
-        
+
         reviews_length = len(self.reviews)
         rating_sum = 0
         for review in self.reviews:
             rating_sum+= int(review.rating)
-        
+
         product_dict =  {
             "id": self.id,
             "seller": self.seller,
@@ -57,11 +57,7 @@ class Product(db.Model):
             "rating_total":rating_sum,
             # "preview":preview_image,
             "available":self.available,
-            "preview_image":self.preview_image,
-            "product_image1":self.product_image1,
-            "product_image2":self.product_image2,
-            "product_image3":self.product_image3,
-            "product_image4":self.product_image4
+            "preview_image":self.preview_image
         }
         return product_dict
 
@@ -77,7 +73,10 @@ class Product(db.Model):
             "category": self.category,
             "origin":(self.origin_city,self.origin_state),
             "reviews":[review.to_dict() for review in self.reviews],
-            "images":[image.to_dict() for image in self.product_images],
+            "product_image1":self.product_image1,
+            "product_image2":self.product_image2,
+            "product_image3":self.product_image3,
+            "product_image4":self.product_image4,
             "available":self.available,
             "orders":[order.to_dict() for order in self.orders]
         }
