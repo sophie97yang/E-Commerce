@@ -91,13 +91,13 @@ def upgrade():
     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE members SET SCHEMA {SCHEMA};
+        op.execute(f"""ALTER TABLE members SET SCHEMA {SCHEMA};
                    ALTER TABLE orders SET SCHEMA {SCHEMA};
                    ALTER TABLE products SET SCHEMA {SCHEMA};
                    ALTER TABLE order_details SET SCHEMA {SCHEMA};
                    ALTER TABLE reviews SET SCHEMA {SCHEMA};
                    ALTER TABLE wishlists SET SCHEMA {SCHEMA};
-                   ")
+                   """)
     # ### end Alembic commands ###
 
 
