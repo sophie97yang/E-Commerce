@@ -26,6 +26,7 @@ greenlet = "==1.1.0"
 Mako = "==1.1.4"
 flask = "*"
 boto3 = "*"
+faker = "*"
 
 [dev-packages]
 

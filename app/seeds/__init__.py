@@ -28,7 +28,7 @@ def seed():
     members=seed_members()
     print("here is the seeders for members--------->", members)
     products = seed_products()
-    print("here is the seeders for members--------->", products)
+    print("here is the seeders for products--------->", products)
     seed_reviews()
     seed_orders(members,products)
     seed_wishlists(members,products)

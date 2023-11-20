@@ -1,5 +1,5 @@
 from ..models.reviews import Review
-from ..models.review_images import ReviewImage
+# from ..models.review_images import ReviewImage
 from ..models import db, SCHEMA, environment
 from datetime import datetime
 from sqlalchemy.sql import text
@@ -14,24 +14,26 @@ def seed_reviews():
         product_id= 1,
         member_id= 1,
         headline="No melty",
-        content="Didn't melt the way I wanted it to. Not the best topping for cheesy potatoes"
+        content="Didn't melt the way I wanted it to. Not the best topping for cheesy potatoes",
+        review_image="https://www.eatingwithfoodallergies.com/wp-content/uploads/2021/03/Gluten-free-cheesy-potatoes-500x375.jpg"
         )
-    image1 = ReviewImage(
-        url="https://www.eatingwithfoodallergies.com/wp-content/uploads/2021/03/Gluten-free-cheesy-potatoes-500x375.jpg",
-        review_id=1
-    )
+    # image1 = ReviewImage(
+    #     url="https://www.eatingwithfoodallergies.com/wp-content/uploads/2021/03/Gluten-free-cheesy-potatoes-500x375.jpg",
+    #     review_id=1
+    # )
     review2 = Review(
         rating= 1,
         review_date= datetime.now(),
         product_id= 1,
         member_id= 9,
         headline="Death!",
-        content="I almost got killed with the purchase! Will never be buying again."
+        content="I almost got killed with the purchase! Will never be buying again.",
+        review_image="https://m.media-amazon.com/images/M/MV5BYjBkZmQ2YmQtNTE3OC00NDU1LThiY2MtM2I2ZWRkYWM4MzIyXkEyXkFqcGdeQXVyNTc0NjY1ODk@._V1_.jpg"
         )
-    image2= ReviewImage(
-        url="https://m.media-amazon.com/images/M/MV5BYjBkZmQ2YmQtNTE3OC00NDU1LThiY2MtM2I2ZWRkYWM4MzIyXkEyXkFqcGdeQXVyNTc0NjY1ODk@._V1_.jpg",
-        review_id = 2
-    )
+    # image2= ReviewImage(
+    #     url="https://m.media-amazon.com/images/M/MV5BYjBkZmQ2YmQtNTE3OC00NDU1LThiY2MtM2I2ZWRkYWM4MzIyXkEyXkFqcGdeQXVyNTc0NjY1ODk@._V1_.jpg",
+    #     review_id = 2
+    # )
 
     review3 = Review(
         rating= 5,
@@ -39,12 +41,13 @@ def seed_reviews():
         product_id= 2,
         member_id= 2,
         headline="Fantastic!!!",
-        content="A crowd favorite! Brought for a charcuterie night and it was the most eaten cheese!"
+        content="A crowd favorite! Brought for a charcuterie night and it was the most eaten cheese!",
+        review_image="https://i.redd.it/eldfr5c0af841.jpg"
         )
-    image3 = ReviewImage(
-        url="https://i.redd.it/eldfr5c0af841.jpg",
-        review_id=3
-    )
+    # image3 = ReviewImage(
+    #     url="https://i.redd.it/eldfr5c0af841.jpg",
+    #     review_id=3
+    # )
     review4 = Review(
         rating= 4,
         review_date= datetime.now(),
@@ -81,7 +84,7 @@ def seed_reviews():
         content="It sucked"
         )
 
-    images = [image1,image2,image3]
+    # images = [image1,image2,image3]
     db.session.add(review1)
     db.session.add(review2)
     db.session.add(review3)
@@ -89,7 +92,7 @@ def seed_reviews():
     db.session.add(review5)
     db.session.add(review6)
     db.session.add(review7)
-    post_images = [db.session.add(image) for image in images]
+    # post_images = [db.session.add(image) for image in images]
 
     db.session.commit()
 

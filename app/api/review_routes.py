@@ -27,8 +27,6 @@ def get_user_reviews():
     return {"reviews":[review.to_dict() for review in current_user.reviews]}
 
 
-#get a product's review
-
 
 #create a review
 

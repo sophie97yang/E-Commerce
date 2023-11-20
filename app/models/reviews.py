@@ -13,10 +13,12 @@ class Review(db.Model):
     review_date = db.Column(db.Date, nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey("products.id")) #?
     member_id = db.Column(db.Integer,db.ForeignKey('members.id'))
+    review_image = db.Column(db.String(255))
+
 
     member = db.relationship("Member", back_populates="reviews") #?
     product = db.relationship("Product",back_populates="reviews")
-    review_images = db.relationship("ReviewImage",back_populates="review")
+    # review_images = db.relationship("ReviewImage",back_populates="review")
 
 
 
@@ -28,5 +30,6 @@ class Review(db.Model):
             "product_id": self.product_id, #do not need to return all product info (just id)
             # Serialize the Member object
             "member":self.member.to_dict(),
-            "images":[image.to_dict() for image in self.review_images]
+            "review_image":self.review_image,
+            # "images":[image.to_dict() for image in self.review_images]
         }
