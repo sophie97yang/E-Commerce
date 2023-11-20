@@ -1,8 +1,9 @@
 from flask import Blueprint, request, jsonify
-# from ..models.products import Product
 from flask_login import current_user, login_required
-from ..models import db, Member, Product
+from datetime import datetime
+from ..models import db, Member, Product,Review
 from ..forms.product_form import ProductForm
+from ..forms.review_form import ReviewForm
 from .AWS_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 product_routes = Blueprint("products",__name__,url_prefix='/products')
@@ -11,9 +12,6 @@ product_routes = Blueprint("products",__name__,url_prefix='/products')
 @product_routes.route('/all')
 def get_all_products():
     products = Product.query.filter(Product.available>0).order_by(Product.category).all()
-    print(products)
-    #list_dict_products = [products.to_dict() for product in products]
-    # calll todict() method on each invidual Product object in listtt
     list_dict_products = [product.to_dict() for product in products]
     print(list_dict_products)
     return {"products":list_dict_products}
@@ -21,12 +19,8 @@ def get_all_products():
 
 #get product description
 @product_routes.route('/<int:id>')
-# why are we not passing id in the paramater??
 def get_product_details(id):
     product = Product.query.get(id)
-    # print(product.to_dict_descriptive())
-
-    # if returning none
     if product is None:
         return {"message": "Product doesn't exist"}, 404
     return {"product":product.to_dict_descriptive()}
@@ -35,84 +29,83 @@ def get_product_details(id):
 @login_required
 @product_routes.route('/new',methods=['POST'])
 def create_new_product():
-    # get current user using flask-login
-    #seller,origin_city,origin_state comes from current_user
-    form = ProductForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    # imported current_user, no need to create variablee
-    # current_user=0
-    # remember, if you have an if statement, you must have an else statement as will.
-    if form.validate_on_submit():
-        data = form.data
-
-        newProduct = Product (
-            seller=current_user.id,
-            name=data["name"],
-            description=data["description"],
-            price=data["price"],
-            category=data["category"],
-            origin_city=current_user.city,
-            origin_state=current_user.state,
-            available=data["available"]
-        )
-
-# mod 6 aws references 
-        preview_image = form.data["preview image"]
-        preview_image.filename = get_unique_filename(preview_image.filename)
-        uploadPreviewImage = upload_file_to_s3(preview_image)
-
-        if "url" not in uploadPreviewImage:
-            print(uploadPreviewImage)
-            return uploadPreviewImage
-        else:
-            newProduct.preview_image = uploadPreviewImage["url"]
-
-        product_image1 = form.data["product image 1"]
-        product_image1.filename = get_unique_filename(product_image1.filename)
-        uploadProductImage1 = upload_file_to_s3(product_image1)
-
-        if "url" not in uploadProductImage1:
-            print(uploadProductImage1)
-            return uploadProductImage1
-        else:
-            newProduct.product_image1 = uploadProductImage1["url"]
-
-        product_image2 = form.data["product image 2"]
-        product_image2.filename = get_unique_filename(product_image2.filename)
-        uploadProductImage2 = upload_file_to_s3(product_image2)
-
-        if "url" not in uploadProductImage2:
-            print(uploadProductImage2)
-            return uploadProductImage2
-        else:
-            newProduct.product_image2 = uploadProductImage2["url"]
-
-        product_image3 = form.data["product image 3"]
-        product_image3.filename = get_unique_filename(product_image3.filename)
-        uploadProductImage3 = upload_file_to_s3(product_image3)
-
-        if "url" not in uploadProductImage3:
-            print(uploadProductImage3)
-            return uploadProductImage3
-        else:
-            newProduct.product_image3 = uploadProductImage3["url"]
-
-        product_image4 = form.data["product image 4"]
-        product_image4.filename = get_unique_filename(product_image4.filename)
-        uploadProductImage4 = upload_file_to_s3(product_image4)
-
-        if "url" not in uploadProductImage4:
-            print(uploadProductImage4)
-            return uploadProductImage4
-        else:
-            newProduct.product_image4 = uploadProductImage4["url"]
-
-        db.session.add(newProduct)
-        db.session.commit()
-
-        return {"product": newProduct.to_dict_descriptive()}
+    #check if current member has a seller status, if not - forbidden
+    if current_user.seller==False:
+        return {"message":"Forbidden"},403
     else:
-        return {"errors": form.errors}, 400
+        form = ProductForm()
+        form['csrf_token'].data = request.cookies['csrf_token']
+        if form.validate_on_submit():
+            data = form.data
+
+            newProduct = Product (
+                seller=current_user.id,
+                name=data["name"],
+                description=data["description"],
+                price=data["price"],
+                category=data["category"],
+                origin_city=current_user.city,
+                origin_state=current_user.state,
+                available=data["available"]
+            )
+
+    # mod 6 aws references
+            preview_image = form.data["preview image"]
+            preview_image.filename = get_unique_filename(preview_image.filename)
+            uploadPreviewImage = upload_file_to_s3(preview_image)
+
+            if "url" not in uploadPreviewImage:
+                print(uploadPreviewImage)
+                return uploadPreviewImage
+            else:
+                newProduct.preview_image = uploadPreviewImage["url"]
+
+            product_image1 = form.data["product image 1"]
+            product_image1.filename = get_unique_filename(product_image1.filename)
+            uploadProductImage1 = upload_file_to_s3(product_image1)
+
+            if "url" not in uploadProductImage1:
+                print(uploadProductImage1)
+                return uploadProductImage1
+            else:
+                newProduct.product_image1 = uploadProductImage1["url"]
+
+            product_image2 = form.data["product image 2"]
+            product_image2.filename = get_unique_filename(product_image2.filename)
+            uploadProductImage2 = upload_file_to_s3(product_image2)
+
+            if "url" not in uploadProductImage2:
+                print(uploadProductImage2)
+                return uploadProductImage2
+            else:
+                newProduct.product_image2 = uploadProductImage2["url"]
+
+            product_image3 = form.data["product image 3"]
+            product_image3.filename = get_unique_filename(product_image3.filename)
+            uploadProductImage3 = upload_file_to_s3(product_image3)
+
+            if "url" not in uploadProductImage3:
+                print(uploadProductImage3)
+                return uploadProductImage3
+            else:
+                newProduct.product_image3 = uploadProductImage3["url"]
+
+            product_image4 = form.data["product image 4"]
+            product_image4.filename = get_unique_filename(product_image4.filename)
+            uploadProductImage4 = upload_file_to_s3(product_image4)
+
+            if "url" not in uploadProductImage4:
+                print(uploadProductImage4)
+                return uploadProductImage4
+            else:
+                newProduct.product_image4 = uploadProductImage4["url"]
+
+            db.session.add(newProduct)
+            db.session.commit()
+
+            return {"product": newProduct.to_dict_descriptive()}
+        else:
+            return {"errors": form.errors}, 400
 
 
 
@@ -181,3 +174,47 @@ def delete_product(id):
     db.session.commit()
 
     return {'message': 'Product deleted successful'}, 200
+
+#get a product's review
+@product_routes.route('/<int:id>/reviews')
+def get_product_reviews(id):
+    product = Product.query.get(id)
+    return {"reviews":review.to_dict() for review in product.reviews}
+
+#add a review to a product
+@product_routes.route('/<int:id>/reviews/new', methods=['POST'])
+@login_required
+def add_product_review(id):
+    product = Product.query.get(id)
+    #if current user is the seller of product, throw error
+    if product.seller== current_user.id:
+        return {"message":"Forbidden"},403
+    #what if user has already left a review? redirect them to updating their review?
+    #I guess they can leave multiple reviews
+    #else proceed with creating a review
+    form = ReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+        new_review = Review (
+            rating=data['rating'],
+            headline=data['headline'],
+            content=data['content'],
+            review_date= datetime.now(),
+            product_id=id,
+            member_id=current_user.id
+        )
+
+        review_image = data["review_image"]
+        review_image.filename = get_unique_filename(review_image.filename)
+        uploadReviewImage = upload_file_to_s3(review_image)
+
+        if "url" not in uploadReviewImage:
+            print(uploadReviewImage)
+            return uploadReviewImage
+        else:
+            new_review.review_image = uploadReviewImage["url"]
+        db.session.add(new_review)
+        db.session.commit()
+        return {"review":new_review.to_dict()}
+    return {"errors":form.errors},400

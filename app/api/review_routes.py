@@ -18,18 +18,49 @@ def get_all_reviews():
 @review_routes.route('/<int:id>')
 def get_review_by_id(id):
     review = Review.query.get(id)
-    return {"review":review.to_dict()}
+    return {"review":review.to_dict_descriptive()}
 
 #get a member's reviews
 @review_routes.route('/current')
 @login_required
 def get_user_reviews():
-    return {"reviews":[review.to_dict() for review in current_user.reviews]}
+    return {"reviews":[review.to_dict_descriptive() for review in current_user.reviews]}
 
 
+#edit a review by id
+@review_routes.route('/<int:id>/edit',methods=['PUT'])
+@login_required
+def edit_review(id):
+    review_to_edit = Review.query.get(id)
+    if not review_to_edit:
+        return {"message":"Review not found"},404
+    elif review_to_edit.member_id != current_user.id:
+        return {"message":"Forbidden"},403
+    else:
+        form = ReviewForm()
+        form['csrf_token'].data = request.cookies['csrf_token']
+        if form.validate_on_submit():
+            data = form.data
+            review_to_edit.rating=data['rating']
+            review_to_edit.headline=data['headline']
+            review_to_edit.content=data['content']
+            # should we be able to change review image?
+            # should we update the date of the review when review gets updated?
+            db.session.commit()
+            return {"review":review_to_edit.to_dict_descriptive()}
+        else:
+            return {"errors":form.errors},400
 
-#create a review
+#delete a review by id
+@review_routes.route('/<int:id>/delete',methods=['DELETE'])
+@login_required
+def delete_review(id):
+    review_to_delete = Review.query.get(id)
+    if not review_to_delete:
+        return {"message":"Review not found"},404
 
-#edit a review
-
-#delete a review
+    elif review_to_delete.member_id != current_user.id:
+        return {"message":"Forbidden"},403
+    else:
+        db.session.delete(review_to_delete)
+        db.session.commit()

@@ -27,9 +27,19 @@ class Review(db.Model):
             "id": self.id,
             "rating": self.rating,
             "review_date": self.review_date,
-            "product_id": self.product_id, #do not need to return all product info (just id)
-            # Serialize the Member object
-            "member":self.member.to_dict(),
+            "product_id": self.product_id,
+            "member_id":self.member_id,
+            "review_image":self.review_image
+        }
+
+    def to_dict_descriptive(self):
+        return {
+            "id": self.id,
+            "rating": self.rating,
+            "review_date": self.review_date,
+            "product_id": self.product_id,
+            "member_id":self.member_id,
             "review_image":self.review_image,
-            # "images":[image.to_dict() for image in self.review_images]
+            "content":self.content,
+            "headline":self.headline
         }
