@@ -13,10 +13,12 @@ class Review(db.Model):
     review_date = db.Column(db.Date, nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey("products.id")) #?
     member_id = db.Column(db.Integer,db.ForeignKey('members.id'))
+    review_image = db.Column(db.String(255))
+
 
     member = db.relationship("Member", back_populates="reviews") #?
     product = db.relationship("Product",back_populates="reviews")
-    review_images = db.relationship("ReviewImage",back_populates="review")
+    # review_images = db.relationship("ReviewImage",back_populates="review")
 
 
 
@@ -25,7 +27,19 @@ class Review(db.Model):
             "id": self.id,
             "rating": self.rating,
             "review_date": self.review_date,
-            "product_id": self.product_id, #do not need to return all product info (just id)
-            "member":self.member,
-            "images":[image.to_dict() for image in self.review_images]
+            "product_id": self.product_id,
+            "member_id":self.member_id,
+            "review_image":self.review_image
+        }
+
+    def to_dict_descriptive(self):
+        return {
+            "id": self.id,
+            "rating": self.rating,
+            "review_date": self.review_date,
+            "product_id": self.product_id,
+            "member_id":self.member_id,
+            "review_image":self.review_image,
+            "content":self.content,
+            "headline":self.headline
         }
