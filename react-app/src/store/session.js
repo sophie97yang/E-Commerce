@@ -1,13 +1,13 @@
 // constants
-const SET_USER = "session/SET_USER";
-const REMOVE_USER = "session/REMOVE_USER";
+const SET_MEMBER = "session/SET_MEMBER";
+const REMOVE_MEMBER = "session/REMOVE_MEMBER";
 
-const setUser = (user) => ({
+const setMember = (user) => ({
 	type: SET_USER,
 	payload: user,
 });
 
-const removeUser = () => ({
+const removeMember = () => ({
 	type: REMOVE_USER,
 });
 
@@ -43,7 +43,7 @@ export const login = (email, password) => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(setUser(data));
+		dispatch(setMember(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -63,18 +63,17 @@ export const logout = () => async (dispatch) => {
 	});
 
 	if (response.ok) {
-		dispatch(removeUser());
+		dispatch(removeMember());
 	}
 };
 
-export const signUp = (username, email, password) => async (dispatch) => {
+export const signUp = (email, password) => async (dispatch) => {
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
-			username,
 			email,
 			password,
 		}),
@@ -94,13 +93,16 @@ export const signUp = (username, email, password) => async (dispatch) => {
 	}
 };
 
-export default function reducer(state = initialState, action) {
+const sessionReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case SET_USER:
-			return { user: action.payload };
-		case REMOVE_USER:
-			return { user: null };
+		case SET_MEMBER:
+			return { member: action.payload };
+		case REMOVE_MEMBER:
+			return { member: null };
 		default:
 			return state;
 	}
 }
+
+
+export default sessionReducer
