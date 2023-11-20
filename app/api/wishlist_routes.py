@@ -16,35 +16,35 @@ def get_wishlist():
 @login_required
 @wishlist_routes.route('/add/<int:id>', methods=['POST'])
 def add_to_wishlist(id):
-    product_id = request.json.get('product_id')
+    # Check if the product exists
+    product = Product.query.get(id)
+    if not product:
+        return jsonify(message='Product not found'), 404
 
     # Check if item already exists within the wishlist
-    existing_item = db.session.query(wishlists).filter_by(
-        member_id=current_user.id,
-        product_id=product_id
-    ).first()
-
-    if existing_item:
+    if product in current_user.products:
         return jsonify(message='Item already exists in wishlist'), 400
 
-    # Insert the new item
-    new_item = wishlists.insert().values(member_id=current_user.id, product_id=product_id)
-    db.session.execute(new_item)
+    # Add the product to the user's wishlist
+    current_user.products.append(product)
     db.session.commit()
 
     return jsonify(message='Item added to wishlist'), 200
 
-# @login_required
-# @wishlist_routes.route('/remove', methods=['DELETE'])
-# def remove_from_wishlist():
-#     product_id = request.json.get('product_id')
+@login_required
+@wishlist_routes.route('/remove/<int:id>', methods=['DELETE'])
+def remove_from_wishlist(id):
+    # Check if the product exists
+    product = Product.query.get(id)
+    if not product:
+        return jsonify(message='Product not found'), 404
 
-#     # Delete the item
-#     delete_item = wishlists.delete().where(
-#         wishlists.c.member_id == current_user.id,
-#         wishlists.c.product_id == product_id
-#     )
-#     db.session.execute(delete_item)
-#     db.session.commit()
+    # Check if item exists in the wishlist
+    if product not in current_user.products:
+        return jsonify(message='Item not in wishlist'), 400
 
-#     return jsonify(message='Item removed from wishlist'), 200
+    # Remove the product from the user's wishlist
+    current_user.products.remove(product)
+    db.session.commit()
+
+    return jsonify(message='Item removed from wishlist'), 200
