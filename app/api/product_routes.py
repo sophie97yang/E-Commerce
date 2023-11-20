@@ -204,17 +204,17 @@ def add_product_review(id):
             product_id=id,
             member_id=current_user.id
         )
+        if data['review_image']:
+            review_image = data["review_image"]
+            review_image.filename = get_unique_filename(review_image.filename)
+            uploadReviewImage = upload_file_to_s3(review_image)
 
-        review_image = data["review_image"]
-        review_image.filename = get_unique_filename(review_image.filename)
-        uploadReviewImage = upload_file_to_s3(review_image)
-
-        if "url" not in uploadReviewImage:
-            print(uploadReviewImage)
-            return uploadReviewImage
-        else:
-            new_review.review_image = uploadReviewImage["url"]
-        db.session.add(new_review)
-        db.session.commit()
+            if "url" not in uploadReviewImage:
+                print(uploadReviewImage)
+                return uploadReviewImage
+            else:
+                new_review.review_image = uploadReviewImage["url"]
+            db.session.add(new_review)
+            db.session.commit()
         return {"review":new_review.to_dict()}
     return {"errors":form.errors},400

@@ -82,7 +82,7 @@ def sign_up():
             state = form.data['state'],
             seller = form.data['seller'],
             #default in case account balance is not provided
-            account_balance = form.data['account_balance'] if form.data['account_balance'] else 3000
+            account_balance = 3000
         )
 
         db.session.add(member)

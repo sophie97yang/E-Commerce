@@ -72,7 +72,7 @@ class Product(db.Model):
             "price": self.price,
             "category": self.category,
             "origin":(self.origin_city,self.origin_state),
-            "reviews":[review.to_dict() for review in self.reviews],
+            "reviews":[review.to_dict_descriptive() for review in self.reviews],
             "product_image1":self.product_image1,
             "product_image2":self.product_image2,
             "product_image3":self.product_image3,
