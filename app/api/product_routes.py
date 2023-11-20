@@ -12,18 +12,18 @@ product_routes = Blueprint("products",__name__,url_prefix='/products')
 @product_routes.route('/all')
 def get_all_products():
     products = Product.query.filter(Product.available>0).order_by(Product.category).all()
-    list_dict_products = [product.to_dict() for product in products]
+    list_dict_products = [product.to_dict_descriptive() for product in products]
     print(list_dict_products)
     return {"products":list_dict_products}
 
 
-#get product description
-@product_routes.route('/<int:id>')
-def get_product_details(id):
-    product = Product.query.get(id)
-    if product is None:
-        return {"message": "Product doesn't exist"}, 404
-    return {"product":product.to_dict_descriptive()}
+# #get product description
+# @product_routes.route('/<int:id>')
+# def get_product_details(id):
+#     product = Product.query.get(id)
+#     if product is None:
+#         return {"message": "Product doesn't exist"}, 404
+#     return {"product":product.to_dict_descriptive()}
 
 #create a product
 @login_required
@@ -189,7 +189,7 @@ def add_product_review(id):
     #if current user is the seller of product, throw error
     if product.seller== current_user.id:
         return {"message":"Forbidden"},403
-    
+
     # existing_review = Review.query.filter_by(product_id=id, member_id=current_user.id).first()
     # if existing_review:
     #     return {"message": "You have already left a review for this product"}, 400
@@ -218,9 +218,8 @@ def add_product_review(id):
                 return uploadReviewImage
             else:
                 new_review.review_image = uploadReviewImage["url"]
-                
+
         db.session.add(new_review)
         db.session.commit()
         return {"review":new_review.to_dict()}
     return {"errors":form.errors},400
-

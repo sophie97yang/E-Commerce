@@ -3,12 +3,12 @@ const SET_MEMBER = "session/SET_MEMBER";
 const REMOVE_MEMBER = "session/REMOVE_MEMBER";
 
 const setMember = (user) => ({
-	type: SET_USER,
+	type: SET_MEMBER,
 	payload: user,
 });
 
 const removeMember = () => ({
-	type: REMOVE_USER,
+	type: REMOVE_MEMBER,
 });
 
 const initialState = { user: null };
@@ -25,7 +25,7 @@ export const authenticate = () => async (dispatch) => {
 			return;
 		}
 
-		dispatch(setUser(data));
+		dispatch(setMember(data));
 	}
 };
 
@@ -81,7 +81,7 @@ export const signUp = (email, password) => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(setUser(data));
+		dispatch(setMember(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();

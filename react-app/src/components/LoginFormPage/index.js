@@ -10,9 +10,7 @@ function LoginFormPage() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-
-
-//   const disabled = credential.length < 4 || password.length < 6
+  const [disabled,setDisabled]=useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,15 +24,25 @@ function LoginFormPage() {
       });
   };
 
-  const handleDemo = (e) => {
+  const handleDemoMember = (e) => {
       e.preventDefault()
-      setCredential("peter@gmail.com")
-      setPassword("peteristhebest")
+      setCredential("givemecheese@gmail.com")
+      setPassword("geniusmouse123")
       return dispatch(sessionActions.login({
-        credential: "peter@gmail.com",
-        password: "peteristhebest"
+        credential: "givemecheese@gmail.com",
+        password: "geniusmouse123"
       }))
   }
+
+  const handleDemoSeller = (e) => {
+    e.preventDefault()
+    setCredential("ih8Jerry@gmail.com")
+    setPassword("killhim")
+    return dispatch(sessionActions.login({
+      credential: "ih8Jerry@gmail.com",
+      password: "killhim"
+    }))
+}
 
   return (
     <div className="form-field">
@@ -42,7 +50,7 @@ function LoginFormPage() {
       <h1>Log In</h1>
 
       <form onSubmit={handleSubmit} >
-       
+
           Email
           <input
             type="text"
@@ -51,7 +59,7 @@ function LoginFormPage() {
             required
             className="form-slot"
           />
-      
+
           Password
           <input
             type="password"
@@ -60,18 +68,19 @@ function LoginFormPage() {
             required
             className="form-slot"
           />
- 
+
         {errors.credential && (
           <p style={{ fontSize: "10px", color: "red" }}>{errors.credential}</p>
         )}
-        <div className="form-slot"> 
-        
+        <div className="form-slot">
+
         <button type="submit" className="login-button" disabled={disabled}>Log In</button>
-        <button className="demo-user" onClick={handleDemo}>Log in as Demo User</button>
+        <button className="demo-user" onClick={handleDemoMember}>Log in as Demo Member</button>
+        <button className="demo-user" onClick={handleDemoSeller}>Log in as Demo Seller</button>
         </div>
       </form>
     </div>
   );
 }
 
-export default LoginFormModal;
+export default LoginFormPage;

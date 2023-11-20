@@ -1,151 +1,158 @@
-import { csrfFetch } from "./csrf";
+import { normalizeObj } from "./normalize"
 
-//get all products
-//get product description
-//create a product
-//update a product
-//delete a product
-
-const GET_PRODUCT = "products/GET_PRODUCT"
+//Action Type Constants
 const GET_ALL_PRODUCTS = "products/GET_ALL_PRODUCTS"
 const CREATE_PRODUCT = "products/CREATE_PRODUCT"
 const UPDATE_PRODUCT = "products/UPDATE_PRODUCT"
 const REMOVE_PRODUCT = "products/REMOVE_PRODUCT"
+const ADD_REVIEW = "products/CREATE_REVIEW"
 
-const getAProduct = (product) => ({
-    type: GET_PRODUCT,
-    payload: product
-})
-
+//Action Creators
 const getAllProduct = (products) => ({
     type: GET_ALL_PRODUCTS,
-    payload: products
+    products
 })
 
 const addProduct = (product) => ({
     type: CREATE_PRODUCT,
-    payload: product
+    product
 })
 
 const editProduct = (product) => ({
     type: UPDATE_PRODUCT,
-    payload: product
+    product
 })
 
 const deleteProduct = (productId) => ({
     type: REMOVE_PRODUCT,
+    productId
 
 })
 
+const addReview = (review) => ({
+    type: ADD_REVIEW,
+    review
 
+})
+
+//Thunk Action Creators
 //Get All Products
 export const getAllProducts = () => async (dispatch) => {
-    const res = await csrfFetch('/api/products')
-``
+    const res = await fetch('/api/products/all')
     if (res.ok) {
-        const products = await res.json();
+        const {products} = await res.json();
         dispatch(getAllProduct(products))
         return products
+    } else {
+       const data = await res.json();
+       console.log(data)
+       return data
     }
 
 }
-
-//Get Product by Id
-export const getOneProduct = () => async(dispatch) => {
-    const res = await csrfFetch('/api/products/:id')
-
-    if (res.ok) {
-        const product = await res.json();
-        dispatch(getAProduct(product))
-        return product
-    }
-}
-
 
 //Add Product to Products
-
-export const addProducts = (product) => async(dispatch) => {
-    const res = await csrfFetch('/api/products/add', {
+export const createProduct = (product) => async(dispatch) => {
+    const res = await fetch('/api/products/new', {
         method: "POST",
-        body: JSON.stringify({
-            ...product
-        })
+        // body: JSON.stringify({
+        //     ...product
+        // })
+        body: product
     })
 
     if (res.ok) {
-        const product = await res.json();
+        const {product}= await res.json();
         dispatch(addProduct(product))
         return product
+    } else {
+        console.log("There was an error creating product")
     }
 }
 
 
 //Edit A Product
 export const updateProduct = (product, productId) => async(dispatch) => {
-    const res = await csrfFetch(`/api/products/${productId}`, {
+    const res = await fetch(`/api/products/${productId}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(product)
+        // headers: {
+        //     "Content-Type": "application/json",
+        // },
+        body: product
     })
-  
+
 
     if(res.ok) {
         const product = await res.json();
         dispatch(editProduct(product))
-        dispatch(getAllProducts())
         return product
+    } else {
+        console.log('There was an error editing product')
     }
 }
 
 
+
 //Delete A Product
 export const removeProduct = (productId) => async(dispatch) => {
-    const res = await csrfFetch(`/api/products/${productId}`, {
+    const res = await fetch(`/api/products/${productId}`, {
         method: "DELETE"
     })
 
     if(res.ok) {
         const data = await res.json();
         await dispatch(deleteProduct(productId))
-        await dispatch(getAllProducts())
         return data
+    } else {
+        console.log("There was an error deleting product")
     }
 
 }
 
+export const createReview= (review,productId) => async (dispatch) => {
+    const res = await fetch(`/api/products/${productId}/reviews/new`, {
+        method: "POST",
+        body: review
+    });
+
+    if (res.ok) {
+        const {review} = await res.json();
+        dispatch(addReview(review))
+        return review
+    } else {
+        console.log("There was an error creating review")
+    }
+}
 
 
-let newState;
 
-const productsReducer = (state = {}, action) => {
+const initialState={};
+
+const productsReducer = (state = initialState, action) => {
+    let newState;
     switch (action.type) {
-    
-        case GET_PRODUCT:
-            newState = { ...state, [action.product.id]: action.product }
-            return newState;
-
-        // ??
-        case GET_ALL_PRODUCTS: 
-            newState = {};
-            action.products.Products.forEach((product) => {
-                newState[product.id] = product;
-            })
+        case GET_ALL_PRODUCTS:
+            newState = {... state};
+            newState.products = normalizeObj(action.products)
             return newState;
 
         case CREATE_PRODUCT:
-            newState = { ...state, [action.product.id]: action.product }
+            newState = { ...state };
+            newState.products[action.products.id] = action.product;
             return newState;
 
         case UPDATE_PRODUCT:
-            newState = { ...state, [action.product.id]: action.product }
+            newState = { ...state };
+            newState.products[action.products.id] = action.product;
             return newState;
 
         case REMOVE_PRODUCT:
             newState = { ...state };
             delete newState[action.productId]
 
+        case ADD_REVIEW:
+            newState = { ...state };
+            newState.products[action.review.product_id].reviews = [...newState.products[action.review.product_id].reviews, action.review]
         default:
             return state
 

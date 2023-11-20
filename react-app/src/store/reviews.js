@@ -29,19 +29,8 @@
 //     }
 // }
 
-// export const createAReviewThunk = (review, member) => async (dispatch) => {
-//     const res = await csrfFetch(`/api/products/${review.id}/reviews`, {
-//         method: "POST",
-//         body: JSON.stringify(review)
-//     });
+//Thunk Action Creators
 
-//     if (res.ok) {
-//         const rev = await res.json();
-//         rev.User = user
-//         dispatch(createAReview(rev));
-//         return rev
-//     }
-// }
 
 // export const getReviewsForProductThunk = (spotId) => async (dispatch) => {
 //     const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
