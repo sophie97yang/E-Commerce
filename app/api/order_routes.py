@@ -18,80 +18,106 @@ def get_shopping_cart():
     shopping_cart = [order for order in current_user.orders if order.purchased==False]
     return {"cart": shopping_cart[0].to_dict() if shopping_cart else None}
 
-##get user's past orders
+#get user's past orders
 @order_routes.route("/past")
 @login_required
 def get_past_orders():
-        past_orders = [order for order in current_user.orders if order.purchased==False]
+        past_orders = [order for order in current_user.orders if order.purchased==True]
         return {"orders": [order.to_dict() for order in past_orders] if past_orders else None}
 
-
+#get order by order ID
+@order_routes.route("/<int:id>")
+def get_order_details(id):
+     order = Order.query.get(id)
+     return {"order":order.to_dict()}
 
 
 #add to user's shopping cart
-@order_routes.route('/products/<int:id>/add', methods=["POST"])
+@order_routes.route('/add/<int:id>', methods=["POST"])
 @login_required
 def add_to_shopping_cart(id):
 
     shopping_cart = [order for order in current_user.orders if order.purchased==False]
-    product = Product.query.get(id)
+    product_to_add = Product.query.get(id)
     form  = QuantityForm()
-    quantity = form.data['quantity']
-
-    #if user already has a cart in progress
-    if shopping_cart:
-        cart=shopping_cart[0]
-        # search through cart to see if product exists
-        for product in cart.products:
-             #if product exists
-             if product.id == id:
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        quantity = form.data['quantity']
+        #if user already has a cart in progress
+        if shopping_cart:
+            cart=shopping_cart[0]
+            # search through cart to see if product exists
+            for product in cart.products:
+                #if product exists
+                if product.product_id == id:
                   #add to already existing quantity
-                  product.quantity+=quantity
-        #if product doesn't exist in shopping cart
-        new_order_detail=OrderDetail(quantity=quantity)
-        new_order_detail.product=product
-        cart.products.append(new_order_detail)
-    #if there is no order in progress
-    else:
-         new_order_detail=OrderDetail(quantity=quantity)
-         new_order_detail.product=product
-         new_order = Order(
-              purchase_date=datetime.now(),
-              purchased=False,
-              member=current_user,
-              products=[new_order_detail]
-         )
-         db.session.add(new_order)
-    db.session.commit()
-    return shopping_cart if shopping_cart else new_order
+                    product.quantity+=quantity
+                    db.session.commit()
+                    return {"cart":cart.to_dict()}
+            #if product doesn't exist in shopping cart
+            new_order_detail=OrderDetail(quantity=quantity)
+            new_order_detail.product = product_to_add
+            cart.products.append(new_order_detail)
+        #if there is no order in progress
+        else:
+            new_order_detail=OrderDetail(quantity=quantity)
+            new_order_detail.product=product_to_add
+            new_order = Order(
+                purchased=False,
+                member=current_user,
+                products=[new_order_detail]
+            )
+            db.session.add(new_order)
 
+        db.session.commit()
+        return {"cart":shopping_cart[0].to_dict() if shopping_cart else new_order.to_dict()}
+    return {"errors": form.errors}, 400
 
-#remove from user's shopping cart
-# @order_routes.route('/remove', moethods=["DELETE"])
-# @login_required #?
-# def remove_from_shopping_cart(id):
+#update quantity of product in shopping cart
 
-#     #product/id/remove
-#     #not delete product, but remove from shopping-cart
+# remove item from user's shopping cart
+@order_routes.route('/remove/<int:id>', methods=["DELETE"])
+@login_required
+def remove_from_shopping_cart(id):
+    shopping_cart = [order for order in current_user.orders if order.purchased==False]
+    if shopping_cart:
+         cart = shopping_cart[0]
+         for product in cart.products:
+                #if product exists
+                if product.product_id == id:
+                     cart.products.remove(product)
+                     order_detail = OrderDetail.query.get(product.id)
+                     db.session.delete(order_detail)
+                     db.session.commit()
+                     return {"message":"Successfully deleted"}
 
-#     user_orders = current_user.orders
-#     product = Product.query.get(id)
+    return {"errors":"Product Not Found"}
 
-#     #might need quantity
-#     user_orders.remove(product) #removes all or one?
+#complete order - transaction
+@order_routes.route('/cart/purchase',methods=['POST'])
+@login_required
+def complete_transaction():
+     shopping_cart = [order for order in current_user.orders if order.purchased==False]
+     if shopping_cart:
+        cart = shopping_cart[0]
+        total=0
+        for product in cart.products:
+             quantity = product.quantity
+             product_info = Product.query.get(product.product_id)
+             total+=(product_info.price*quantity)
+             if(total>current_user.account_balance):
+                  return {"errors":"Insufficient Funds"}
+             if (product_info.available<quantity):
+                  return {"errors":"Low Stock"}
+             product_info.available-=quantity
+             current_user.account_balance-=total
+             seller_account=Member.query.get(product_info.seller)
+             seller_account.account_balance+=total
+        cart.purchased=True
+        cart.purchase_date=datetime.now()
 
-#     return user_orders
+        db.session.commit()
+     else:
+          return {"errors":"Order Not Found"}
 
-
-#how are we going to get quanityt from our frontend to our database
-
-
-
-#get user's shopping cart
-
-#add to user's shopping cart
-# order-details
-
-#remove from user's shopping cart
-# order-details
-# delete
+     return {"account_balance":current_user.account_balance, "purchase":cart.to_dict()}
