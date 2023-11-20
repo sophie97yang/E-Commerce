@@ -50,7 +50,7 @@ def create_new_product():
             )
 
     # mod 6 aws references
-            preview_image = form.data["preview image"]
+            preview_image = form.data["preview_image"]
             preview_image.filename = get_unique_filename(preview_image.filename)
             uploadPreviewImage = upload_file_to_s3(preview_image)
 
@@ -60,7 +60,7 @@ def create_new_product():
             else:
                 newProduct.preview_image = uploadPreviewImage["url"]
 
-            product_image1 = form.data["product image 1"]
+            product_image1 = form.data["product_image1"]
             product_image1.filename = get_unique_filename(product_image1.filename)
             uploadProductImage1 = upload_file_to_s3(product_image1)
 
@@ -70,7 +70,7 @@ def create_new_product():
             else:
                 newProduct.product_image1 = uploadProductImage1["url"]
 
-            product_image2 = form.data["product image 2"]
+            product_image2 = form.data["product_image2"]
             product_image2.filename = get_unique_filename(product_image2.filename)
             uploadProductImage2 = upload_file_to_s3(product_image2)
 
@@ -80,7 +80,7 @@ def create_new_product():
             else:
                 newProduct.product_image2 = uploadProductImage2["url"]
 
-            product_image3 = form.data["product image 3"]
+            product_image3 = form.data["product_image3"]
             product_image3.filename = get_unique_filename(product_image3.filename)
             uploadProductImage3 = upload_file_to_s3(product_image3)
 
@@ -90,7 +90,7 @@ def create_new_product():
             else:
                 newProduct.product_image3 = uploadProductImage3["url"]
 
-            product_image4 = form.data["product image 4"]
+            product_image4 = form.data["product_image4"]
             product_image4.filename = get_unique_filename(product_image4.filename)
             uploadProductImage4 = upload_file_to_s3(product_image4)
 
@@ -189,6 +189,10 @@ def add_product_review(id):
     #if current user is the seller of product, throw error
     if product.seller== current_user.id:
         return {"message":"Forbidden"},403
+    
+    # existing_review = Review.query.filter_by(product_id=id, member_id=current_user.id).first()
+    # if existing_review:
+    #     return {"message": "You have already left a review for this product"}, 400
     #what if user has already left a review? redirect them to updating their review?
     #I guess they can leave multiple reviews
     #else proceed with creating a review
@@ -214,7 +218,9 @@ def add_product_review(id):
                 return uploadReviewImage
             else:
                 new_review.review_image = uploadReviewImage["url"]
-            db.session.add(new_review)
-            db.session.commit()
+                
+        db.session.add(new_review)
+        db.session.commit()
         return {"review":new_review.to_dict()}
     return {"errors":form.errors},400
+
