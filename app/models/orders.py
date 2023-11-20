@@ -10,7 +10,7 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     purchase_date = db.Column(db.Date)
     purchased = db.Column(db.Boolean, nullable=False,default=False)
-    member_id = db.Column(db.Integer, db.ForeignKey("members.id"))
+    member_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("members.id")))
 
     member = db.relationship("Member", back_populates="orders")
     products = db.relationship("OrderDetail",back_populates="order")
@@ -24,9 +24,9 @@ class Order(db.Model):
             "member": self.member.to_dict(),
             "products":[product.to_dict() for product in self.products]
         }
-    
 
-    
+
+
     # def to_dict(self):
     #     return {
     #         "id": self.id,
@@ -36,7 +36,7 @@ class Order(db.Model):
     #         "products": [product.to_dict() for product in self.products] if self.products else []
     #     }
 
-    
+
     def to_dict_product_in_orders(self):
         return {
             "id": self.id,

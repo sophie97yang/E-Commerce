@@ -11,8 +11,8 @@ class Review(db.Model):
     content=db.Column(db.String(1000),nullable=False)
     headline=db.Column(db.String(255),nullable=False)
     review_date = db.Column(db.Date, nullable=False)
-    product_id = db.Column(db.Integer, db.ForeignKey("products.id")) #?
-    member_id = db.Column(db.Integer,db.ForeignKey('members.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("products.id")))
+    member_id = db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod('members.id')))
     review_image = db.Column(db.String(255))
 
 
