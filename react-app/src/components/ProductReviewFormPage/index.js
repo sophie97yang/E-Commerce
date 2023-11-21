@@ -1,32 +1,35 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { addProducts } from "./store/product";
+// import { useHistory } from "react-router-dom";
+import { createReview } from "../../store/products";
 
 import "./CreateReviewForm.css";
 
 function CreateReviewForm() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const member = useSelector((state) => state.session.member); // session.member?
 
   const [rating, setRating] = useState(0);
   const [headline, setHeadline] = useState("");
   const [content, setContent] = useState("");
-  const [reviewImg, setReviewImg] = useState("");
+  const [reviewImg, setReviewImg] = useState(null);
+
 
   const [submitted, yesSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
 
+
     //id
     //member_id
-    //product_id  how to get productId?
+    //product_id  where to get productId?
 
-    const newProduct = {
+    const newReview = {
       memberId: member.id,
       rating,
       headline,
@@ -35,11 +38,11 @@ function CreateReviewForm() {
     };
 
     //what to dispatch
-    const res = await dispatch(addProducts(newProduct));
+    const res = await dispatch(createReview(newReview));
 
     if (!res.errors) {
       //proper endpoint to redirect
-      history.push(`/products/${product.id}`);
+      // history.push(`/products/${product.id}`);
       yesSubmitted(true);
       reset();
     }
@@ -50,6 +53,7 @@ function CreateReviewForm() {
     //       setErrors(data.errors);
     //     }
     //   });
+
   };
 
   const reset = () => {
@@ -64,7 +68,9 @@ function CreateReviewForm() {
     setErrors({});
   }, [submitted]);
 
+
   return (
+
     <div className="create-review-container">
       <h1>Add a Review</h1>
       <form onSubmit={handleSubmit} className="create-review-field">
@@ -74,14 +80,13 @@ function CreateReviewForm() {
             type="text"
             placeholder=""
             value={rating}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setRating(e.target.value)}
             className=""
           />
 
           {/* {errors.address && (
             <p style={{ fontSize: "10px", color: "red" }}>*{errors.address}</p>
           )} */}
-
 
         </div>
 
@@ -110,7 +115,8 @@ function CreateReviewForm() {
         <div>
           <label className="label">Review Image</label>
           <input
-            type=""
+            type="file"
+            accept="image/*"
             placeholder=""
             value={reviewImg}
             onChange={(e) => setReviewImg(e.target.value)}
@@ -123,6 +129,7 @@ function CreateReviewForm() {
         </div>
       </form>
     </div>
+
   );
 }
 

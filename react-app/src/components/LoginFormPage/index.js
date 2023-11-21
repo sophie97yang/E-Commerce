@@ -2,6 +2,7 @@
 import React, { useState,useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
+import {useHistory} from 'react-router-dom';
 
 import "./LoginForm.css";
 
@@ -12,6 +13,7 @@ function LoginFormPage() {
   const [formError,setFormErrors] = useState({empty:'true'});
   const [errors, setErrors] = useState({});
   const [disabled,setDisabled]=useState(true);
+  const history=useHistory();
 
 
   useEffect(()=> {
@@ -35,7 +37,7 @@ function LoginFormPage() {
         if (data && data.errors) {
           setErrors(data.errors);
         }
-      });
+      }).then(()=> history.push('/products'));
   };
 
   const handleDemoMember =  (e) => {
@@ -51,7 +53,7 @@ function LoginFormPage() {
         if (data && data.errors) {
           setErrors(data.errors);
         }
-      });
+      }).then(()=> history.push('/products'));
   }
 
   const handleDemoSeller = (e) => {
@@ -66,7 +68,7 @@ function LoginFormPage() {
       if (data && data.errors) {
         setErrors(data.errors);
       }
-    });
+    }).then(()=> history.push('/products'));
   }
 
   return (

@@ -29,7 +29,7 @@ def authenticate():
     Authenticates a member.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        return current_user.to_dict_descriptive()
     return {'errors': ['Unauthorized']}
 
 
@@ -46,7 +46,7 @@ def login():
         # Add the user to the session, we are logged in!
         member = Member.query.filter(Member.email == form.data['email']).first() #member
         login_user(member)
-        return member.to_dict()
+        return member.to_dict_descriptive()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

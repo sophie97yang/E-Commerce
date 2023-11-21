@@ -5,3 +5,70 @@
 .hidden {
   display: none;
 }
+
+nav {
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  background-color:#131A22;
+  color:white;
+  margin-bottom: 0px;
+  font-size:12px
+}
+
+nav>div {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color:white
+}
+
+nav>div:hover {
+  border:1px white solid;
+  cursor:pointer;
+}
+
+nav img {
+  width: 100px;
+}
+
+.search_bar {
+  display:flex;
+  flex-direction:row;
+}
+.fun-puns {
+  margin-top:0px;
+  background-color:gray;
+  color:white;
+  padding-top:5px;
+  padding-bottom: 1px;
+  text-align: center;
+}
+
+.fun-puns>p {
+  margin-top:0px;
+}
+
+.profile-dropdown a {
+  color:black;
+}
+
+.profile_dropdown a:hover {
+  text-decoration: underline;
+  color:#FF9900;
+  cursor:pointer;
+}
+
+.profile-dropdown {
+  color:black;
+  background-color: white;
+
+}
+
+.profile-dropdown li {
+  list-style-type: none;
+  padding:5px
+}

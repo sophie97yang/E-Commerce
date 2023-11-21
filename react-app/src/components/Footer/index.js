@@ -54,7 +54,7 @@ function Footer() {
             </a>
           </div>
           <div class="linkedins">
-            <a href="https://www.linkedin.com/in/yoseph-latif/">Yoseph</a>
+            <a href="https://www.linkedin.com/in/yoseph-latif/">Yoseph Latif</a>
           </div>
 
         </div>

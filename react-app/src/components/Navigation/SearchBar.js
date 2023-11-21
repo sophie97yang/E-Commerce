@@ -31,7 +31,7 @@ function SearchBar() {
 
 
     return (
-        <div>
+        <div className='search_bar'>
             <select value={select} onChange={handleSelectChange}>
             <option value='all'>All</option>
                 {

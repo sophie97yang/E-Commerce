@@ -1,0 +1,31 @@
+.product-content {
+    display: flex;
+    flex-direction: row;
+    max-width: 1400px;
+    padding: 50px;
+}
+
+.test {
+    display: flex;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.product-details {
+    flex: 1;
+    margin-left: 20px;
+}
+
+
+
+.Carousel-img {
+    margin-top: 20px;
+}
+
+/* .product-img {
+    background-color: red;
+    max-width: 400px;
+    max-height: 400px;
+} */
