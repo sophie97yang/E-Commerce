@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f5ad6ef7c407
+Revision ID: 308c4fd1a593
 Revises:
-Create Date: 2023-11-20 14:16:10.361606
+Create Date: 2023-11-21 04:32:05.894490
 
 """
 from alembic import op
@@ -12,9 +12,8 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
-
 # revision identifiers, used by Alembic.
-revision = 'f5ad6ef7c407'
+revision = '308c4fd1a593'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -60,10 +59,10 @@ def upgrade():
     sa.Column('origin_state', sa.String(length=20), nullable=False),
     sa.Column('available', sa.Integer(), nullable=False),
     sa.Column('preview_image', sa.String(length=255), nullable=False),
-    sa.Column('product_image1', sa.String(length=255), nullable=False),
-    sa.Column('product_image2', sa.String(length=255), nullable=False),
-    sa.Column('product_image3', sa.String(length=255), nullable=False),
-    sa.Column('product_image4', sa.String(length=255), nullable=False),
+    sa.Column('product_image1', sa.String(length=255)),
+    sa.Column('product_image2', sa.String(length=255)),
+    sa.Column('product_image3', sa.String(length=255)),
+    sa.Column('product_image4', sa.String(length=255)),
     sa.ForeignKeyConstraint(['seller'], ['members.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
