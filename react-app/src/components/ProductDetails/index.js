@@ -40,28 +40,28 @@ const ProductDetails = () => {
                 <div>
                   <img
                     className="product-img"
-                    src={product.product_img1}
+                    src={product.product_img1 ? product.product_img1 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
                 </div>
                 <div>
                   <img
                     className="product-img"
-                    src={product.product_img2}
+                    src={product.product_img2 ? product.product_img2 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
                 </div>
                 <div>
                   <img
                     className="product-img"
-                    src={product.product_img3}
+                    src={product.product_img3 ? product.product_img3 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
                 </div>
                 <div>
                   <img
                     className="product-img"
-                    src={product.product_img4}
+                    src={product.product_img4 ? product.product_img4 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
                 </div>
