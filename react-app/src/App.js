@@ -34,8 +34,11 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+          <Route  path='/orders/past'>
+
+          </Route>
           <Route path="/orders">
-            <Order />
+            <Order isLoaded={isLoaded}/>
           </Route>
           <Route path="/products/new">
             <CreateProductForm />

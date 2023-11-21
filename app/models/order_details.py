@@ -20,6 +20,6 @@ class OrderDetail(db.Model):
         return {
             "id": self.id,
             "quantity": self.quantity,
-            "product_id": self.product_id,
+            "product": self.product.to_dict_descriptive(),
             "order_id": self.order_id
         }

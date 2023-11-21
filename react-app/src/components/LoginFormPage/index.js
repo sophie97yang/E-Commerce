@@ -37,7 +37,9 @@ function LoginFormPage() {
         if (data && data.errors) {
           setErrors(data.errors);
         }
-      }).then(()=> history.push('/products'));
+      }).then(()=> {
+        if (!Object.keys(errors).length) history.push('/products');
+      });
   };
 
   const handleDemoMember =  (e) => {
