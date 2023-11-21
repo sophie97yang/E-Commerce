@@ -1,9 +1,9 @@
 import Wishlist from './Wishlist'
 import ShoppingCart from './ShoppingCart'
-function Order() {
+function Order({isLoaded}) {
     return (
         <div>
-            <ShoppingCart />
+            <ShoppingCart isLoaded={isLoaded} />
             <Wishlist />
         </div>
 

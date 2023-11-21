@@ -60,7 +60,7 @@ const ProductAll = () => {
           <div key={product.id} title={product.name}>
             <Link to={`/products/${product.id}`}>
               <div>
-                <img src={product.previewImage} alt="product" className="product-img" />
+                <img src={product.preview_image} alt="product" className="product-img" />
               </div>
               <div>
                 <li>{product.name}</li>

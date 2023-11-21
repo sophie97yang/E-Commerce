@@ -1,11 +1,11 @@
-import React, { useState,useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../store/products";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+// import { getAllProducts } from "../../store/products";
 function SearchBar() {
     const [searchInput,setSearchInput] = useState("");
     const [select,setSelect] = useState("All")
     const products = useSelector(state => state.products.products)
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const categories = new Set();
     if (!products) return null;
     const values = Object.values(products)
@@ -13,7 +13,6 @@ function SearchBar() {
     const options= [...categories].map(category => {
         return {value:category,label:category}
     })
-    console.log(options);
 
     const handleChange = (e) => {
     e.preventDefault();

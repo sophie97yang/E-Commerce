@@ -132,7 +132,7 @@ const productsReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case GET_ALL_PRODUCTS:
-            newState = {... state};
+            newState = {...state};
             newState.products = normalizeObj(action.products)
             return newState;
 
@@ -148,11 +148,14 @@ const productsReducer = (state = initialState, action) => {
 
         case REMOVE_PRODUCT:
             newState = { ...state };
-            delete newState[action.productId]
+            delete newState[action.productId];
+            return newState;
 
         case ADD_REVIEW:
             newState = { ...state };
             newState.products[action.review.product_id].reviews = [...newState.products[action.review.product_id].reviews, action.review]
+            return newState;
+
         default:
             return state
 

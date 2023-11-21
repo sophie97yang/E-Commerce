@@ -73,11 +73,13 @@ class Product(db.Model):
             "category": self.category,
             "origin":(self.origin_city,self.origin_state),
             "reviews":[review.to_dict_descriptive() for review in self.reviews],
+            "preview_image":self.preview_image,
             "product_image1":self.product_image1,
             "product_image2":self.product_image2,
             "product_image3":self.product_image3,
             "product_image4":self.product_image4,
-            "available":self.available,
-            "orders":[order.to_dict() for order in self.orders]
+            "available":self.available
+            # ,
+            # "orders":[order.to_dict() for order in self.orders]
         }
         return product_dict

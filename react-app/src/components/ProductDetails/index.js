@@ -33,35 +33,35 @@ const ProductDetails = () => {
               <div>
                   <img
                     className="product-img"
-                    src={product.preview_img}
+                    src={product.preview_image}
                     alt="product"
                   />
                 </div>
                 <div>
                   <img
                     className="product-img"
-                    src={product.product_img1 ? product.product_img1 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
+                    src={product.product_image1 ? product.product_image1 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
                 </div>
                 <div>
                   <img
                     className="product-img"
-                    src={product.product_img2 ? product.product_img2 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
+                    src={product.product_image2 ? product.product_image2 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
                 </div>
                 <div>
                   <img
                     className="product-img"
-                    src={product.product_img3 ? product.product_img3 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
+                    src={product.product_image3 ? product.product_image3 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
                 </div>
                 <div>
                   <img
                     className="product-img"
-                    src={product.product_img4 ? product.product_img4 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
+                    src={product.product_image4 ? product.product_image4 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
                 </div>
