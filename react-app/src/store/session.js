@@ -1,6 +1,7 @@
 // constants
 const SET_MEMBER = "session/SET_MEMBER";
 const REMOVE_MEMBER = "session/REMOVE_MEMBER";
+const ADD_ORDER = "session/ADD_ORDER";
 
 const setMember = (member) => ({
 	type: SET_MEMBER,
@@ -11,6 +12,9 @@ const removeMember = () => ({
 	type: REMOVE_MEMBER,
 });
 
+// const addCart = (productId,quantity) => ({
+// 	type:
+// })
 const initialState = { member: null };
 
 export const authenticate = () => async (dispatch) => {

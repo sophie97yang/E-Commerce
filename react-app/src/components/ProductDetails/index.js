@@ -10,6 +10,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [quantity,setQuantity] = useState(1)
 
   const products = useSelector((state) => state.products.products)
 
@@ -18,7 +19,16 @@ const ProductDetails = () => {
   }, []);
 
   if (!products) return null;
+
   const product = products[id];
+
+  const addToCart = async (e) => {
+    e.preventDefault();
+  }
+  const handleChange = (e)=> {
+    e.preventDefault();
+    setQuantity(e.target.value)
+}
 
   return (
     <>
@@ -74,6 +84,25 @@ const ProductDetails = () => {
                 <div>Description: {product.description}</div>
                 <div>Availability: {product.available}</div>
                 <div>${product.price}</div>
+                <input type='number' min='1' max={`${product.available}`} value={`${quantity}`} onChange={handleChange}  name='quantity'/>
+                <button onClick={addToCart}>Add to Cart</button>
+              </div>
+            </div>
+
+            <div className='product-reviews'>
+              <h2>Written Reviews</h2>
+              <div>
+
+              </div>
+              <div>
+                {product.reviews ? product.reviews.map(review => (
+                    <div key={review.id}>
+                      <h5>{review.headline}</h5>
+                      <div>{review.rating}</div>
+                      <p>{review.member.first_name} {review.member.last_name}</p>
+                      <p>{review.content}</p>
+                    </div>
+                )): <></>}
               </div>
             </div>
           </div>

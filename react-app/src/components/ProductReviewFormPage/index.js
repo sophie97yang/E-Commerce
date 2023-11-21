@@ -1,59 +1,65 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useHistory } from "react-router-dom";
-import { createReview } from "../../store/products";
+import { useHistory, useParams } from "react-router-dom";
+import { createReview,getAllProducts } from "../../store/products";
 
 import "./CreateReviewForm.css";
 
 function CreateReviewForm() {
   const dispatch = useDispatch();
-  // const history = useHistory();
+  const history = useHistory();
   const member = useSelector((state) => state.session.member); // session.member?
+  const products = useSelector((state) => state.session.products);
+  const {id}= useParams();
 
   const [rating, setRating] = useState(0);
   const [headline, setHeadline] = useState("");
   const [content, setContent] = useState("");
-  const [reviewImg, setReviewImg] = useState(null);
+  const [review_image, setReviewImg] = useState(null);
 
+  const [imageLoading, setImageLoading] = useState(false);
 
   const [submitted, yesSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
 
+  const [disabled,setDisabled] = useState(true);
+
+  useEffect(()=> {
+    dispatch(getAllProducts()).catch(res => res)
+  },[dispatch])
+
+  useEffect(()=> {
+    if (!headline || !content || !review_image) setDisabled(true);
+    else setDisabled(false);
+  },[headline,content,review_image])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
 
+    const formData = new FormData();
 
-    //id
-    //member_id
-    //product_id  where to get productId?
+    formData.append("review_image", review_image);
+    formData.append("product_id", parseInt(id));
+    formData.append("rating", rating);
+    formData.append("headline", headline);
+    formData.append("content", content);
+    formData.append("member_id", member.id);
 
-    const newReview = {
-      memberId: member.id,
-      rating,
-      headline,
-      content,
-      reviewImg,
-    };
+    setImageLoading(true);
 
-    //what to dispatch
-    const res = await dispatch(createReview(newReview));
+    const res = await dispatch(createReview(formData, parseInt(id)));
 
+    setImageLoading(false);
+
+    console.log(res)
     if (!res.errors) {
-      //proper endpoint to redirect
-      // history.push(`/products/${product.id}`);
+      history.push(`/products/${id}`);
       yesSubmitted(true);
       reset();
+    } else {
+      setErrors(res.errors)
     }
-
-    //   .catch(async (res) => {
-    //     const data = await res.json();
-    //     if (data && data.errors) {
-    //       setErrors(data.errors);
-    //     }
-    //   });
-
   };
 
   const reset = () => {
@@ -68,12 +74,13 @@ function CreateReviewForm() {
     setErrors({});
   }, [submitted]);
 
-
   return (
-
     <div className="create-review-container">
       <h1>Add a Review</h1>
-      <form onSubmit={handleSubmit} className="create-review-field">
+      <form onSubmit={handleSubmit}
+      className="create-review-field"
+        encType="multipart/form-data"
+        >
         <div>
           <label className="label">Rating</label>
           <input
@@ -84,9 +91,10 @@ function CreateReviewForm() {
             className=""
           />
 
-          {/* {errors.address && (
-            <p style={{ fontSize: "10px", color: "red" }}>*{errors.address}</p>
-          )} */}
+          {errors.rating && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.rating[0]}</p>
+          )}
+
 
         </div>
 
@@ -99,6 +107,10 @@ function CreateReviewForm() {
             onChange={(e) => setHeadline(e.target.value)}
             className=""
           />
+
+          {errors.headline && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.headline[0]}</p>
+          )}
         </div>
 
         <div>
@@ -112,24 +124,33 @@ function CreateReviewForm() {
           />
         </div>
 
+        {errors.content && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.content[0]}</p>
+          )}
+
+
         <div>
           <label className="label">Review Image</label>
           <input
             type="file"
             accept="image/*"
             placeholder=""
-            value={reviewImg}
-            onChange={(e) => setReviewImg(e.target.value)}
+            onChange={(e) => setReviewImg(e.target.files[0])}
             className=""
           />
+
+        {errors.review_image && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.review_image[0]}</p>
+          )}
         </div>
 
         <div className="create-review-button">
-          <button className="submit">Add Review</button>
+          <button type="submit" disabled={disabled}>Add Review</button>
+
+          {(imageLoading)&& <p>Loading...</p>}
         </div>
       </form>
     </div>
-
   );
 }
 

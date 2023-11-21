@@ -18,6 +18,8 @@ function LandingPage() {
   const currentUser = useSelector((state) => state.session.user);
   const currentUserRole = currentUser?.seller;
 
+  // const products = useSelector(state => state.products);
+  // console.log(products);
   useEffect(() => {
     // Fetch products for carousel
     const fetchProducts = async () => {
@@ -30,6 +32,10 @@ function LandingPage() {
       }
     };
     fetchProducts();
+    // useEffect(()=> {
+    //   dispatch(getAllProducts())
+    //   .catch(res => res)
+    // },[dispatch]);
 
     // Set a random background image
     // const randomIndex = Math.floor(Math.random() * backgroundImages.length);
@@ -104,7 +110,7 @@ const boxes = [
       <Carousel className="product-carousel">
         {products.map((product, index) => (
           <div key={index}>
-            <img src={product.imageUrl} alt={product.name} />
+            <img src={product.preview_image} alt={product.name} />
             <p className="legend">{product.name}</p>
           </div>
         ))}

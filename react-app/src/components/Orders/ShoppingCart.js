@@ -1,5 +1,5 @@
 import {useSelector} from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect,Link } from 'react-router-dom'
 import { useEffect,useState } from 'react'
 import './Orders.css'
 import CartForm from './CartFormPage'
@@ -21,17 +21,20 @@ function ShoppingCart({isLoaded}) {
         <div className='shopping_cart'>
             <h2>Shopping Cart</h2>
             {
-                cart.length ? cart.map(product => (
+                cart ? cart.map(product => (
                     <div key={product.id}>
                         <img src={product.product.preview_image} alt={product.product.name}/>
                         <h4>{product.product.name}</h4>
                         <p>{product.product.available>0 ? "In Stock": "Out of Stock"}</p>
                         <button>Delete</button>
                         <button>Add to Wishlist</button>
-                        <CartForm product={product.product}/>
-                        <button>Complete Transaction</button>
+                        <CartForm product={product}/>
                     </div>
-                )) : <h2>Your Shopping Cart is Empty!</h2>
+                ))
+                 : <h3>You're looking a little hungry...</h3>
+            }
+            {
+                cart ? <button>Complete Transaction</button> : <p><Link to='/products'>Browse our lovely selection of cheeses</Link></p>
             }
         </div>
 

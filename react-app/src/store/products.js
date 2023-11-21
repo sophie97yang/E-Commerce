@@ -6,6 +6,7 @@ const CREATE_PRODUCT = "products/CREATE_PRODUCT"
 const UPDATE_PRODUCT = "products/UPDATE_PRODUCT"
 const REMOVE_PRODUCT = "products/REMOVE_PRODUCT"
 const ADD_REVIEW = "products/CREATE_REVIEW"
+const UPDATE_REVIEW = "products/UPDATE_REVIEW"
 
 //Action Creators
 const getAllProduct = (products) => ({
@@ -35,6 +36,11 @@ const addReview = (review) => ({
 
 })
 
+const updateReview = (review) => ({
+    type:UPDATE_REVIEW,
+    review
+})
+
 //Thunk Action Creators
 //Get All Products
 export const getAllProducts = () => async (dispatch) => {
@@ -55,9 +61,6 @@ export const getAllProducts = () => async (dispatch) => {
 export const createProduct = (product) => async(dispatch) => {
     const res = await fetch('/api/products/new', {
         method: "POST",
-        // body: JSON.stringify({
-        //     ...product
-        // })
         body: product
     })
 
@@ -66,7 +69,8 @@ export const createProduct = (product) => async(dispatch) => {
         dispatch(addProduct(product))
         return product
     } else {
-        console.log("There was an error creating product")
+        const data = await res.json();
+        return data;
     }
 }
 
@@ -75,10 +79,13 @@ export const createProduct = (product) => async(dispatch) => {
 export const updateProduct = (product, productId) => async(dispatch) => {
     const res = await fetch(`/api/products/${productId}`, {
         method: "PUT",
+        body: product
         // headers: {
         //     "Content-Type": "application/json",
         // },
-        body: product
+        // body: JSON.stringify({
+        //     ...product
+		// })
     })
 
 
@@ -87,7 +94,8 @@ export const updateProduct = (product, productId) => async(dispatch) => {
         dispatch(editProduct(product))
         return product
     } else {
-        console.log('There was an error editing product')
+        const data = await res.json();
+        return data;
     }
 }
 
@@ -104,7 +112,8 @@ export const removeProduct = (productId) => async(dispatch) => {
         await dispatch(deleteProduct(productId))
         return data
     } else {
-        console.log("There was an error deleting product")
+        const data = await res.json();
+        return data;
     }
 
 }
@@ -113,17 +122,39 @@ export const createReview= (review,productId) => async (dispatch) => {
     const res = await fetch(`/api/products/${productId}/reviews/new`, {
         method: "POST",
         body: review
+
     });
 
     if (res.ok) {
         const {review} = await res.json();
-        dispatch(addReview(review))
+        await dispatch(addReview(review));
         return review
     } else {
-        console.log("There was an error creating review")
+        const data = await res.json();
+        return data;
     }
 }
 
+export const editReview= (review) => async (dispatch) => {
+    const res = await fetch(`/api/reviews/${review.id}/edit`, {
+        method: "PUT",
+        body: review
+        // headers: {
+        //     "Content-Type": "application/json",
+        // },
+        // body: JSON.stringify({
+        //     ...review
+        // })
+    });
+
+    if (res.ok) {
+        const {review} = await res.json();
+        dispatch(updateReview(review))
+        return review
+    } else {
+        const data = await res.json();
+    }
+}
 
 
 const initialState={};
@@ -155,6 +186,17 @@ const productsReducer = (state = initialState, action) => {
             newState = { ...state };
             newState.products[action.review.product_id].reviews = [...newState.products[action.review.product_id].reviews, action.review]
             return newState;
+        case UPDATE_REVIEW:
+            newState = { ...state};
+            let index=0
+            for (let i =0;i<newState.products[action.review.product_id].reviews.length;i++) {
+                let review = newState.products[action.review.product_id].reviews[i];
+                if (review.id===action.review.id) {
+                    index=i;
+                    break;
+                }
+            }
+            newState.products[action.review.product_id].reviews[index] = action.review
 
         default:
             return state

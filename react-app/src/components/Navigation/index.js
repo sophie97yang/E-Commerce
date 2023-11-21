@@ -54,7 +54,7 @@ function Navigation({ isLoaded }){
 					history.push('/signup')
 				}}>Sign up to Set Location</button>}</p>
 			</div>
-			<div>
+			<div className="search_bar_nav">
 				<SearchBar />
 			</div>
 			<div>
@@ -68,10 +68,10 @@ function Navigation({ isLoaded }){
 				</NavLink>
 			</div>
 
-			<div>
+			<div className='cart_info'>
 			<NavLink to='/orders'>
 				{sessionUser? <h2>{cart}</h2>: <h2>0</h2>}
-			<i className="fa-solid fa-cart-shopping"/>
+				<i className="fa-solid fa-cart-shopping fa-2xl"/>
 			</NavLink>
 			</div>
 

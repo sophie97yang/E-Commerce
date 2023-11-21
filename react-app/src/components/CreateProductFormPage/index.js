@@ -1,8 +1,3 @@
-// frontend/src/components/LoginFormModal/index.js
-// import React, { useState } from "react";
-// import * as sessionActions from "../../store/session";
-// import { useDispatch } from "react-redux";
-
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -17,9 +12,9 @@ const CreateProductForm = () => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0.00); //?
+  const [price, setPrice] = useState("0.00"); //?
   const [category, setCategory] = useState("");
-  const [available, setAvailable] = useState(0);
+  const [available, setAvailable] = useState(1);
 
   const [previewImg, setPreviewImg] = useState(null);
   const [productImg1, setProductImg1] = useState(null);
@@ -35,7 +30,7 @@ const CreateProductForm = () => {
     setErrors({});
 
     const newProduct = {
-      memberId: member.id,
+      sellerId: member.id,
       name,
       description,
       price,
@@ -47,6 +42,7 @@ const CreateProductForm = () => {
       productImg3,
       productImg4,
     };
+
 
     const res = await dispatch(createProduct(newProduct));
 
@@ -67,9 +63,9 @@ const CreateProductForm = () => {
   const reset = () => {
     setName("");
     setDescription("");
-    setPrice(0.00);
+    setPrice("0.00");
     setCategory("");
-    setAvailable(0);
+    setAvailable(1);
     setPreviewImg("");
     setProductImg1("");
     setProductImg2("");
@@ -137,6 +133,7 @@ const CreateProductForm = () => {
           <label className="label">Available</label>
           <input
             type="number"
+            min="1"
             placeholder="Name of product"
             value={available}
             onChange={(e) => setAvailable(e.target.value)}
@@ -151,7 +148,7 @@ const CreateProductForm = () => {
             accept="image/*"
             placeholder="Preview Image"
             // value={name}
-            onChange={(e) => setPreviewImg(e.target.value)}
+            onChange={(e) => setPreviewImg(e.target.files[0])}
             className=""
           />
         </div>
@@ -163,7 +160,7 @@ const CreateProductForm = () => {
             accept="image/*"
             placeholder="Product Image"
             // value={name}
-            onChange={(e) => setProductImg1(e.target.value)}
+            onChange={(e) => setProductImg1(e.target.files[0])}
             className=""
           />
         </div>
@@ -175,7 +172,7 @@ const CreateProductForm = () => {
             accept="image/*"
             placeholder="Product Image"
             // value={name}
-            onChange={(e) => setProductImg2(e.target.value)}
+            onChange={(e) => setProductImg2(e.target.files[0])}
             className=""
           />
         </div>
@@ -187,7 +184,7 @@ const CreateProductForm = () => {
             accept="image/*"
             placeholder="Product Image"
             // value={name}
-            onChange={(e) => setProductImg3(e.target.value)}
+            onChange={(e) => setProductImg3(e.target.files[0])}
             className=""
           />
         </div>
@@ -199,13 +196,13 @@ const CreateProductForm = () => {
             accept="image/*"
             placeholder="Product Image"
             // value={name}
-            onChange={(e) => setProductImg4(e.target.value)}
+            onChange={(e) => setProductImg4(e.target.files[0])}
             className=""
           />
         </div>
 
         <div className="create-product-button">
-          <button className="submit">Add Product</button>
+          <button type="submit">Add Product</button>
         </div>
       </form>
     </div>

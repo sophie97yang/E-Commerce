@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignUpFormPage";
 import LoginFormPage from "./components/LoginFormPage";
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./components/LandingPage/Landing";
 import Order from "./components/Orders";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
@@ -44,23 +44,17 @@ function App() {
             <CreateProductForm />
           </Route>
 
-          <Route path="/products/:id/reviews/new">
+          <Route exact path="/products/:id/reviews/new">
             <CreateReviewForm />
           </Route>
 
-          <Route path="/products/:id">
+          <Route exact path="/products/:id">
             <ProductDetails />
           </Route>
-
-
-
 
           <Route path="/products">
             <ProductAll />
           </Route>
-
-
-
 
         </Switch>
       )}

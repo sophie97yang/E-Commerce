@@ -11,9 +11,9 @@ function AccountPage() {
 
   //Don't these come back as objects?
 
-  const ordersOBJ = useSelector(state => state.orders);
-  const wishlistOBJ = useSelector(state => state.wishlist);//wishlist.all??
-  const productsOBJ = useSelector(state => state.products);
+  const ordersOBJ = useSelector(state => state.session.orders); //users orders??
+  const wishlistOBJ = useSelector(state => state.session.wishlist);//wishlist.all??
+  const productsOBJ = useSelector(state => state.session.products); //users products?
 
   console.log("ORDERS ", orders)
 
