@@ -1,0 +1,22 @@
+footer {
+    display: inline-block;
+    /* display: flex; */
+}
+
+#footer-left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#footer-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#footer-right{
+    display: flex;
+    align-items: center;
+    justify-content: center
+}

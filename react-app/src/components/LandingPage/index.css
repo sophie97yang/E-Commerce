@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Background image for the landing page */
+  .landing-page {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333;
+  }
+
+  /* Main Title */
+  .main-title {
+    text-align: center;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+  }
+
+  /* Carousel */
+  .product-carousel .legend {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 10px;
+  }
+
+  /* Boxes Container */
+  .boxes-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  /* Individual Box */
+  .box {
+    width: calc(33.333% - 20px);
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    cursor: pointer;
+  }
+
+  /* Hover effect for boxes */
+  .box:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* About Section */
+  .about-section {
+    padding: 20px;
+    text-align: center;
+  }
+
+  /* Footer */
+  .landing-page-footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+  }
+
+  /* Media Queries for Responsive Design */
+  @media (max-width: 768px) {
+    .box {
+      width: calc(50% - 20px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .box {
+      width: 100%;
+    }
+  }

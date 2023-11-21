@@ -1,17 +1,17 @@
 // constants
-const SET_USER = "session/SET_USER";
-const REMOVE_USER = "session/REMOVE_USER";
+const SET_MEMBER = "session/SET_MEMBER";
+const REMOVE_MEMBER = "session/REMOVE_MEMBER";
 
-const setUser = (user) => ({
-	type: SET_USER,
-	payload: user,
+const setMember = (member) => ({
+	type: SET_MEMBER,
+	payload: member,
 });
 
-const removeUser = () => ({
-	type: REMOVE_USER,
+const removeMember = () => ({
+	type: REMOVE_MEMBER,
 });
 
-const initialState = { user: null };
+const initialState = { member: null };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -25,11 +25,11 @@ export const authenticate = () => async (dispatch) => {
 			return;
 		}
 
-		dispatch(setUser(data));
+		dispatch(setMember(data));
 	}
 };
 
-export const login = (email, password) => async (dispatch) => {
+export const login = ({email, password}) => async (dispatch) => {
 	const response = await fetch("/api/auth/login", {
 		method: "POST",
 		headers: {
@@ -37,13 +37,13 @@ export const login = (email, password) => async (dispatch) => {
 		},
 		body: JSON.stringify({
 			email,
-			password,
-		}),
+			password
+		})
 	});
 
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(setUser(data));
+		dispatch(setMember(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -63,26 +63,33 @@ export const logout = () => async (dispatch) => {
 	});
 
 	if (response.ok) {
-		dispatch(removeUser());
+		dispatch(removeMember());
 	}
 };
 
-export const signUp = (username, email, password) => async (dispatch) => {
+export const signUp = ({firstName, lastName, address, city, state, seller, email, password}) => async (dispatch) => {
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
-			username,
-			email,
-			password,
+
+		  firstName,
+          lastName,
+          address,
+          city,
+          state,
+          seller,
+          email,
+          password
+
 		}),
 	});
 
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(setUser(data));
+		dispatch(setMember(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -94,12 +101,12 @@ export const signUp = (username, email, password) => async (dispatch) => {
 	}
 };
 
-export default function reducer(state = initialState, action) {
+export default function sessionReducer(state = initialState, action){
 	switch (action.type) {
-		case SET_USER:
-			return { user: action.payload };
-		case REMOVE_USER:
-			return { user: null };
+		case SET_MEMBER:
+			return { member: action.payload };
+		case REMOVE_MEMBER:
+			return { member: null };
 		default:
 			return state;
 	}

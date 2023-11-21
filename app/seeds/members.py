@@ -10,7 +10,7 @@ def seed_members():
         first_name= "Sophie",
         last_name= "Yang",
         email= "sophie@gmail.com",
-        password= "peteristhebest", #I think these need to be hashed somehow
+        password= "peteristhebest",
         address= "123 Red Ave",
         city= "San Diego",
         state= "California",

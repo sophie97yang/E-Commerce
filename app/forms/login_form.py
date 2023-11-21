@@ -54,12 +54,14 @@ def member_exists(form, field):
 def password_matches(form, field):
     # Checking if password matches
     password = field.data
-    email = form.email.data
+    email = form.data['email']
     member = Member.query.filter(Member.email == email).first()
-    if member and not member.check_password(password):
+    if not member:
+        raise ValidationError('No such user exists.')
+    if not member.check_password(password):
         raise ValidationError('Password was incorrect.')
 
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), member_exists])
     password = StringField("Password", validators=[DataRequired(), password_matches])
-    submit = SubmitField('Login')
+    # submit = SubmitField('Login')

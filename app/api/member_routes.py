@@ -12,7 +12,7 @@ def members():
     Query for all users and returns them in a list of user dictionaries
     """
     members = Member.query.all()
-    return {'members': [member.to_dict() for member in members]}
+    return {'members': [member.to_dict_descriptive() for member in members]}
 
 
 @member_routes.route('/<int:id>')
@@ -22,4 +22,4 @@ def member(id):
     Query for a user by id and returns that user in a dictionary
     """
     member = Member.query.get(id)
-    return member.to_dict()
+    return member.to_dict_descriptive()

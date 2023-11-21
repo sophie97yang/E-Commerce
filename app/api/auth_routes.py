@@ -2,8 +2,8 @@ from flask import Blueprint, jsonify, session, request
 from app.models import Member, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
-from flask_login import current_user, login_user, logout_user, login_required
-#flask_login variables current_user, login_user, logout_user, login_required #DO NOT CHANGE THESE TO MEMBER
+from flask_login import current_user, logout_user, login_required,login_user
+#flask_login variables current_user, login_user, in_user,logout_user, login_required #DO NOT CHANGE THESE TO MEMBER
 
 
 auth_routes = Blueprint('auth', __name__)
@@ -29,7 +29,7 @@ def authenticate():
     Authenticates a member.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        return current_user.to_dict_descriptive()
     return {'errors': ['Unauthorized']}
 
 
@@ -46,7 +46,7 @@ def login():
         # Add the user to the session, we are logged in!
         member = Member.query.filter(Member.email == form.data['email']).first() #member
         login_user(member)
-        return member.to_dict()
+        return member.to_dict_descriptive()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -88,7 +88,7 @@ def sign_up():
         db.session.add(member)
         db.session.commit()
         login_user(member)
-        return user.to_dict()
+        return member.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
