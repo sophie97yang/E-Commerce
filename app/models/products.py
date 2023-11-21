@@ -19,10 +19,10 @@ class Product(db.Model):
     available= db.Column(db.Integer,nullable=False)
     # add images attributes for easy queries
     preview_image = db.Column(db.String(255), nullable=False)
-    product_image1 = db.Column(db.String(255), nullable=False)
-    product_image2 = db.Column(db.String(255), nullable=False)
-    product_image3 = db.Column(db.String(255), nullable=False)
-    product_image4 = db.Column(db.String(255), nullable=False)
+    product_image1 = db.Column(db.String(255))
+    product_image2 = db.Column(db.String(255))
+    product_image3 = db.Column(db.String(255))
+    product_image4 = db.Column(db.String(255))
 
     reviews = db.relationship("Review",back_populates='product')
     members = db.relationship("Member",secondary=wishlists,back_populates='products')
