@@ -1,5 +1,5 @@
 // frontend/src/components/LoginFormModal/index.js
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 
@@ -7,15 +7,29 @@ import "./LoginForm.css";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
-  const [credential, setCredential] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [formError,setFormErrors] = useState({empty:'true'});
   const [errors, setErrors] = useState({});
-  const [disabled,setDisabled]=useState(false);
+  const [disabled,setDisabled]=useState(true);
+
+
+  useEffect(()=> {
+    if (Object.keys(formError).length) setDisabled(true);
+    else setDisabled(false);
+},[formError])
+
+  useEffect(()=> {
+    const errorsForm = {};
+    if (email.length<4) errorsForm.email = true;
+    if (password.length<6) errorsForm.password = true;
+    setFormErrors(errorsForm);
+},[email,password])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
-    return dispatch(sessionActions.login({ credential, password }))
+    return dispatch(sessionActions.login({ email, password }))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -24,25 +38,36 @@ function LoginFormPage() {
       });
   };
 
-  const handleDemoMember = (e) => {
+  const handleDemoMember =  (e) => {
       e.preventDefault()
-      setCredential("givemecheese@gmail.com")
-      setPassword("geniusmouse123")
+      // setEmail("givemecheese@gmail.com")
+      // setPassword("geniusmouse123")
       return dispatch(sessionActions.login({
-        credential: "givemecheese@gmail.com",
+        email: "givemecheese@gmail.com",
         password: "geniusmouse123"
-      }))
+      })).catch(async (res) => {
+        console.log(res)
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      });
   }
 
   const handleDemoSeller = (e) => {
     e.preventDefault()
-    setCredential("ih8Jerry@gmail.com")
-    setPassword("killhim")
+    // setEmail("ih8Jerry@gmail.com")
+    // setPassword("killhim")
     return dispatch(sessionActions.login({
-      credential: "ih8Jerry@gmail.com",
+      email: "ih8Jerry@gmail.com",
       password: "killhim"
-    }))
-}
+    })).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) {
+        setErrors(data.errors);
+      }
+    });
+  }
 
   return (
     <div className="form-field">
@@ -54,8 +79,8 @@ function LoginFormPage() {
           Email
           <input
             type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
             className="form-slot"
           />

@@ -2,28 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import { useSelector,useDispatch } from "react-redux";
 import { getAllProducts } from '../../store/products';
+import { useHistory } from 'react-router-dom'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
 
 // This is an example array of background images. We will replace these w actualy images.
-const backgroundImages = [
-  'path/to/image1.jpg',
-  'path/to/image2.jpg',
-  'path/to/image3.jpg',
-];
+// const backgroundImages = [
+//   'path/to/image1.jpg',
+//   'path/to/image2.jpg',
+//   'path/to/image3.jpg',
+// ];
 
 function LandingPage() {
   const [backgroundImage, setBackgroundImage] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
-  const products = useSelector(state => state.products);
+
+  const products = useSelector(state => state.products.all);
+
   const currentUser = useSelector((state) => state.session.user);
-  const currentUserRole = currentUser?.role; //look into this
+  const currentUserRole = currentUser?.seller; //look into this
 
   useEffect(()=> {
         dispatch(getAllProducts())
         .catch(res => res)
         ;
     },[dispatch]);
+
 
 
   useEffect(() => {
@@ -36,25 +40,25 @@ function LandingPage() {
     setBackgroundImage(imageUrls[randomIndex]);
   }, []);
 
-  if (!products) return null;
-
   useEffect(() => {
     // Fetch products for carousel
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('/api/products/all');
-        const data = await response.json();
-        setProducts(data.products);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-    fetchProducts();
+    // const fetchProducts = async () => {
+    //   try {
+    //     const response = await fetch('/api/products/all');
+    //     const data = await response.json();
+    //     setProducts(data.products);
+    //   } catch (error) {
+    //     console.error('Error fetching products:', error);
+    //   }
+    // };
+    // fetchProducts();
 
     // Set a random background image
-    const randomIndex = Math.floor(Math.random() * backgroundImages.length);
-    setBackgroundImage(backgroundImages[randomIndex]);
+    // const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+    // setBackgroundImage(backgroundImages[randomIndex]);
   }, []);
+
+  if (!products) return null;
 
   const handleBoxClick = (route, userRoleRequired) => {
     const isAuthenticated = currentUser;

@@ -30,7 +30,19 @@ function SignupFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-        const data = await dispatch(signUp(email, password));  //fix this
+        const data = await dispatch(signUp({
+
+          firstName,
+          lastName,
+          address,
+          city,
+          state,
+          seller,
+          email,
+          password
+
+
+        }));  //fix this
         if (data) {
           setErrors(data)
         }

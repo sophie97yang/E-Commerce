@@ -2,16 +2,16 @@
 const SET_MEMBER = "session/SET_MEMBER";
 const REMOVE_MEMBER = "session/REMOVE_MEMBER";
 
-const setMember = (user) => ({
+const setMember = (member) => ({
 	type: SET_MEMBER,
-	payload: user,
+	payload: member,
 });
 
 const removeMember = () => ({
 	type: REMOVE_MEMBER,
 });
 
-const initialState = { user: null };
+const initialState = { member: null };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -29,7 +29,9 @@ export const authenticate = () => async (dispatch) => {
 	}
 };
 
-export const login = (email, password) => async (dispatch) => {
+export const login = ({email, password}) => async (dispatch) => {
+	console.log(email)
+	console.log(password)
 	const response = await fetch("/api/auth/login", {
 		method: "POST",
 		headers: {
@@ -37,8 +39,8 @@ export const login = (email, password) => async (dispatch) => {
 		},
 		body: JSON.stringify({
 			email,
-			password,
-		}),
+			password
+		})
 	});
 
 	if (response.ok) {
@@ -67,15 +69,23 @@ export const logout = () => async (dispatch) => {
 	}
 };
 
-export const signUp = (email, password) => async (dispatch) => {
+export const signUp = ({firstName, lastName, address, city, state, seller, email, password}) => async (dispatch) => {
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
-			email,
-			password,
+
+		  firstName,
+          lastName,
+          address,
+          city,
+          state,
+          seller,
+          email,
+          password
+
 		}),
 	});
 
@@ -93,7 +103,7 @@ export const signUp = (email, password) => async (dispatch) => {
 	}
 };
 
-const sessionReducer = (state = initialState, action) => {
+export default function sessionReducer(state = initialState, action){
 	switch (action.type) {
 		case SET_MEMBER:
 			return { member: action.payload };
@@ -103,6 +113,3 @@ const sessionReducer = (state = initialState, action) => {
 			return state;
 	}
 }
-
-
-export default sessionReducer

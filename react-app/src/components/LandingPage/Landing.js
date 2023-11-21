@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
 
 // This is an example array of background images. We will replace these w actualy images.
-const backgroundImages = [
-  'path/to/image1.jpg',
-  'path/to/image2.jpg',
-  'path/to/image3.jpg',
-];
+// const backgroundImages = [
+//   'path/to/image1.jpg',
+//   'path/to/image2.jpg',
+//   'path/to/image3.jpg',
+// ];
 
 function LandingPage() {
   const [products, setProducts] = useState([]);
@@ -32,22 +32,22 @@ function LandingPage() {
     fetchProducts();
 
     // Set a random background image
-    const randomIndex = Math.floor(Math.random() * backgroundImages.length);
-    setBackgroundImage(backgroundImages[randomIndex]);
+    // const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+    // setBackgroundImage(backgroundImages[randomIndex]);
   }, []);
 
   const handleBoxClick = (route, userRoleRequired) => {
     const isAuthenticated = currentUser;
     const hasRequiredRole = userRoleRequired === "all" || currentUser?.seller === userRoleRequired;
     const canAccess = (userRoleRequired === "authenticated" && isAuthenticated) || hasRequiredRole;
-  
+
     if (!canAccess) {
       history.push('/signin'); // Redirect to sign-in page if not authorized
     } else {
       history.push(route);
     }
   };
-  
+
   // Define boxes for rendering
 // Define boxes for rendering based on the wireframe
 const boxes = [
@@ -94,12 +94,13 @@ const boxes = [
       userRole: "authenticated",
     },
   ];
-  
+
 
   return (
-    <div className="landing-page" style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div className="landing-page" >
+      {/* style={{ backgroundImage: `url(${backgroundImage})` }} */}
       <h1 className="main-title">Cheese Heaven: Every Enthusiasts Super Experience</h1>
-  
+
       <Carousel className="product-carousel">
         {products.map((product, index) => (
           <div key={index}>
@@ -108,14 +109,14 @@ const boxes = [
           </div>
         ))}
       </Carousel>
-  
+
       <div className="boxes-container">
         {boxes.map((box, index) => {
           // Determine if the box should be shown based on user role
           const showBox = box.userRole === 'all' ||
                           (box.userRole === 'authenticated' && currentUser) ||
                           (box.userRole === currentUserRole);
-  
+
           return showBox ? (
             <div
               key={index}
@@ -128,20 +129,20 @@ const boxes = [
           ) : null;
         })}
       </div>
-  
+
       {/* Other sections based on the wireframe */}
       <div className="about-section">
         <h2>About Parmazon Prime</h2>
         <p>Learn about our mission, values, and the cheesy experience designed around you.</p>
       </div>
-  
+
       {/* Footer */}
       <footer className="landing-page-footer">
         <p>&copy; {new Date().getFullYear()} Parmazon Prime</p>
       </footer>
     </div>
   );
-  
+
 }
 
 export default LandingPage;

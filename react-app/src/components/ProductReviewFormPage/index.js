@@ -1,53 +1,47 @@
-// frontend/src/components/LoginFormModal/index.js
-// import React, { useState } from "react";
-// import * as sessionActions from "../../store/session";
-// import { useDispatch } from "react-redux";
-
-
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addProducts } from './store/product'
+import { addProducts } from "./store/product";
 
+import "./CreateReviewForm.css";
 
-import "./CreateProductForm.css";
-
-function CreateProductForm() {
+function CreateReviewForm() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const member = useSelector((state) => state.session.member) // session.member?
+  const member = useSelector((state) => state.session.member); // session.member?
 
+  const [rating, setRating] = useState(0);
+  const [headline, setHeadline] = useState("");
+  const [content, setContent] = useState("");
+  const [reviewImg, setReviewImg] = useState("");
 
-  const [rating, setRating] = useState(0)
-  const [headline, setHeadline] = useState('')
-  const [content, setContent] = useState('')
-//   const [reviewDate, setReviewDate] = useState('')
-  const [reviewImg, setReviewImg] = useState('')
-  
-   
   const [submitted, yesSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
 
+    //id
+    //member_id
+    //product_id  how to get productId?
 
     const newProduct = {
-        // memberId: member.id,
-        rating, headline, content, reviewImg,
-        
-    }
+      memberId: member.id,
+      rating,
+      headline,
+      content,
+      reviewImg,
+    };
 
+    //what to dispatch
+    const res = await dispatch(addProducts(newProduct));
 
-    const res = await dispatch(addProducts(newProduct))
-
-    if(!res.errors){
-        history.push(`/products/${product.id}`)
-        yesSubmitted(true);
-        reset()
+    if (!res.errors) {
+      //proper endpoint to redirect
+      history.push(`/products/${product.id}`);
+      yesSubmitted(true);
+      reset();
     }
 
     //   .catch(async (res) => {
@@ -56,55 +50,80 @@ function CreateProductForm() {
     //       setErrors(data.errors);
     //     }
     //   });
-
   };
 
   const reset = () => {
-    setName("")
-    setDescription("")
+    setRating(0);
+    setHeadline("");
+    setContent("");
+    setReviewImg("");
+  };
 
-}
-
-    useEffect(() => {
-        yesSubmitted(false);
-
-        setErrors({})
-    }, [submitted])
-
-
+  useEffect(() => {
+    yesSubmitted(false);
+    setErrors({});
+  }, [submitted]);
 
   return (
-    <div className="create-product-container">
-
-      <h1>Add a Product</h1>
-      <form onSubmit={handleSubmit} className="create-product-field">
-       
-      <div>
-          <label className="label">Name</label>
+    <div className="create-review-container">
+      <h1>Add a Review</h1>
+      <form onSubmit={handleSubmit} className="create-review-field">
+        <div>
+          <label className="label">Rating</label>
           <input
             type="text"
-            placeholder="Name of product"
-            value={name}
+            placeholder=""
+            value={rating}
             onChange={(e) => setName(e.target.value)}
             className=""
           />
+
           {/* {errors.address && (
             <p style={{ fontSize: "10px", color: "red" }}>*{errors.address}</p>
           )} */}
-    </div>
 
 
-
-
-
-
-        <div className="create-product-button"> 
-        <button className="submit">Add Product</button>
         </div>
 
+        <div>
+          <label className="label">Headline</label>
+          <input
+            type="text"
+            placeholder=""
+            value={headline}
+            onChange={(e) => setHeadline(e.target.value)}
+            className=""
+          />
+        </div>
+
+        <div>
+          <label className="label">Content</label>
+          <input
+            type="textarea"
+            placeholder=""
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className=""
+          />
+        </div>
+
+        <div>
+          <label className="label">Review Image</label>
+          <input
+            type=""
+            placeholder=""
+            value={reviewImg}
+            onChange={(e) => setReviewImg(e.target.value)}
+            className=""
+          />
+        </div>
+
+        <div className="create-review-button">
+          <button className="submit">Add Review</button>
+        </div>
       </form>
     </div>
   );
 }
 
-export default CreateProductForm;
+export default CreateReviewForm;

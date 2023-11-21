@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
-import LandingPage from "./components/LandingPage/Landing";
+import LandingPage from "./components/LandingPage";
 import Wishlist from "./components/Wishlists/Wishlist.js";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
@@ -20,14 +20,18 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/">
+          <LandingPage />
+          </Route>
           <Route path="/login" >
             <LoginFormPage />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/wishlist" component={Wishlist} />
+          <Route path="/wishlist">
+            <Wishlist />
+          </Route>
         </Switch>
       )}
     </>

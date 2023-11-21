@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+
     padding-bottom: 20px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
@@ -26,6 +26,7 @@
     border: none;
     font-size: 12px;
     cursor: pointer;
+    text-decoration:underline;
 }
 
 
@@ -34,13 +35,14 @@
 .login-button{
     width: 100%;
     color: white;
-    background-color: lightcoral;
+    background-color: #FF9900;
     box-shadow: 2px 1.5px 1.5px rgb(145, 145, 145);
     border-radius: 12px;
     margin-top: 8px;
-
+    cursor:pointer
 }
 
 .login-button:disabled{
     background-color: grey;
+    cursor:default;
 }
