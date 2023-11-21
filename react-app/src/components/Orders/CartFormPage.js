@@ -7,7 +7,7 @@ function CartForm({product}) {
     }
     return (
         <form>
-            <label for='quantity'>Quantity:
+            <label name='quantity'>Quantity:
             <input type='number' min='1' max={`${product.product.available}`} value={`${quantity}`} onChange={handleChange}  name='quantity'/>
             </label>
         </form>

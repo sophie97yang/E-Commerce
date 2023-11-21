@@ -58,19 +58,48 @@ export const getAllProducts = () => async (dispatch) => {
 }
 
 //Add Product to Products
-export const createProduct = (product) => async(dispatch) => {
-    const res = await fetch('/api/products/new', {
-        method: "POST",
-        body: product
-    })
+// export const createProduct = (product) => async(dispatch) => {
+//     const res = await fetch('/api/products/new', {
+//         method: "POST",
+//         body: product
+//     })
 
-    if (res.ok) {
-        const {product}= await res.json();
-        dispatch(addProduct(product))
-        return product
-    } else {
-        const data = await res.json();
-        return data;
+//     if (res.ok) {
+//         const {product}= await res.json();
+//         dispatch(addProduct(product))
+//         return product
+//     } else {
+//         const data = await res.json();
+//         return data;
+//     }
+// }
+
+
+//Add Product to Products
+export const createProduct = (formData) => async (dispatch) => {
+    console.log('creatingproduct thunk starting')
+    console.log('this is the formdata', formData)
+    try {
+        const res = await fetch('/api/products/new', {
+            method: "POST",
+            // body: JSON.stringify({
+            //     ...product
+            // })
+            body: formData
+        })
+
+        if (res.ok) {
+            const {product} = await res.json()
+            dispatch(addProduct(product))
+            return product
+        } else {
+            const data = await res.json();
+            console.log("There was an error creating product")
+            return data
+        }
+    } catch (error) {
+        console.error('error occurred', error);
+        return [' error occurred'];
     }
 }
 
@@ -80,12 +109,6 @@ export const updateProduct = (product, productId) => async(dispatch) => {
     const res = await fetch(`/api/products/${productId}`, {
         method: "PUT",
         body: product
-        // headers: {
-        //     "Content-Type": "application/json",
-        // },
-        // body: JSON.stringify({
-        //     ...product
-		// })
     })
 
 
@@ -169,7 +192,7 @@ const productsReducer = (state = initialState, action) => {
 
         case CREATE_PRODUCT:
             newState = { ...state };
-            newState.products[action.products.id] = action.product;
+            newState.products[action.product.id] = action.product;
             return newState;
 
         case UPDATE_PRODUCT:
@@ -177,17 +200,22 @@ const productsReducer = (state = initialState, action) => {
             newState.products[action.products.id] = action.product;
             return newState;
 
+        // case REMOVE_PRODUCT:
+    //     newState = { ...state };
+    //     delete newState[action.productId];
+    //     return newState;
+
         case REMOVE_PRODUCT:
             newState = { ...state };
-            delete newState[action.productId];
+            delete newState.products[action.productId];
             return newState;
 
         case ADD_REVIEW:
-            newState = { ...state };
+            newState = {...state };
             newState.products[action.review.product_id].reviews = [...newState.products[action.review.product_id].reviews, action.review]
             return newState;
         case UPDATE_REVIEW:
-            newState = { ...state};
+            newState = {...state};
             let index=0
             for (let i =0;i<newState.products[action.review.product_id].reviews.length;i++) {
                 let review = newState.products[action.review.product_id].reviews[i];

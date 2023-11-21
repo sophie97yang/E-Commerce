@@ -30,7 +30,7 @@ function Navigation({ isLoaded }){
 	useEffect(()=> {
 		const randIdx= Math.floor(Math.random()*13);
 		setPun(pun_rotation[randIdx]);
-	})
+	},[])
 
 	const shopping_cart = sessionUser ? sessionUser.orders.filter(order=> order.purchased===false)[0] : null
 	const cart_products = shopping_cart ? shopping_cart.products.length : 0

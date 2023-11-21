@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../store/products";
+import { addOrder,editOrder } from "../../store/session";
 import './ProductDetails.css'
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -13,6 +14,9 @@ const ProductDetails = () => {
   const [quantity,setQuantity] = useState(1)
 
   const products = useSelector((state) => state.products.products)
+  const member = useSelector((state)=>state.session.member)
+
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -24,6 +28,22 @@ const ProductDetails = () => {
 
   const addToCart = async (e) => {
     e.preventDefault();
+    const shopping_cart = member.orders.filter(order=> order.purchased===false)[0]
+    if (!shopping_cart) {
+      const res = await dispatch(addOrder(quantity,id));
+      if (!res.errors) {
+        alert('Successfully added to cart')
+        //need to find a way to update navigation bar shopping cart after purchase
+        history.push('/orders')
+      }
+    } else {
+      const res = await dispatch(editOrder(quantity,id))
+      if (!res.errors) {
+        alert('Successfully added to cart')
+        //need to find a way to update navigation bar shopping cart after purchase
+        history.push('/orders')
+      }
+    }
   }
   const handleChange = (e)=> {
     e.preventDefault();

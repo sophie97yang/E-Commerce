@@ -16,7 +16,6 @@ function ShoppingCart({isLoaded}) {
     if (isLoaded && !sessionUser) {
         return <Redirect to='/login'/>
     }
-    console.log(cart)
     return (
         <div className='shopping_cart'>
             <h2>Shopping Cart</h2>
