@@ -66,8 +66,12 @@ function App() {
             <AccountPage />
           </Route>
 
-          <Route path="products/:product_id/reviews/:id/edit">
+          <Route path="/products/:product_id/reviews/:id/edit">
             <UpdateReviewForm />
+          </Route>
+
+          <Route path='404'>
+            <h2>Page Not Found</h2>
           </Route>
 
 

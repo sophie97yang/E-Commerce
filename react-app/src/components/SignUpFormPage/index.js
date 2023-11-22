@@ -6,7 +6,7 @@ import './SignupForm.css';
 
 function SignupFormPage() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session.member);
 
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState('')
@@ -23,12 +23,15 @@ function SignupFormPage() {
   const [errors, setErrors] = useState([]);
   const history=useHistory()
 
-  if (sessionUser) return <Redirect to="/" />;
+if (sessionUser) {
+   history.push('/');
+   return null
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-        const data = await dispatch(signUp({
+        const res = await dispatch(signUp({
 
           firstName,
           lastName,
@@ -38,16 +41,20 @@ function SignupFormPage() {
           seller,
           email,
           password
+        }));
 
-
-        }));  //fix this
-        if (data) {
-          setErrors(data)
+        if (res.ok) {
+          const data = await res.json();
+          history.push('/products');
+          return data;
+        } else {
+          const data = await res.json();
+          console.log(data)
+          return data;
         }
     } else {
         setErrors(['Confirm Password field must be the same as the Password field']);
     }
-   history.push('/products')
   };
 
   return (
@@ -114,7 +121,6 @@ function SignupFormPage() {
             type="checkbox"
             value={seller}
             onChange={(e) => setSeller(e.target.checked)}
-            required
           />
         </label>
 

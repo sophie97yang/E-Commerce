@@ -3,7 +3,6 @@ const SET_MEMBER = "session/SET_MEMBER";
 const REMOVE_MEMBER = "session/REMOVE_MEMBER";
 const ADD_ORDER = "session/ADD_ORDER";
 const UPDATE_ORDER = "session/UPDATE_ORDER";
-//add to wishlist
 const ADD_WISHLIST = 'session/ADD_WISHLIST';
 
 
@@ -94,9 +93,8 @@ export const signUp = ({firstName, lastName, address, city, state, seller, email
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
-
-		  firstName,
-          lastName,
+		  "first_name":firstName,
+          "last_name":lastName,
           address,
           city,
           state,

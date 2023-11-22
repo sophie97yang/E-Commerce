@@ -28,18 +28,16 @@ const ProductDetails = () => {
   }, [dispatch]);
 
   if (!products) return null;
-
+  //if product doesn't exist redirect them to a product not found page
   const product = products[id];
+
+  if (!product) return history.push('/404')
 
   // new
   const memberId = member.id
-  console.log('memeberIDDD', memberId)
 
   const sellerId = product.seller
-  console.log('produsctsss', sellerId)
-
   const isSeller = memberId === sellerId
-  console.log('issEller', isSeller)
 
   const addToCart = async (e) => {
     e.preventDefault();
