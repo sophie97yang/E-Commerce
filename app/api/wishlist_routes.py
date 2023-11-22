@@ -29,7 +29,7 @@ def add_to_wishlist(id):
     current_user.products.append(product)
     db.session.commit()
 
-    return jsonify(message='Item added to wishlist'), 200
+    return {"product":product}
 
 @login_required
 @wishlist_routes.route('/remove/<int:id>', methods=['DELETE'])

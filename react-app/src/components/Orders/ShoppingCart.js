@@ -16,6 +16,12 @@ function ShoppingCart({isLoaded}) {
     if (isLoaded && !sessionUser) {
         return <Redirect to='/login'/>
     }
+
+    const removeFromCart = (e) => {
+        e.preventDefault();
+
+
+    }
     return (
         <div className='shopping_cart'>
             <h2>Shopping Cart</h2>
@@ -25,7 +31,7 @@ function ShoppingCart({isLoaded}) {
                         <img src={product.product.preview_image} alt={product.product.name}/>
                         <h4>{product.product.name}</h4>
                         <p>{product.product.available>0 ? "In Stock": "Out of Stock"}</p>
-                        <button>Delete</button>
+                        <button onClick={removeFromCart}>Remove from Cart</button>
                         <button>Add to Wishlist</button>
                         <CartForm product={product}/>
                     </div>

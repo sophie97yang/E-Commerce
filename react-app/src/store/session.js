@@ -3,6 +3,9 @@ const SET_MEMBER = "session/SET_MEMBER";
 const REMOVE_MEMBER = "session/REMOVE_MEMBER";
 const ADD_ORDER = "session/ADD_ORDER";
 const UPDATE_ORDER = "session/UPDATE_ORDER";
+//add to wishlist
+const ADD_WISHLIST = 'session/ADD_WISHLIST';
+
 
 const setMember = (member) => ({
 	type: SET_MEMBER,
@@ -22,6 +25,12 @@ const updateCart = (order) => ({
 	type:UPDATE_ORDER,
 	order
 })
+
+const addWishlist = (product) => ({
+	type:ADD_WISHLIST,
+	product
+})
+
 const initialState = { member: null };
 
 export const authenticate = () => async (dispatch) => {
@@ -149,6 +158,25 @@ export const editOrder = (quantity,productId) => async(dispatch) => {
 		return data;
 	}
 }
+// //remove from cart
+// export const deleteFromCart = (productId) => async(dispatch) => {
+// 	const responses = await fetch(`/api`)
+
+// }
+export const addToWishlist = (productId) => async (dispatch) => {
+	const response = await fetch(`/api/wishlist/add/${productId}`, {
+		method: "POST"
+	});
+
+	if (response.ok) {
+		const {product} = await response.json();
+		dispatch(addWishlist(product));
+		return product;
+	} else {
+		const data = await response.json();
+		return data;
+	}
+}
 
 export default function sessionReducer(state = initialState, action){
 	let newState;
@@ -161,7 +189,7 @@ export default function sessionReducer(state = initialState, action){
 			newState = {...state};
 			newState.member.orders=[...newState.member.orders,action.order]
 			return newState
-		case ADD_ORDER:
+		case UPDATE_ORDER:
 			newState = {...state};
 			newState.member.orders=[...newState.member.orders,action.order]
 			let index=0
@@ -173,6 +201,10 @@ export default function sessionReducer(state = initialState, action){
                 }
             }
 			newState.member.orders[index] = action.order;
+			return newState
+		case ADD_WISHLIST:
+			newState = {...state};
+			newState.member.products = [...newState.member.products,action.product]
 			return newState
 		default:
 			return state;

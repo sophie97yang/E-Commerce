@@ -65,7 +65,7 @@ const ProductAll = () => {
               <div>
                 <li>{product.name}</li>
                 <li>{product.price}</li>
-                <li>{product.reviews.rating}</li>
+                <li>{product.reviews?.rating}</li>
               </div>
             </Link>
           </div>

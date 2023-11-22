@@ -1,27 +1,58 @@
-//STILL NEEDS ALOT OF WORK
-//NOT SURE IF CAROUSEL IS WORKING PROPERLY
-
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Carousel } from "react-responsive-carousel";
 import "./AccountPage.css";
+import { getAllProducts } from "../../store/products";
+import { Link } from "react-router-dom";
 
 function AccountPage() {
+  const dispatch = useDispatch();
+
+  //Member
   const member = useSelector((state) => state.session.member);
+  console.log('member', member)
 
 
-  //Don't these come back as objects?
-
-  const ordersOBJ = useSelector(state => state.session.orders); //users orders??
-  const wishlistOBJ = useSelector(state => state.session.wishlist);//wishlist.all??
-  const productsOBJ = useSelector(state => state.session.products); //users products?
-
-  console.log("ORDERS ", orders)
-
-  const orders = Object.values(ordersOBJ)
-  const wishlist = Object.values(wishlistOBJ)
-  const products = Object.values(productsOBJ)
+  //Member's wishlist
+  const wishlist = member.products
+  console.log("wishlist", wishlist)
 
 
+  //Member's seller products
+  const productsOBJ = useSelector(state => state.products.products); //users products?
+  const allProducts = productsOBJ ? Object.values(productsOBJ) : []
+  console.log('productOBJJ', productsOBJ)
+  console.log('allProdcutss', allProducts)
+
+  const userProducts = allProducts.filter(
+    (product) => product.seller === member.id
+  )
+
+  console.log('userProductsss', userProducts)
+
+
+
+  //Member's orders
+  const membersOrders = member.orders
+  console.log("orders", membersOrders)
+
+  const orders = membersOrders.filter(
+    (order) => order.purchased === true
+  )
+
+  console.log('past orders', orders)
+
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
+
+  //we need
+  // member's orders
+  // member's wishlis
+  // member's products (if seller)
+
+  // defaultProfilePic = "";
 
   return (
 
@@ -42,31 +73,53 @@ function AccountPage() {
       </div>
 
       <div id="account-orders-container">
-        <div>Your Orders</div>
-
+        <div>Your Past Orders</div>
+{ orders.length ?
         <Carousel className="orders-carousel">
           {orders.map((order, index) => (
-            <div key={index}>
-              {/* <img src={order.imageUrl} alt={order.name} /> */}
-              <p className="legend">{order.name}</p>
-            </div>
+
+            order.products.map((product, index) => (
+              <div key={index}>
+                <img src={product.product.preview_image} alt={product.product.name} />
+                <p className="legend">{product.product.purchase_date}</p>
+              </div>
+
+            ))
+
           ))}
-        </Carousel>
+        </Carousel>:
+        <div>
+        <h2>You have no past orders</h2>
+        <Link to='/products'> Let's Change That</Link>
+        </div>
+}
+
 
       </div>
 
 
       <div id="account-wishlist-container">
         <div>Your Wishlist</div>
-
-        {/* <Carousel className="wishlist-carousel">
+{wishlist.length ?
+        <Carousel className="wishlist-carousel">
           {wishlist.map((list, index) => (
-            <div key={index}>
-              <img src={list.imageUrl} alt={list.name} />
-              <p className="legend">{list.name}</p>
+            <div>
+
+              <div key={index}>
+                <img src={list.preview_image} alt={list.name} />
+                <p className="legend">{list.name}</p>
+              </div>
+
+
             </div>
           ))}
-        </Carousel> */}
+        </Carousel>
+:
+        <div>
+        <h2>You have no wishlist</h2>
+        <Link to='/products'> Let's Change That</Link>
+        </div>
+}
 
       </div>
 
@@ -76,9 +129,9 @@ function AccountPage() {
           <div>Your Products</div>
 
           <Carousel className="products-carousel">
-            {products.map((product, index) => (
+            {userProducts.map((product, index) => (
               <div key={index}>
-                <img src={product.imageUrl} alt={product.name} />
+                <img src={product.preview_image} alt={product.name} />
                 <p className="legend">{product.name}</p>
               </div>
             ))}
@@ -88,7 +141,7 @@ function AccountPage() {
       )}
 
 
-      </div>
+    </div>
 
 
   );

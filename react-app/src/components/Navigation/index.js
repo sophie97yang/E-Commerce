@@ -14,9 +14,9 @@ function Navigation({ isLoaded }){
 	const pun_rotation = [
 		'This might sound so cheesy, but I think you are really grate.',
 		"I'm grateful for your presence.",
-		"it's gouda brie a good day",
-		"You brie long with me",
-		"Please brie mine",
+		"it's gonna brie a gouda day",
+		"You brie-long with me",
+		"Cheezus take the Wheel!",
 		"It's really gouda to have you here",
 		"Gouda luck on your browsin!",
 		"I swiss you the best",

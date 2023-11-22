@@ -15,7 +15,6 @@ const CreateProductForm = () => {
   const [price, setPrice] = useState("1.00"); //?
   const [category, setCategory] = useState("");
   const [available, setAvailable] = useState(1);
-
   const [preview_img, setPreview_img] = useState(null);
   const [product_image1, setProduct_image1] = useState(null);
   const [product_image2, setProduct_image2] = useState(null);
@@ -33,15 +32,20 @@ const CreateProductForm = () => {
     'Wash Rind',
   ];
 
-
   useEffect(()=> {
     dispatch(getAllProducts()).catch(res => res)
   },[dispatch])
 
 
+  useEffect(() => {
+    yesSubmitted(false);
+    setErrors({});
+  }, [submitted]);
+
+  if (member && !member.seller) return history.push('/login')
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setErrors({});
     const newErrors = [];
 
     if (!name.length || name.length > 30)
@@ -53,7 +57,7 @@ const CreateProductForm = () => {
     if (!category)
       newErrors.push('please select a category');
     if (!available || available < 0)
-      newErrors.push('Please add atleast 1 availability');
+      newErrors.push('Please add at least 1 availability');
     if (!preview_img)
       newErrors.push('Please add a preview image');
     if (newErrors.length) {
@@ -64,9 +68,7 @@ const CreateProductForm = () => {
 
 
 
-
     const form = new FormData();
-    // form.append('seller', member.id)
     form.append('name', name);
     form.append('description', description);
     form.append('price', price);
@@ -78,17 +80,10 @@ const CreateProductForm = () => {
     form.append('product_image3', product_image3);
     form.append('product_image4', product_image4);
 
-
-
-    // const res = await dispatch(createProduct(newProduct));
-
-    // if(!res.errors){
-    //     history.push(`/products/${id}`)
-    //     yesSubmitted(true);
-    //     reset()
-    // }
+    setImageLoading(true);
 
     dispatch(createProduct(form)).then((res) => {
+      setImageLoading(false);
       if (res.errors) {
         setErrors(res.errors)
       } else {
@@ -112,12 +107,6 @@ const CreateProductForm = () => {
   //   setProduct_image3(null);
   //   setProduct_image4(null);
   // };
-
-  useEffect(() => {
-    yesSubmitted(false);
-    setErrors({});
-  }, [submitted]);
-
 
   return (
     <div className="create-product-container">
@@ -251,6 +240,7 @@ const CreateProductForm = () => {
         <div className="create-product-button">
           <button type="submit">Add Product</button>
         </div>
+        {imageLoading && <p>Loading...</p>}
       </form>
     </div>
   );

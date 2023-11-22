@@ -6,12 +6,17 @@ import { addOrder,editOrder } from "../../store/session";
 import './ProductDetails.css'
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import DeleteProduct from '../DeleteProduct';
+import { removeProduct } from "../../store/products";
+import DeleteReview from "../DeleteReview";
+import OpenModalButton from '../OpenModalButton'
+import UpdateReviewForm from "../UpdateReviewFormPage";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [quantity,setQuantity] = useState(1)
+  const [hidden,setHidden] = useState(true)
 
   const products = useSelector((state) => state.products.products)
   const member = useSelector((state)=>state.session.member)
@@ -20,17 +25,34 @@ const ProductDetails = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-  }, []);
+  }, [dispatch]);
 
   if (!products) return null;
 
   const product = products[id];
 
+  // new
+  const memberId = member.id
+  console.log('memeberIDDD', memberId)
+
+  const sellerId = product.seller
+  console.log('produsctsss', sellerId)
+
+  const isSeller = memberId === sellerId
+  console.log('issEller', isSeller)
+
   const addToCart = async (e) => {
     e.preventDefault();
+
+    if (!member) {
+      history.push('/login')
+      return ['Forbidden'];
+    }
+
     const shopping_cart = member.orders.filter(order=> order.purchased===false)[0]
     if (!shopping_cart) {
       const res = await dispatch(addOrder(quantity,id));
+      // dispatch(getAllProducts())
       if (!res.errors) {
         alert('Successfully added to cart')
         //need to find a way to update navigation bar shopping cart after purchase
@@ -38,6 +60,7 @@ const ProductDetails = () => {
       }
     } else {
       const res = await dispatch(editOrder(quantity,id))
+      // dispatch(getAllProducts())
       if (!res.errors) {
         alert('Successfully added to cart')
         //need to find a way to update navigation bar shopping cart after purchase
@@ -49,6 +72,10 @@ const ProductDetails = () => {
     e.preventDefault();
     setQuantity(e.target.value)
 }
+
+const handleUpdateClick = () => {
+  history.push(`/products/${id}/edit`);
+};
 
   return (
     <>
@@ -98,6 +125,13 @@ const ProductDetails = () => {
               </Carousel>
             </div>
             <div className="test">
+
+            {isSeller && (
+                <>
+                  <button onClick={handleUpdateClick}>Update Product</button>
+                </>
+              )}
+
               <div className="product-details">
                 <div>{product.name}</div>
                 <div>Category: {product.category}</div>
@@ -106,6 +140,10 @@ const ProductDetails = () => {
                 <div>${product.price}</div>
                 <input type='number' min='1' max={`${product.available}`} value={`${quantity}`} onChange={handleChange}  name='quantity'/>
                 <button onClick={addToCart}>Add to Cart</button>
+
+            <DeleteProduct product={product} />
+
+
               </div>
             </div>
 
@@ -121,7 +159,12 @@ const ProductDetails = () => {
                       <div>{review.rating}</div>
                       <p>{review.member.first_name} {review.member.last_name}</p>
                       <p>{review.content}</p>
+
+                      <DeleteReview review={review} />
+                      <OpenModalButton modalComponent={<UpdateReviewForm review={review}/>} buttonText={"Edit Review"} className={member && (member.id ===  review.member.id) ? '':'edit-hidden'} />
                     </div>
+
+
                 )): <></>}
               </div>
             </div>

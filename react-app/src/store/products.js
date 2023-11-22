@@ -7,6 +7,7 @@ const UPDATE_PRODUCT = "products/UPDATE_PRODUCT"
 const REMOVE_PRODUCT = "products/REMOVE_PRODUCT"
 const ADD_REVIEW = "products/CREATE_REVIEW"
 const UPDATE_REVIEW = "products/UPDATE_REVIEW"
+const REMOVE_REVIEW = 'products/DELETE_REVIEW'
 
 //Action Creators
 const getAllProduct = (products) => ({
@@ -41,6 +42,13 @@ const updateReview = (review) => ({
     review
 })
 
+const removeReview = (productId,reviewId) => ({
+    type:REMOVE_REVIEW,
+    productId,
+    reviewId
+})
+
+
 //Thunk Action Creators
 //Get All Products
 export const getAllProducts = () => async (dispatch) => {
@@ -58,33 +66,10 @@ export const getAllProducts = () => async (dispatch) => {
 }
 
 //Add Product to Products
-// export const createProduct = (product) => async(dispatch) => {
-//     const res = await fetch('/api/products/new', {
-//         method: "POST",
-//         body: product
-//     })
-
-//     if (res.ok) {
-//         const {product}= await res.json();
-//         dispatch(addProduct(product))
-//         return product
-//     } else {
-//         const data = await res.json();
-//         return data;
-//     }
-// }
-
-
-//Add Product to Products
 export const createProduct = (formData) => async (dispatch) => {
-    console.log('creatingproduct thunk starting')
-    console.log('this is the formdata', formData)
     try {
         const res = await fetch('/api/products/new', {
             method: "POST",
-            // body: JSON.stringify({
-            //     ...product
-            // })
             body: formData
         })
 
@@ -105,23 +90,36 @@ export const createProduct = (formData) => async (dispatch) => {
 
 
 //Edit A Product
-export const updateProduct = (product, productId) => async(dispatch) => {
-    const res = await fetch(`/api/products/${productId}`, {
-        method: "PUT",
-        body: product
-    })
+export const updateProduct = (formData, productId) => async(dispatch) => {
 
 
-    if(res.ok) {
-        const product = await res.json();
-        dispatch(editProduct(product))
-        return product
-    } else {
-        const data = await res.json();
-        return data;
+    console.log('updating product thunk starting')
+    console.log('this is the formdata', formData)
+    console.log('this is the singleProduct', productId)
+
+    try {
+
+        const res = await fetch(`/api/products/${productId}`, {
+            method: "PUT",
+            body: formData
+        })
+
+
+        if(res.ok) {
+            const product = await res.json();
+            console.log('this is the dataproduct', product)
+            dispatch(editProduct(product))
+            return product
+        } else {
+            const data = await res.json();
+            console.log("There was an error updating product",data)
+            return data;
+        }
+    } catch (error) {
+        console.error('error occurred', error);
+        return [' error occurred'];
     }
 }
-
 
 
 //Delete A Product
@@ -133,6 +131,7 @@ export const removeProduct = (productId) => async(dispatch) => {
     if(res.ok) {
         const data = await res.json();
         await dispatch(deleteProduct(productId))
+        await dispatch(getAllProducts())
         return data
     } else {
         const data = await res.json();
@@ -141,6 +140,7 @@ export const removeProduct = (productId) => async(dispatch) => {
 
 }
 
+//create a review
 export const createReview= (review,productId) => async (dispatch) => {
     const res = await fetch(`/api/products/${productId}/reviews/new`, {
         method: "POST",
@@ -158,16 +158,11 @@ export const createReview= (review,productId) => async (dispatch) => {
     }
 }
 
-export const editReview= (review) => async (dispatch) => {
-    const res = await fetch(`/api/reviews/${review.id}/edit`, {
+//editing a review
+export const editReview= (formData, reviewId) => async (dispatch) => {
+    const res = await fetch(`/api/reviews/${reviewId}/edit`, {
         method: "PUT",
-        body: review
-        // headers: {
-        //     "Content-Type": "application/json",
-        // },
-        // body: JSON.stringify({
-        //     ...review
-        // })
+        body: formData
     });
 
     if (res.ok) {
@@ -176,9 +171,45 @@ export const editReview= (review) => async (dispatch) => {
         return review
     } else {
         const data = await res.json();
+        return data
     }
 }
 
+
+// //editing a review
+// export const editReview= (review) => async (dispatch) => {
+//     const res = await fetch(`/api/reviews/${review.id}/edit`, {
+//         method: "PUT",
+//         body: review
+//     });
+
+//     if (res.ok) {
+//         const {review} = await res.json();
+//         dispatch(updateReview(review))
+//         return review
+//     } else {
+//         const data = await res.json();
+//         return data
+//     }
+// }
+
+//deleting a review
+export const deleteReview = (productId,reviewId) => async (dispatch) => {
+    const res = await fetch(`/api/reviews/${reviewId}/delete`, {
+        method: "DELETE"
+    }).catch((res)=>{
+        console.log(res)
+    })
+
+    const data = await res.json();
+    if (res.ok) {
+        await dispatch(removeReview(productId,reviewId))
+        await dispatch(getAllProducts())
+        return data
+    } else {
+        return data
+    }
+}
 
 const initialState={};
 
@@ -197,13 +228,8 @@ const productsReducer = (state = initialState, action) => {
 
         case UPDATE_PRODUCT:
             newState = { ...state };
-            newState.products[action.products.id] = action.product;
+            newState.products[action.product.id] = action.product;
             return newState;
-
-        // case REMOVE_PRODUCT:
-    //     newState = { ...state };
-    //     delete newState[action.productId];
-    //     return newState;
 
         case REMOVE_PRODUCT:
             newState = { ...state };
@@ -214,6 +240,7 @@ const productsReducer = (state = initialState, action) => {
             newState = {...state };
             newState.products[action.review.product_id].reviews = [...newState.products[action.review.product_id].reviews, action.review]
             return newState;
+
         case UPDATE_REVIEW:
             newState = {...state};
             let index=0
@@ -224,7 +251,22 @@ const productsReducer = (state = initialState, action) => {
                     break;
                 }
             }
-            newState.products[action.review.product_id].reviews[index] = action.review
+            newState.products[action.review.product_id].reviews[index] = action.review;
+            return newState;
+
+        case REMOVE_REVIEW:
+            newState = {...state };
+            let index_to_remove=0
+            for (let i =0;i<newState.products[action.productId].reviews.length;i++) {
+                let review = newState.products[action.productId].reviews[i];
+                if (review.id===action.reviewId) {
+                    index_to_remove=i;
+                    break;
+                }
+            }
+            delete newState.products[action.productId].reviews[index_to_remove];
+
+            return newState;
 
         default:
             return state

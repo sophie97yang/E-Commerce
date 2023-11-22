@@ -35,7 +35,7 @@ function SearchBar() {
             <option value='all'>All</option>
                 {
                     [...categories].map(category => (
-                        <option value={category} key={category.id}>{category}</option>
+                        <option value={category} key={category}>{category}</option>
                     ))
                 }
             </select>

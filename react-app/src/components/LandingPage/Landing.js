@@ -1,46 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useHistory,NavLink } from 'react-router-dom';
+import { useSelector,useDispatch } from 'react-redux';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
-
-// This is an example array of background images. We will replace these w actualy images.
-// const backgroundImages = [
-//   'path/to/image1.jpg',
-//   'path/to/image2.jpg',
-//   'path/to/image3.jpg',
-// ];
+import {getAllProducts} from '../../store/products'
+// import "./index.css"
 
 function LandingPage() {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [backgroundImage, setBackgroundImage] = useState('');
   const history = useHistory();
   const currentUser = useSelector((state) => state.session.user);
   const currentUserRole = currentUser?.seller;
+  const dispatch = useDispatch();
+  const products = useSelector(state => state.products.products);
 
-  // const products = useSelector(state => state.products);
-  // console.log(products);
-  useEffect(() => {
-    // Fetch products for carousel
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('/api/products/all');
-        const data = await response.json();
-        setProducts(data.products);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-    fetchProducts();
-    // useEffect(()=> {
-    //   dispatch(getAllProducts())
-    //   .catch(res => res)
-    // },[dispatch]);
 
-    // Set a random background image
-    // const randomIndex = Math.floor(Math.random() * backgroundImages.length);
-    // setBackgroundImage(backgroundImages[randomIndex]);
-  }, []);
+  useEffect(()=> {
+    dispatch(getAllProducts())
+    .catch(res => res)
+  },[dispatch]);
+
+  if (!products) return null;
+
+  //   Set a random background image
+  //   const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+  //   setBackgroundImage(backgroundImages[randomIndex]);
+  // }, []);
 
   const handleBoxClick = (route, userRoleRequired) => {
     const isAuthenticated = currentUser;
@@ -48,7 +34,7 @@ function LandingPage() {
     const canAccess = (userRoleRequired === "authenticated" && isAuthenticated) || hasRequiredRole;
 
     if (!canAccess) {
-      history.push('/signin'); // Redirect to sign-in page if not authorized
+      history.push('/login'); // Redirect to sign-in page if not authorized
     } else {
       history.push(route);
     }
@@ -66,25 +52,25 @@ const boxes = [
     {
       title: "Get your holiday gifts on time.",
       description: "Only at Parmazon-Prime. The perfect place to enjoy cheese",
-      route: "/holiday-gifts",
+      route: "/",
       userRole: "all",
     },
     {
       title: "Have cheese to sell?",
       description: "Click here to sell your cheese",
-      route: "/create-product",
+      route: "/products/new",
       userRole: "seller",
     },
     {
       title: "Free Returns",
       description: "We guarantee the quality of our products",
-      route: "/returns",
+      route: "/orders/past",
       userRole: "all",
     },
     {
       title: "About Parmazon Prime",
       description: "Learn about our mission and values",
-      route: "/about",
+      route: "/",
       userRole: "all",
     },
     {
@@ -96,7 +82,7 @@ const boxes = [
     {
       title: "Top Picks for You",
       description: "Personalized recommendations",
-      route: "/recommendations",
+      route: "/",
       userRole: "authenticated",
     },
   ];
@@ -108,7 +94,7 @@ const boxes = [
       <h1 className="main-title">Cheese Heaven: Every Enthusiasts Super Experience</h1>
 
       <Carousel className="product-carousel">
-        {products.map((product, index) => (
+        {Object.values(products).map((product, index) => (
           <div key={index}>
             <img src={product.preview_image} alt={product.name} />
             <p className="legend">{product.name}</p>
