@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams,useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../store/products";
-import { addOrder,editOrder } from "../../store/session";
+import { addOrder,authenticate,editOrder } from "../../store/session";
 import './ProductDetails.css'
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -50,18 +50,16 @@ const ProductDetails = () => {
     const shopping_cart = member.orders.filter(order=> order.purchased===false)[0]
     if (!shopping_cart) {
       const res = await dispatch(addOrder(quantity,id));
-      // dispatch(getAllProducts())
       if (!res.errors) {
+        dispatch(authenticate())
         alert('Successfully added to cart')
-        //need to find a way to update navigation bar shopping cart after purchase
         history.push('/orders')
       }
     } else {
-      const res = await dispatch(editOrder(quantity,id))
-      // dispatch(getAllProducts())
+      const res = await dispatch(editOrder(quantity,id));
       if (!res.errors) {
+        dispatch(authenticate())
         alert('Successfully added to cart')
-        //need to find a way to update navigation bar shopping cart after purchase
         history.push('/orders')
       }
     }
@@ -138,10 +136,7 @@ const handleUpdateClick = () => {
                 <div>${product.price}</div>
                 <input type='number' min='1' max={`${product.available}`} value={`${quantity}`} onChange={handleChange}  name='quantity'/>
                 <button onClick={addToCart}>Add to Cart</button>
-
             <DeleteProduct product={product} />
-
-
               </div>
             </div>
 
@@ -157,7 +152,6 @@ const handleUpdateClick = () => {
                       <div>{review.rating}</div>
                       <p>{review.member.first_name} {review.member.last_name}</p>
                       <p>{review.content}</p>
-
                       <DeleteReview review={review} />
                       <OpenModalButton modalComponent={<UpdateReviewForm review={review}/>} buttonText={"Edit Review"} className={member && (member.id ===  review.member.id) ? '':'edit-hidden'} />
                     </div>

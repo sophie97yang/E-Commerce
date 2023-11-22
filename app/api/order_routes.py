@@ -82,16 +82,24 @@ def remove_from_shopping_cart(id):
     shopping_cart = [order for order in current_user.orders if order.purchased==False]
     if shopping_cart:
          cart = shopping_cart[0]
-         for product in cart.products:
+         print(cart.products)
+         if len(cart.products)>1:
+            for product in cart.products:
                 #if product exists
                 if product.product_id == id:
                      cart.products.remove(product)
                      order_detail = OrderDetail.query.get(product.id)
                      db.session.delete(order_detail)
                      db.session.commit()
-                     return {"message":"Successfully deleted"}
-
-    return {"errors":"Product Not Found"}
+                     return {"cart":cart.to_dict()}
+         elif len(cart.products)==1:
+              product = cart.products[0]
+              order_detail = OrderDetail.query.get(product.id)
+              db.session.delete(order_detail)
+              db.session.delete(cart)
+              db.session.commit()
+              return {"message":"Successfully Deleted"}
+    return {"errors":"There was an error deleting your order"}
 
 #complete order - transaction
 @order_routes.route('/cart/purchase',methods=['POST'])

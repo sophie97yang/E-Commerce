@@ -19,7 +19,6 @@ const ProductAll = () => {
         dispatch(getAllProducts());
     }, [dispatch]);
 
-    console.log("ProductDetails PRODUCT OBJ", productsObj);
 
 
     if (!productList) {
