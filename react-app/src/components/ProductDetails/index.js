@@ -1,24 +1,81 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../store/products";
+import { addOrder,editOrder } from "../../store/session";
 import './ProductDetails.css'
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import DeleteProduct from '../DeleteProduct';
+import { removeProduct } from "../../store/products";
+import DeleteReview from "../DeleteReview";
+import OpenModalButton from '../OpenModalButton'
+import UpdateReviewForm from "../UpdateReviewFormPage";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [quantity,setQuantity] = useState(1)
+  const [hidden,setHidden] = useState(true)
 
   const products = useSelector((state) => state.products.products)
+  const member = useSelector((state)=>state.session.member)
+
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getAllProducts());
-  }, []);
+  }, [dispatch]);
 
   if (!products) return null;
+
   const product = products[id];
+
+  // new
+  const memberId = member.id
+  console.log('memeberIDDD', memberId)
+
+  const sellerId = product.seller
+  console.log('produsctsss', sellerId)
+
+  const isSeller = memberId === sellerId
+  console.log('issEller', isSeller)
+
+  const addToCart = async (e) => {
+    e.preventDefault();
+
+    if (!member) {
+      history.push('/login')
+      return ['Forbidden'];
+    }
+
+    const shopping_cart = member.orders.filter(order=> order.purchased===false)[0]
+    if (!shopping_cart) {
+      const res = await dispatch(addOrder(quantity,id));
+      // dispatch(getAllProducts())
+      if (!res.errors) {
+        alert('Successfully added to cart')
+        //need to find a way to update navigation bar shopping cart after purchase
+        history.push('/orders')
+      }
+    } else {
+      const res = await dispatch(editOrder(quantity,id))
+      // dispatch(getAllProducts())
+      if (!res.errors) {
+        alert('Successfully added to cart')
+        //need to find a way to update navigation bar shopping cart after purchase
+        history.push('/orders')
+      }
+    }
+  }
+  const handleChange = (e)=> {
+    e.preventDefault();
+    setQuantity(e.target.value)
+}
+
+const handleUpdateClick = () => {
+  history.push(`/products/${id}/edit`);
+};
 
   return (
     <>
@@ -68,12 +125,47 @@ const ProductDetails = () => {
               </Carousel>
             </div>
             <div className="test">
+
+            {isSeller && (
+                <>
+                  <button onClick={handleUpdateClick}>Update Product</button>
+                </>
+              )}
+
               <div className="product-details">
                 <div>{product.name}</div>
                 <div>Category: {product.category}</div>
                 <div>Description: {product.description}</div>
                 <div>Availability: {product.available}</div>
                 <div>${product.price}</div>
+                <input type='number' min='1' max={`${product.available}`} value={`${quantity}`} onChange={handleChange}  name='quantity'/>
+                <button onClick={addToCart}>Add to Cart</button>
+
+            <DeleteProduct product={product} />
+
+
+              </div>
+            </div>
+
+            <div className='product-reviews'>
+              <h2>Written Reviews</h2>
+              <div>
+
+              </div>
+              <div>
+                {product.reviews ? product.reviews.map(review => (
+                    <div key={review.id}>
+                      <h5>{review.headline}</h5>
+                      <div>{review.rating}</div>
+                      <p>{review.member.first_name} {review.member.last_name}</p>
+                      <p>{review.content}</p>
+
+                      <DeleteReview review={review} />
+                      <OpenModalButton modalComponent={<UpdateReviewForm review={review}/>} buttonText={"Edit Review"} className={member && (member.id ===  review.member.id) ? '':'edit-hidden'} />
+                    </div>
+
+
+                )): <></>}
               </div>
             </div>
           </div>

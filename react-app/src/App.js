@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignUpFormPage";
 import LoginFormPage from "./components/LoginFormPage";
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./components/LandingPage/Landing";
 import Order from "./components/Orders";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
@@ -11,6 +11,10 @@ import ProductDetails from "./components/ProductDetails";
 import ProductAll from "./components/ProductAll";
 import CreateProductForm from "./components/CreateProductFormPage"
 import CreateReviewForm from "./components/ProductReviewFormPage"
+import AccountPage from "./components/AccountPage";
+import PastOrders from "./components/PastOrders";
+import UpdateReviewForm from "./components/UpdateReviewFormPage";
+import UpdateProductForm from './components/UpdateProductFormPage'
 
 
 function App() {
@@ -35,7 +39,7 @@ function App() {
             <SignupFormPage />
           </Route>
           <Route  path='/orders/past'>
-
+            <PastOrders />
           </Route>
           <Route path="/orders">
             <Order isLoaded={isLoaded}/>
@@ -43,23 +47,28 @@ function App() {
           <Route path="/products/new">
             <CreateProductForm />
           </Route>
-
-          <Route path="/products/:id/reviews/new">
+          <Route exact path="/products/:id/edit">
+            <UpdateProductForm />
+          </Route>
+          <Route exact path="/products/:id/reviews/new">
             <CreateReviewForm />
           </Route>
 
-          <Route path="/products/:id">
+          <Route exact path="/products/:id">
             <ProductDetails />
           </Route>
-
-
-
 
           <Route path="/products">
             <ProductAll />
           </Route>
 
+          <Route path="/account">
+            <AccountPage />
+          </Route>
 
+          <Route path="products/:product_id/reviews/:id/edit">
+            <UpdateReviewForm />
+          </Route>
 
 
         </Switch>

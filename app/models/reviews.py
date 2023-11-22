@@ -38,7 +38,7 @@ class Review(db.Model):
             "rating": self.rating,
             "review_date": self.review_date,
             "product_id": self.product_id,
-            "member_id":self.member_id,
+            "member":self.member.to_dict(),
             "review_image":self.review_image,
             "content":self.content,
             "headline":self.headline

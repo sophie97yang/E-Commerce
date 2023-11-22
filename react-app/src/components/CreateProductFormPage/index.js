@@ -1,12 +1,7 @@
-// frontend/src/components/LoginFormModal/index.js
-// import React, { useState } from "react";
-// import * as sessionActions from "../../store/session";
-// import { useDispatch } from "react-redux";
-
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createProduct } from "../../store/products";
+import { createProduct, getAllProducts } from "../../store/products";
 
 import "./CreateProductForm.css";
 
@@ -17,75 +12,113 @@ const CreateProductForm = () => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0.00); //?
+  const [price, setPrice] = useState("1.00"); //?
   const [category, setCategory] = useState("");
-  const [available, setAvailable] = useState(0);
+  const [available, setAvailable] = useState(1);
+  const [preview_img, setPreview_img] = useState(null);
+  const [product_image1, setProduct_image1] = useState(null);
+  const [product_image2, setProduct_image2] = useState(null);
+  const [product_image3, setProduct_image3] = useState(null);
+  const [product_image4, setProduct_image4] = useState(null);
 
-  const [previewImg, setPreviewImg] = useState(null);
-  const [productImg1, setProductImg1] = useState(null);
-  const [productImg2, setProductImg2] = useState(null);
-  const [productImg3, setProductImg3] = useState(null);
-  const [productImg4, setProductImg4] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
 
   const [submitted, yesSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrors({});
+  const categories = [
+    'Fresh',
+    'Bloomy Rind',
+    'Wash Rind',
+  ];
 
-    const newProduct = {
-      memberId: member.id,
-      name,
-      description,
-      price,
-      category,
-      available,
-      previewImg,
-      productImg1,
-      productImg2,
-      productImg3,
-      productImg4,
-    };
+  useEffect(()=> {
+    dispatch(getAllProducts()).catch(res => res)
+  },[dispatch])
 
-    const res = await dispatch(createProduct(newProduct));
-
-    if(!res.errors){
-        // history.push(`/products/${product.id}`)
-        yesSubmitted(true);
-        reset()
-    }
-
-      // .catch(async (res) => {
-      //   const data = await res.json();
-      //   if (data && data.errors) {
-      //     setErrors(data.errors);
-      //   }
-      // });
-  };
-
-  const reset = () => {
-    setName("");
-    setDescription("");
-    setPrice(0.00);
-    setCategory("");
-    setAvailable(0);
-    setPreviewImg("");
-    setProductImg1("");
-    setProductImg2("");
-    setProductImg3("");
-    setProductImg4("");
-  };
 
   useEffect(() => {
     yesSubmitted(false);
     setErrors({});
   }, [submitted]);
 
+  if (member && !member.seller) return history.push('/login')
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newErrors = [];
+
+    if (!name.length || name.length > 30)
+      newErrors.push('Name must be between 1 and 31 characters');
+    if (!description.length || description.length > 500)
+      newErrors.push("Note's description must be between 1 and 501 characters");
+    if (!price.length || price < 0)
+      newErrors.push("Note's description must be between 1 and 501 characters");
+    if (!category)
+      newErrors.push('please select a category');
+    if (!available || available < 0)
+      newErrors.push('Please add at least 1 availability');
+    if (!preview_img)
+      newErrors.push('Please add a preview image');
+    if (newErrors.length) {
+      setErrors(newErrors);
+      yesSubmitted(true);
+      return;
+    }
+
+
+
+    const form = new FormData();
+    form.append('name', name);
+    form.append('description', description);
+    form.append('price', price);
+    form.append('category', category);
+    form.append('available', available);
+    form.append('preview_image', preview_img);
+    form.append('product_image1', product_image1);
+    form.append('product_image2', product_image2);
+    form.append('product_image3', product_image3);
+    form.append('product_image4', product_image4);
+
+    setImageLoading(true);
+
+    dispatch(createProduct(form)).then((res) => {
+      setImageLoading(false);
+      if (res.errors) {
+        setErrors(res.errors)
+      } else {
+        history.push(`/products`)
+        return ('success')
+      }
+    })
+
+
+  };
+
+  // const reset = () => {
+  //   setName("");
+  //   setDescription("");
+  //   setPrice("0.00");
+  //   setCategory("");
+  //   setAvailable(1);
+  //   setPreview_Img(null);
+  //   setproduct_image1(null);
+  //   setProduct_image2(null);
+  //   setProduct_image3(null);
+  //   setProduct_image4(null);
+  // };
+
   return (
     <div className="create-product-container">
       <h1>Add a Product</h1>
-      <form onSubmit={handleSubmit} className="create-product-field">
+      {/* {errors.length
+        ? errors.map((e, index) => <p key={index} className='create-error'>{e}</p>)
+        : null} */}
+      {/* <form onSubmit={handleSubmit} className="create-product-field"> */}
+      <form
+            onSubmit={handleSubmit}
+            encType="multipart/form-data"
+        >
         <div>
           <label className="label">Name</label>
           <input
@@ -98,11 +131,13 @@ const CreateProductForm = () => {
           {/* {errors.address && (
             <p style={{ fontSize: "10px", color: "red" }}>*{errors.address}</p>
           )} */}
+
         </div>
 
         <div>
           <label className="label">Description</label>
-          <input
+          {/* <input */}
+          <textarea
             type="textarea"
             placeholder="description of product"
             value={description}
@@ -114,7 +149,8 @@ const CreateProductForm = () => {
         <div>
           <label className="label">Price</label>
           <input
-            type="text"
+            // type="text"
+            type="number"
             placeholder="Price of product"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
@@ -124,19 +160,26 @@ const CreateProductForm = () => {
 
         <div>
           <label className="label">Category</label>
-          <input
-            type="text"
-            placeholder="Category of product"
+          <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             className=""
-          />
+          >
+            <option value="" disabled>Select a category</option>
+            {categories.map((categoryOption) => (
+              <option key={categoryOption} value={categoryOption}>
+                {categoryOption}
+              </option>
+            ))}
+          </select>
         </div>
+
 
         <div>
           <label className="label">Available</label>
           <input
             type="number"
+            min="1"
             placeholder="Name of product"
             value={available}
             onChange={(e) => setAvailable(e.target.value)}
@@ -149,9 +192,7 @@ const CreateProductForm = () => {
           <input
             type="file"
             accept="image/*"
-            placeholder="Preview Image"
-            // value={name}
-            onChange={(e) => setPreviewImg(e.target.value)}
+            onChange={(e) => setPreview_img(e.target.files[0])}
             className=""
           />
         </div>
@@ -161,9 +202,7 @@ const CreateProductForm = () => {
           <input
             type="file"
             accept="image/*"
-            placeholder="Product Image"
-            // value={name}
-            onChange={(e) => setProductImg1(e.target.value)}
+            onChange={(e) => setProduct_image1(e.target.files[0])}
             className=""
           />
         </div>
@@ -173,9 +212,7 @@ const CreateProductForm = () => {
           <input
             type="file"
             accept="image/*"
-            placeholder="Product Image"
-            // value={name}
-            onChange={(e) => setProductImg2(e.target.value)}
+            onChange={(e) => setProduct_image2(e.target.files[0])}
             className=""
           />
         </div>
@@ -185,9 +222,7 @@ const CreateProductForm = () => {
           <input
             type="file"
             accept="image/*"
-            placeholder="Product Image"
-            // value={name}
-            onChange={(e) => setProductImg3(e.target.value)}
+            onChange={(e) => setProduct_image3(e.target.files[0])}
             className=""
           />
         </div>
@@ -197,16 +232,15 @@ const CreateProductForm = () => {
           <input
             type="file"
             accept="image/*"
-            placeholder="Product Image"
-            // value={name}
-            onChange={(e) => setProductImg4(e.target.value)}
+            onChange={(e) => setProduct_image4(e.target.files[0])}
             className=""
           />
         </div>
 
         <div className="create-product-button">
-          <button className="submit">Add Product</button>
+          <button type="submit">Add Product</button>
         </div>
+        {imageLoading && <p>Loading...</p>}
       </form>
     </div>
   );

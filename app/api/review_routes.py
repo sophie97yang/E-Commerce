@@ -65,3 +65,4 @@ def delete_review(id):
     else:
         db.session.delete(review_to_delete)
         db.session.commit()
+        return {"message":"Success"}

@@ -14,9 +14,9 @@ function Navigation({ isLoaded }){
 	const pun_rotation = [
 		'This might sound so cheesy, but I think you are really grate.',
 		"I'm grateful for your presence.",
-		"it's gouda brie a good day",
-		"You brie long with me",
-		"Please brie mine",
+		"it's gonna brie a gouda day",
+		"You brie-long with me",
+		"Cheezus take the Wheel!",
 		"It's really gouda to have you here",
 		"Gouda luck on your browsin!",
 		"I swiss you the best",
@@ -30,7 +30,7 @@ function Navigation({ isLoaded }){
 	useEffect(()=> {
 		const randIdx= Math.floor(Math.random()*13);
 		setPun(pun_rotation[randIdx]);
-	})
+	},[])
 
 	const shopping_cart = sessionUser ? sessionUser.orders.filter(order=> order.purchased===false)[0] : null
 	const cart_products = shopping_cart ? shopping_cart.products.length : 0
@@ -54,7 +54,7 @@ function Navigation({ isLoaded }){
 					history.push('/signup')
 				}}>Sign up to Set Location</button>}</p>
 			</div>
-			<div>
+			<div className="search_bar_nav">
 				<SearchBar />
 			</div>
 			<div>
@@ -68,10 +68,10 @@ function Navigation({ isLoaded }){
 				</NavLink>
 			</div>
 
-			<div>
+			<div className='cart_info'>
 			<NavLink to='/orders'>
 				{sessionUser? <h2>{cart}</h2>: <h2>0</h2>}
-			<i className="fa-solid fa-cart-shopping"/>
+				<i className="fa-solid fa-cart-shopping fa-2xl"/>
 			</NavLink>
 			</div>
 

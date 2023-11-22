@@ -221,5 +221,5 @@ def add_product_review(id):
 
         db.session.add(new_review)
         db.session.commit()
-        return {"review":new_review.to_dict()}
+        return {"review":new_review.to_dict_descriptive()}
     return {"errors":form.errors},400

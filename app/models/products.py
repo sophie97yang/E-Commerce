@@ -24,10 +24,10 @@ class Product(db.Model):
     product_image3 = db.Column(db.String(255))
     product_image4 = db.Column(db.String(255))
 
-    reviews = db.relationship("Review",back_populates='product')
+    reviews = db.relationship("Review",back_populates='product',cascade="all, delete")
     members = db.relationship("Member",secondary=wishlists,back_populates='products')
     # product_images = db.relationship("ProductImage",back_populates="product")
-    orders = db.relationship("OrderDetail",back_populates="product")
+    orders = db.relationship("OrderDetail",back_populates="product",cascade="all, delete")
 
     # not returning members (through wishlist) or orders(through order_details)
     # only returning total rating and review length
