@@ -20,12 +20,11 @@ const UpdateProductForm = () => {
 
     console.log('this i s prodt', product)
 
-
-    const [name, setName] = useState(product.name);
-    const [description, setDescription] = useState(product.description);
-    const [price, setPrice] = useState(product.price); //?
-    const [category, setCategory] = useState(product.category);
-    const [available, setAvailable] = useState(product.available);
+    const [name, setName] = useState(product?.name);
+    const [description, setDescription] = useState(product?.description);
+    const [price, setPrice] = useState(product?.price); //?
+    const [category, setCategory] = useState(product?.category);
+    const [available, setAvailable] = useState(product?.available);
 
     // const [preview_img, setPreview_img] = useState();
     // const [product_image1, setProduct_image1] = useState();
@@ -60,10 +59,10 @@ console.log('before handleSubmit')
             newErrors.push('Name must be between 1 and 31 characters');
         if (!description.length || description.length > 500)
             newErrors.push("Note's description must be between 1 and 501 characters");
-        if (!price.length || price < 0)
+        if (!price || price < 0)
             newErrors.push("Note's description must be between 1 and 501 characters");
-        if (!category)
-            newErrors.push('please select a category');
+        // if (!category)
+        //     newErrors.push('please select a category');
         if (!available || available < 0)
             newErrors.push('Please add at least 1 availability');
         // if (!preview_img)
