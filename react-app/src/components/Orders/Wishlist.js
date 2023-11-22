@@ -13,26 +13,31 @@ function Wishlist() {
   const wishlistItems = member?.products
 
   const AddToCart = async (item) => {
-    if (!member) {
-      history.push('/login')
-      return ['Forbidden'];
-    }
-
     const shopping_cart = member.orders.filter(order=> order.purchased===false)[0]
     if (!shopping_cart) {
-      const res = await dispatch(addOrder(1,item.id)).then(()=>{dispatch(removeFromWishlist(item.id))}).catch(res => res);
+      const res = await dispatch(addOrder(1,item.id)).then(dispatch(removeFromWishlist(item.id))).catch(res => res);
       if (!res.errors) {
         dispatch(authenticate())
         alert('Successfully added to cart')
         history.push('/orders')
       }
     } else {
-      const res = await dispatch(editOrder(1,item.id)).then(()=>dispatch(removeFromWishlist(item.id))).catch(res => res);
+      const res = await dispatch(editOrder(1,item.id)).then(dispatch(removeFromWishlist(item.id))).catch(res => res);
       if (!res.errors) {
         dispatch(authenticate())
         alert('Successfully added to cart')
         history.push('/orders')
       }
+    }
+  }
+
+  const RemoveFromWishlist = async (item) => {
+    const res = await dispatch(removeFromWishlist(item.id)).catch(res=>res);
+    if (!res.errors) {
+      dispatch(authenticate())
+      history.push('/orders')
+    } else {
+      console.log(res.errors);
     }
   }
 
@@ -45,8 +50,7 @@ function Wishlist() {
             <div key={item.id} className='wishlist-item'>
               <h3>{item.name}</h3>
               <p>{item.description}</p>
-              <button>
-              {/* onClick={() => handleRemoveFromWishlist(item.id)} */}
+              <button onClick={() => RemoveFromWishlist(item)}>
                 Remove from Wishlist
               </button>
               <button onClick={()=> AddToCart(item)}>

@@ -8,7 +8,6 @@ function RemoveFromCart({product}) {
     const member = useSelector(state => state.session.member);
     const dispatch = useDispatch();
     const history = useHistory();
-
     const removeFromCart = (e) => {
         e.preventDefault();
         const shopping_cart= member?.orders.filter(order=> order.purchased===false)[0]
