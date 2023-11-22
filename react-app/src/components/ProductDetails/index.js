@@ -11,7 +11,7 @@ import { removeProduct } from "../../store/products";
 import DeleteReview from "../DeleteReview";
 import OpenModalButton from '../OpenModalButton'
 import UpdateReviewForm from "../UpdateReviewFormPage";
-
+console.log('hi');
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
