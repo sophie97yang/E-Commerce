@@ -1,0 +1,36 @@
+.manage-review-container {
+    background-color: rgba(0, 0, 0, 0.945);
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.manage-header {
+    color: #2BB0ED;
+}
+
+.manage-review-inner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 60px;
+}
+
+.delete-review-button {
+    background-color: red;
+    cursor: pointer;
+}
+
+.update-review-button {
+    background-color: blue;
+    cursor: pointer;
+}
+
+.delete-review-button:hover {
+    background-color: green;
+    cursor: pointer;
+}
+
+.update-review-button:hover {
+    background-color: green;
+    cursor: pointer;
+}

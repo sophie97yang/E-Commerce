@@ -39,6 +39,10 @@ function ShoppingCart() {
         }
     }
 
+    const handleTransaction = () => {
+        alert('Feature coming soon!')
+    }
+
 
     return (
         <div className='shopping_cart'>
@@ -57,7 +61,7 @@ function ShoppingCart() {
                  : <h3>You're looking a little hungry...</h3>
             }
             {
-                cart ? <button>Complete Transaction</button> : <p><Link to='/products'>Browse our lovely selection of cheeses</Link></p>
+                cart ? <button onClick={handleTransaction}>Complete Transaction</button> : <p><Link to='/products'>Browse our lovely selection of cheeses</Link></p>
             }
         </div>
 

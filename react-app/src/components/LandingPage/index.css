@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -20,16 +22,24 @@
   /* Main Title */
   .main-title {
     text-align: center;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
+    color:gold;
+    background-color: white;
     padding: 20px;
+    font-family: 'Pacifico', cursive;
   }
 
   /* Carousel */
+
+  .product-carousel {
+    text-align: center;
+  }
   .product-carousel .legend {
+    display: inline-block;
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
-    padding: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin: 0 auto;
   }
 
   .landing-page img {
@@ -50,8 +60,9 @@
     border: 1px solid #ccc;
     padding: 20px;
     text-align: center;
-    background-color: #fff;
+    background-color: gold;
     cursor: pointer;
+    font-family: 'Pacifico', cursive;
   }
 
   /* Hover effect for boxes */

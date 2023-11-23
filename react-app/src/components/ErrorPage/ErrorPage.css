@@ -1,0 +1,29 @@
+.error-page {
+    background-color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
+    height: 100vh;
+}
+
+.image-container {
+    width: 60%;
+    background-image: url('../../assets/images/catError.gif');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.text-container {
+    color: black;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

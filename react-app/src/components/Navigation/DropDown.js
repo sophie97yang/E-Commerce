@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import {NavLink,useHistory} from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
-function DropDown({user}) {
+function DropDown({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -39,10 +39,14 @@ function DropDown({user}) {
     history.push('/')
   };
 
+
+
+
+
   return (
     <>
       <button onClick={openMenu}>
-      {showMenu ? <i className="fa-solid fa-angle-up"/>:<i className="fa-solid fa-angle-down"/>}
+        {showMenu ? <i className="fa-solid fa-angle-up" /> : <i className="fa-solid fa-angle-down" />}
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ?
@@ -60,19 +64,30 @@ function DropDown({user}) {
           :
           <>
             <li>
-              <button onClick={(e)=> {
+              <button onClick={(e) => {
                 e.preventDefault()
                 history.push('/login')
 
               }}>Sign In</button>
             </li>
-            <li><NavLink to='/login'>Your Account</NavLink></li>
+
+            <div>Not a Member Yet?</div>
+            {/* <button onClick={(e) => {
+                e.preventDefault()
+                history.push('/signup')
+
+              }}>Sign In</button> */}
+
+            <li><NavLink to='/signup'>Sign Up!</NavLink></li>
+
+            {/* <li><NavLink to='/login'>Your Account</NavLink></li>
             <li><NavLink to='/login'>View/Manage Your Orders</NavLink></li>
             <li><NavLink to='/login'>View Your Reviews</NavLink></li>
             <li><NavLink to='/login'>View Your Wishlist</NavLink></li>
-            <li><NavLink to='/login'>View Your Products</NavLink></li>
+            <li><NavLink to='/login'>View Your Products</NavLink></li> */}
+
           </>
-}
+        }
       </ul>
     </>
   );

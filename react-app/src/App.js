@@ -15,7 +15,7 @@ import AccountPage from "./components/AccountPage";
 import PastOrders from "./components/PastOrders";
 import UpdateReviewForm from "./components/UpdateReviewFormPage";
 import UpdateProductForm from './components/UpdateProductFormPage'
-
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -74,6 +74,9 @@ function App() {
             <h2>Page Not Found</h2>
           </Route>
 
+          <Route path='*'>
+            <ErrorPage/>
+          </Route>
 
         </Switch>
       )}
