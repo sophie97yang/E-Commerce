@@ -9,6 +9,14 @@
     width: 50%;
 }
 
+.all-products-image-container {
+    /* width: 60%; */
+    background-image: url('../../assets/images/truckIcon.jpg');
+    /* background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: left center; */
+}
+
 .product-left-inner-square,
 .product-right-inner-square {
     border: 1px solid #ccc;

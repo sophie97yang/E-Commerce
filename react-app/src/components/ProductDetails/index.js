@@ -297,10 +297,10 @@ const ProductDetails = () => {
   const addToCart = async (e) => {
     e.preventDefault();
 
-    // if (!member) {
-    //   history.push('/login')
-    //   return ['Forbidden'];
-    // }
+    if (!member) {
+      history.push('/login')
+      return ['Forbidden'];
+    }
 
     const shopping_cart = member.orders.filter(order=> order.purchased===false)[0];
     if (!shopping_cart) {
