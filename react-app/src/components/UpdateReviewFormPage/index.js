@@ -72,19 +72,20 @@ useEffect(()=> {
 
 return (
     <div className="create-review-container">
-      <h1>Update Your Review</h1>
+      
       <form onSubmit={handleSubmit}
       className="create-review-field"
         encType="multipart/form-data"
         >
         <div>
+        <h1>Update Your Review</h1>
           <label className="label">Rating</label>
           <input
             type="text"
             placeholder=""
             value={rating}
             onChange={(e) => setRating(e.target.value)}
-            className=""
+            className="review-rating-input"
           />
 
           {errors.rating && (
@@ -101,7 +102,7 @@ return (
             placeholder=""
             value={headline}
             onChange={(e) => setHeadline(e.target.value)}
-            className=""
+            className="review-input"
           />
 
           {errors.headline && (
@@ -111,12 +112,11 @@ return (
 
         <div>
           <label className="label">Content</label>
-          <input
-            type="textarea"
+          <textarea
             placeholder=""
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className=""
+            className="review-input review-content-input"
           />
         </div>
 

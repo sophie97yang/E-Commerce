@@ -13,8 +13,10 @@ function PastOrders() {
     }
     const past_orders = member.orders.filter(order => order.purchased==true);
 
+    // console.log("ORDERS ", past_orders)
+
     return (
-        <div>
+        <div className="orders-container">
             <h2>Your Orders</h2>
             <h4>{past_orders.length} Orders</h4>
             {

@@ -33,6 +33,12 @@ nav>div:hover {
   cursor:pointer;
 }
 
+nav li:hover {
+  border: 1px black solid;
+  cursor: pointer;
+
+}
+
 nav img {
   width: 100px;
 }
