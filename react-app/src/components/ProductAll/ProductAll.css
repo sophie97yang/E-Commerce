@@ -37,6 +37,11 @@
     margin: 0 15px 20px 0;
 }
 
+.products-list a {
+    text-decoration:none;
+    color:#131a22;
+
+}
 .product-img {
     width: 100%;
     height: 200px;

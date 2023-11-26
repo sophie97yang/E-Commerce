@@ -103,7 +103,7 @@ def seed_products():
         origin_city="Hoboken",
         origin_state="New Jersey",
         available=50,
-        preview_image="https://cdn.britannica.com/09/3809-004-50E1BB9B/Roquefort-cheese.jpg",
+        preview_image="https://images.immediate.co.uk/production/volatile/sites/30/2021/09/Homemade-mozzarella-054151d.jpg",
         product_image1="https://www.tastingtable.com/img/gallery/the-mozzarella-cheese-mistake-youre-probably-making-with-pizza/intro-1681497423.jpg",
         product_image2="https://natashaskitchen.com/wp-content/uploads/2023/05/Cheese-Sticks-SQ.jpg",
         product_image3="https://www.cookingclassy.com/wp-content/uploads/2012/12/caprese+grilled+cheese3.jpg",

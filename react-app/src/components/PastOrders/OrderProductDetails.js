@@ -88,11 +88,11 @@ function OrderProductDetails({ product, date }) {
   return (
     <div className="order-product-details">
       <div className="order-block-1">
-        
+
         {/* <div>
           <span>Number of Ratings</span>
           <div>{product.product.rating_sum}</div>
-        </div> */}
+        </div>
 
         <div>
           {" "}
@@ -104,6 +104,12 @@ function OrderProductDetails({ product, date }) {
           {" "}
           <span>Category</span>
           <div>{product.product.category}</div>
+        </div> */}
+
+        <div>
+          {" "}
+          <span>Quantity Ordered:</span>
+          <div>{product.quantity}</div>
         </div>
 
       </div>
