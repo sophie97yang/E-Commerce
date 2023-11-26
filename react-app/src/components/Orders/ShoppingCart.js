@@ -14,10 +14,12 @@ function ShoppingCart() {
     const history = useHistory();
     console.log('cart',cart);
 
-    useEffect(()=> {
-		const shopping_cart = sessionUser ? sessionUser.orders.filter(order=> order.purchased===false)[0] : null
-		setCart(shopping_cart ? shopping_cart.products: null)
-	},[sessionUser])
+  useEffect(() => {
+    const shopping_cart = sessionUser
+      ? sessionUser.orders.filter((order) => order.purchased === false)[0]
+      : null;
+    setCart(shopping_cart ? shopping_cart.products : null);
+  }, [sessionUser]);
 
     useEffect(()=> {
         dispatch(getAllProducts())
@@ -59,38 +61,78 @@ function ShoppingCart() {
         }
     }
 
+  return (
+    <div className="shopping-cart">
+      <h2>Shopping Cart</h2>
+      {cart ? (
+        cart.map((product) => (
+          <div key={product.id} className="cart-container">
 
-    return (
-        <div className='shopping_cart'>
-            <h2>Shopping Cart</h2>
-            {
-                cart ? cart.map(product => (
-                    <div key={product.id}>
-                        <img src={product.product.preview_image} alt={product.product.name}/>
-                        <h4>{product.product.name}</h4>
-                        <p>{product.product.available>0 ? "In Stock": "Out of Stock"}</p>
-                        <RemoveFromCart product={product}/>
-                        <button onClick={()=>{AddToWishlist(product)}}>Add to Wishlist</button>
-                        {/* <CartForm product={product}/> */}
-                        {/* Current feature doesn't allow members to directly edit order on shopping cart */}
-                        <p>Quantity:{product.quantity}</p>
-                    </div>
-                ))
-                 : <h3>You're looking a little hungry...</h3>
-            }
-            <div>
-            {
+            <div className="cart-block-1">
+              <div>
+                <span>Total</span>
+                <div>{product.product.price}</div>
+              </div>
+
+              <div>
+                <span>Category</span>
+                <div>{product.product.category}</div>
+              </div>
+
+              <p> {product.product.available > 0 ? "In Stock" : "Out of Stock"} </p>
+
+              <div>
+                <p>Quantity</p>
+                <div>{product.quantity}</div>
+              </div>
+            </div>
+
+            <div className="cart-block-2">
+              <div className="cart-block-left">
+                <img
+                  src={product.product.preview_image}
+                  alt={product.product.name}
+                />
+              </div>
+
+              <div className="cart-block-middle">
+              <Link
+              to={`/products/${product.product.id}`}
+              className="product-name-link"
+              >
+               {product.product.name}
+             </Link>
+                <div className="product-description">{product.product.description}</div>
+              </div>
+
+              <div className="cart-block-right">
+                <RemoveFromCart product={product} />
+                <button
+                  onClick={() => {
+                    AddToWishlist(product);
+                  }}
+                >
+                  Add to Wishlist
+                </button>
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <h3>You're looking a little hungry...</h3>
+      )}
+
+      <div>
+      {
                 cart ? <div className='transaction-details'>
                     <div> <h4>Your Current Balance:</h4><p> {sessionUser.account_balance.toFixed(2)}</p></div>
                     <div className='transaction-total'><h4>{`Total (${cart.length}`} {cart.length===1 ? 'item)':"items)"}:</h4><p>{total.toFixed(2)}</p></div>
                     <div><h4>Your Balance After Checkout</h4><p>{(sessionUser.account_balance-total).toFixed(2)}</p></div>
-                    <button onClick={handleTransaction}>Complete Transaction</button>
+                    <button onClick={handleTransaction} className='complete-transaction-button'>Complete Transaction</button>
                     </div>: <p><Link to='/products'>Browse our lovely selection of cheeses</Link></p>
-            }
-            </div>
-        </div>
-
-    )
-}
-
-export default ShoppingCart
+    }
+      </div>
+    </div>
+  );
+};
+export default ShoppingCart;
