@@ -1,5 +1,6 @@
 .profile-dropdown {
   position: absolute;
+  z-index: 1000;
 }
 
 .hidden {
@@ -30,6 +31,12 @@ nav a {
 nav>div:hover {
   border:1px white solid;
   cursor:pointer;
+}
+
+nav li:hover {
+  border: 1px black solid;
+  cursor: pointer;
+
 }
 
 nav img {

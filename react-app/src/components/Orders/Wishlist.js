@@ -1,36 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-// import './Wishlist.css';
+import React, { useState } from 'react';
+import { useSelector,useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import {addOrder,editOrder,authenticate, removeFromWishlist} from '../../store/session';
+import productsReducer from '../../store/products';
+// import './Wishlist.css';
 
-function Wishlist({ handleAddToCart }) {
-  // const [wishlistItems, setWishlistItems] = useState([]);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const user = useSelector(state => state.session.member);
+function Wishlist() {
+  const member = useSelector(state => state.session.member);
   const history = useHistory();
+  const dispatch = useDispatch();
 
 
-  const wishlistItems = user?.products
+  const wishlistItems = member?.products
 
-  if (error) {
-    return <p className="error">{error}</p>;
+  const AddToCart = async (item) => {
+    const shopping_cart = member.orders.filter(order=> order.purchased===false)[0]
+    if (!shopping_cart) {
+      const res = await dispatch(addOrder(1,item.id)).then(dispatch(removeFromWishlist(item.id))).catch(res => res);
+      if (!res.errors) {
+        dispatch(authenticate())
+        alert('Successfully added to cart')
+        history.push('/orders')
+      }
+    } else {
+      const res = await dispatch(editOrder(1,item.id)).then(dispatch(removeFromWishlist(item.id))).catch(res => res);
+      if (!res.errors) {
+        dispatch(authenticate())
+        alert('Successfully added to cart')
+        history.push('/orders')
+      }
+    }
+  }
+
+  const RemoveFromWishlist = async (item) => {
+    const res = await dispatch(removeFromWishlist(item.id)).catch(res=>res);
+    if (!res.errors) {
+      dispatch(authenticate())
+      history.push('/orders')
+    } else {
+      console.log(res.errors);
+    }
   }
 
   return (
     <div className="wishlist-container">
       <h2>Wishlist</h2>
       <div className="wishlist-items">
-        {wishlistItems.length > 0 ? (
-          wishlistItems.map(item => (
+        {wishlistItems?.length > 0 ? (
+          wishlistItems?.map(item => (
             <div key={item.id} className='wishlist-item'>
               <h3>{item.name}</h3>
               <p>{item.description}</p>
-              <button>
-              {/* onClick={() => handleRemoveFromWishlist(item.id)} */}
+              <button onClick={() => RemoveFromWishlist(item)}>
                 Remove from Wishlist
               </button>
-              <button onClick={() => handleAddToCart(item)}>
+              <button onClick={()=> AddToCart(item)}>
                 Add to Shopping Cart
               </button>
             </div>

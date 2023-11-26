@@ -4,7 +4,7 @@ import { useHistory,NavLink } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
 import {getAllProducts} from '../../store/products'
-// import "./index.css"
+import "./index.css"
 
 function LandingPage() {
   // const [products, setProducts] = useState([]);

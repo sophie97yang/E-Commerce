@@ -19,17 +19,17 @@ def add_to_wishlist(id):
     # Check if the product exists
     product = Product.query.get(id)
     if not product:
-        return jsonify(message='Product not found'), 404
+        return jsonify(errors='Product not found'), 404
 
     # Check if item already exists within the wishlist
     if product in current_user.products:
-        return jsonify(message='Item already exists in wishlist'), 400
+        return jsonify(errors='Item already exists in wishlist'), 400
 
     # Add the product to the user's wishlist
     current_user.products.append(product)
     db.session.commit()
 
-    return {"product":product}
+    return {"product":product.to_dict()}
 
 @login_required
 @wishlist_routes.route('/remove/<int:id>', methods=['DELETE'])
@@ -37,11 +37,11 @@ def remove_from_wishlist(id):
     # Check if the product exists
     product = Product.query.get(id)
     if not product:
-        return jsonify(message='Product not found'), 404
+        return jsonify(errors='Product not found'), 404
 
     # Check if item exists in the wishlist
     if product not in current_user.products:
-        return jsonify(message='Item not in wishlist'), 400
+        return jsonify(errors='Item not in wishlist'), 400
 
     # Remove the product from the user's wishlist
     current_user.products.remove(product)

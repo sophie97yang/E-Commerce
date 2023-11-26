@@ -21,77 +21,107 @@ const CreateProductForm = () => {
   const [product_image3, setProduct_image3] = useState(null);
   const [product_image4, setProduct_image4] = useState(null);
 
+  const defaultImage =
+    "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg";
+
   const [imageLoading, setImageLoading] = useState(false);
 
   const [submitted, yesSubmitted] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  const categories = [
-    'Fresh',
-    'Bloomy Rind',
-    'Wash Rind',
-  ];
+  const categories = ["Fresh", "Bloomy Rind", "Wash Rind"];
 
-  useEffect(()=> {
-    dispatch(getAllProducts()).catch(res => res)
-  },[dispatch])
-
+  useEffect(() => {
+    dispatch(getAllProducts()).catch((res) => res);
+  }, [dispatch]);
 
   useEffect(() => {
     yesSubmitted(false);
     setErrors({});
   }, [submitted]);
 
-  if (member && !member.seller) return history.push('/login')
+
+
+
+  if (member && !member.seller) {
+    history.push("/login");
+    return null;
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newErrors = [];
+    let errorList = {};
 
     if (!name.length || name.length > 30)
-      newErrors.push('Name must be between 1 and 31 characters');
+      errorList.name = "Name must be between 1 and 31 characters";
     if (!description.length || description.length > 500)
-      newErrors.push("Note's description must be between 1 and 501 characters");
+      errorList.description =
+        "Note's description must be between 1 and 501 characters";
     if (!price.length || price < 0)
-      newErrors.push("Note's description must be between 1 and 501 characters");
-    if (!category)
-      newErrors.push('please select a category');
+      errorList.price =
+        "Note's description must be between 1 and 501 characters";
     if (!available || available < 0)
-      newErrors.push('Please add at least 1 availability');
+      errorList.available = "Please add at least 1 availability";
+    if(!category) errorList.category = "Please select a category"
+
     if (!preview_img)
-      newErrors.push('Please add a preview image');
-    if (newErrors.length) {
-      setErrors(newErrors);
-      yesSubmitted(true);
+      errorList.preview_img =
+        "Please add a preview image (.jpg, .jpeg, .png, .gif, .pdf";
+
+    if(!product_image1) errorList.product_image1 = "Please add a product image"
+    if(!product_image2) errorList.product_image2 = "Please add a product image"
+    if(!product_image3) errorList.product_image3 = "Please add a product image"
+    if(!product_image4) errorList.product_image4 = "Please add a product image"
+
+    if (Object.values(errorList).length > 0) {
+      setErrors(errorList);
       return;
     }
 
 
 
     const form = new FormData();
-    form.append('name', name);
-    form.append('description', description);
-    form.append('price', price);
-    form.append('category', category);
-    form.append('available', available);
-    form.append('preview_image', preview_img);
-    form.append('product_image1', product_image1);
-    form.append('product_image2', product_image2);
-    form.append('product_image3', product_image3);
-    form.append('product_image4', product_image4);
+    form.append("name", name);
+    form.append("description", description);
+    form.append("price", price);
+    form.append("category", category);
+    form.append("available", available);
+    form.append("preview_image", preview_img);
+    if (product_image1) {
+      form.append("product_image1", product_image1);
+    } else {
+      form.append("product_image1", defaultImage);
+    }
+    if (product_image2) {
+      form.append("product_image2", product_image2);
+    } else {
+      form.append("product_image2", defaultImage);
+    }
+    if (product_image3) {
+      form.append("product_image3", product_image3);
+    } else {
+      form.append("product_image3", defaultImage);
+    }
+    if (product_image4) {
+      form.append("product_image4", product_image4);
+    } else {
+      form.append("product_image4", defaultImage);
+    }
 
     setImageLoading(true);
 
     dispatch(createProduct(form)).then((res) => {
       setImageLoading(false);
       if (res.errors) {
-        setErrors(res.errors)
+        setErrors(res.errors);
       } else {
-        history.push(`/products`)
-        return ('success')
+        history.push(`/products`);
+        yesSubmitted(true);
+        // reset()
+        return "success";
       }
-    })
-
+    });
 
   };
 
@@ -108,17 +138,14 @@ const CreateProductForm = () => {
   //   setProduct_image4(null);
   // };
 
+
+
+
   return (
     <div className="create-product-container">
       <h1>Add a Product</h1>
-      {/* {errors.length
-        ? errors.map((e, index) => <p key={index} className='create-error'>{e}</p>)
-        : null} */}
-      {/* <form onSubmit={handleSubmit} className="create-product-field"> */}
-      <form
-            onSubmit={handleSubmit}
-            encType="multipart/form-data"
-        >
+
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
           <label className="label">Name</label>
           <input
@@ -128,15 +155,16 @@ const CreateProductForm = () => {
             onChange={(e) => setName(e.target.value)}
             className=""
           />
-          {/* {errors.address && (
-            <p style={{ fontSize: "10px", color: "red" }}>*{errors.address}</p>
-          )} */}
+
+          {errors.name && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.name}</p>
+          )}
 
         </div>
 
         <div>
           <label className="label">Description</label>
-          {/* <input */}
+
           <textarea
             type="textarea"
             placeholder="description of product"
@@ -144,19 +172,30 @@ const CreateProductForm = () => {
             onChange={(e) => setDescription(e.target.value)}
             className=""
           />
+
+        {errors.description && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.description}</p>
+          )}
+
         </div>
 
         <div>
           <label className="label">Price</label>
           <input
-            // type="text"
             type="number"
             placeholder="Price of product"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            min="0"
             className=""
           />
+
+        {errors.price && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.price}</p>
+          )}
         </div>
+
+
 
         <div>
           <label className="label">Category</label>
@@ -165,27 +204,37 @@ const CreateProductForm = () => {
             onChange={(e) => setCategory(e.target.value)}
             className=""
           >
-            <option value="" disabled>Select a category</option>
+            <option value="" disabled>
+              Select a category
+            </option>
             {categories.map((categoryOption) => (
               <option key={categoryOption} value={categoryOption}>
                 {categoryOption}
               </option>
             ))}
           </select>
-        </div>
 
+          {errors.category && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.category}</p>
+          )}
+        </div>
 
         <div>
           <label className="label">Available</label>
           <input
             type="number"
             min="1"
-            placeholder="Name of product"
+            placeholder="Number of available products"
             value={available}
             onChange={(e) => setAvailable(e.target.value)}
             className=""
           />
+
+        {errors.available && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.available}</p>
+          )}
         </div>
+
 
         <div>
           <label className="label">Preview Image</label>
@@ -195,6 +244,12 @@ const CreateProductForm = () => {
             onChange={(e) => setPreview_img(e.target.files[0])}
             className=""
           />
+
+        {errors.preview_img && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.preview_img}</p>
+          )}
+
+
         </div>
 
         <div>
@@ -205,6 +260,9 @@ const CreateProductForm = () => {
             onChange={(e) => setProduct_image1(e.target.files[0])}
             className=""
           />
+          {errors.product_image1 && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image1}</p>
+          )}
         </div>
 
         <div>
@@ -215,6 +273,9 @@ const CreateProductForm = () => {
             onChange={(e) => setProduct_image2(e.target.files[0])}
             className=""
           />
+          {errors.product_image2 && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image2}</p>
+          )}
         </div>
 
         <div>
@@ -225,6 +286,9 @@ const CreateProductForm = () => {
             onChange={(e) => setProduct_image3(e.target.files[0])}
             className=""
           />
+          {errors.product_image3 && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image3}</p>
+          )}
         </div>
 
         <div>
@@ -235,6 +299,9 @@ const CreateProductForm = () => {
             onChange={(e) => setProduct_image4(e.target.files[0])}
             className=""
           />
+          {errors.product_image4 && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image4}</p>
+          )}
         </div>
 
         <div className="create-product-button">

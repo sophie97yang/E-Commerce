@@ -1,10 +1,12 @@
+import { editProduct } from "./products";
 // constants
 const SET_MEMBER = "session/SET_MEMBER";
 const REMOVE_MEMBER = "session/REMOVE_MEMBER";
 const ADD_ORDER = "session/ADD_ORDER";
 const UPDATE_ORDER = "session/UPDATE_ORDER";
 const ADD_WISHLIST = 'session/ADD_WISHLIST';
-
+const REMOVE_WISHLIST = 'session/REMOVE_WISHLIST';
+const REMOVE_CART = 'session/REMOVE_CART';
 
 const setMember = (member) => ({
 	type: SET_MEMBER,
@@ -28,6 +30,16 @@ const updateCart = (order) => ({
 const addWishlist = (product) => ({
 	type:ADD_WISHLIST,
 	product
+});
+
+const removeWishlist = (productId) => ({
+	type:REMOVE_WISHLIST,
+	productId
+});
+
+const removeCart = (orderId) => ({
+	type:REMOVE_CART,
+	orderId
 })
 
 const initialState = { member: null };
@@ -156,11 +168,36 @@ export const editOrder = (quantity,productId) => async(dispatch) => {
 		return data;
 	}
 }
-// //remove from cart
-// export const deleteFromCart = (productId) => async(dispatch) => {
-// 	const responses = await fetch(`/api`)
+//remove product from cart
+export const deleteFromCart = (productId) => async(dispatch) => {
+	const response = await fetch(`/api/orders/remove/${productId}`,
+	{method:'DELETE'
+});
+	if (response.ok) {
+		const {cart} = await response.json();
+		dispatch(updateCart(cart));
+		console.log(cart);
+		return cart
+	} else {
+		const data = await response.json();
+		return data;
+	}
 
-// }
+}
+
+//remove cart entirely
+export const deleteCart = (cart,productId) => async(dispatch) => {
+	const response = await fetch(`/api/orders/remove/${productId}`,
+	{method:'DELETE'
+});
+	if (response.ok) {
+		dispatch(removeCart(cart.id));
+	}else {
+		const data = await response.json();
+		return data;
+	}
+}
+
 export const addToWishlist = (productId) => async (dispatch) => {
 	const response = await fetch(`/api/wishlist/add/${productId}`, {
 		method: "POST"
@@ -170,6 +207,36 @@ export const addToWishlist = (productId) => async (dispatch) => {
 		const {product} = await response.json();
 		dispatch(addWishlist(product));
 		return product;
+	} else {
+		const data = await response.json();
+		return data;
+	}
+}
+
+export const removeFromWishlist = (productId) => async (dispatch) => {
+	const response = await fetch(`/api/wishlist/remove/${productId}`, {
+		method: "DELETE"
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(removeWishlist(productId));
+		return data;
+	} else {
+		const data = await response.json();
+		return data;
+	}
+}
+
+export const completeTransaction= () => async (dispatch) => {
+	const response = await fetch(`/api/orders/cart/purchase`,{
+		method:"POST"
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(updateCart(data.cart));
+		dispatch(editProduct(data.product));
+		return data;
 	} else {
 		const data = await response.json();
 		return data;
@@ -189,8 +256,7 @@ export default function sessionReducer(state = initialState, action){
 			return newState
 		case UPDATE_ORDER:
 			newState = {...state};
-			newState.member.orders=[...newState.member.orders,action.order]
-			let index=0
+			let index=0;
             for (let i =0;i<newState.member.orders.length;i++) {
                 let order = newState.member.orders[i];
                 if (order.id===action.order.id) {
@@ -200,11 +266,35 @@ export default function sessionReducer(state = initialState, action){
             }
 			newState.member.orders[index] = action.order;
 			return newState
+		case REMOVE_CART:
+			newState = {...state};
+			let index_to_remove=0;
+			for (let i =0;i<newState.member.orders.length;i++) {
+                let order = newState.member.orders[i];
+                if (order.id===action.orderId) {
+                    index_to_remove=i;
+                    break;
+                }
+			}
+			newState.member.orders.splice(index_to_remove,1);
+			return newState;
 		case ADD_WISHLIST:
 			newState = {...state};
 			newState.member.products = [...newState.member.products,action.product]
 			return newState
+		case REMOVE_WISHLIST:
+			newState = {...state};
+			let found_product=0;
+			for (let i =0;i<newState.member.products.length;i++) {
+                let product = newState.member.products[i];
+                if (product.id===action.productId) {
+                    found_product=i;
+                    break;
+                }
+			}
+			newState.member.products.splice(found_product,1);
+			return newState;
 		default:
 			return state;
-	}
+}
 }

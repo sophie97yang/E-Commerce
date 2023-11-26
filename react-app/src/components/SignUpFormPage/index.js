@@ -1,162 +1,272 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect,useHistory } from "react-router-dom";
-import { signUp } from "../../store/session";
-import './SignupForm.css';
+import { signUp, authenticate } from "../../store/session";
+import "./SignupForm.css";
+
 
 function SignupFormPage() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.member);
-
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState('')
-  const [address, setAddress] = useState('')
-  const [city, setCity] = useState('')
-  const [state, setState] = useState('')
-  const [seller, setSeller] = useState(false)  //checkbox
-
+  const sessionMember = useSelector((state) => state.session.member)
+  const history = useHistory();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [seller, setSeller] = useState(false); //checkbox
 
-  const [errors, setErrors] = useState([]);
-  const history=useHistory()
+  const [errors, setErrors] = useState({});
 
-if (sessionUser) {
-   history.push('/');
-   return null
-  }
+  const disabled =
+    !firstName ||
+    !lastName ||
+    !address ||
+    !city ||
+    !state ||
+    !email ||
+    !password ||
+    !confirmPassword;
+
+  if (sessionMember) return <Redirect to="/" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-        const res = await dispatch(signUp({
 
+    let errorList = {};
+
+    if (!firstName) errorList.firstName = "First Name is required";
+    if (!lastName) errorList.lastName = "Last Name is required";
+    if (!address) errorList.address = "Address is required";
+    if (!city) errorList.city = "City is required";
+    if (!state) errorList.state = "Please select a state";
+    if (!email || !email.includes("@"))
+      errorList.email = "Valid email is required";
+    if (!password) errorList.password = "Valid Password is required";
+    if (password !== confirmPassword)
+      errorList.confirmPassword = "Passwords must match";
+
+    if (Object.values(errorList).length > 0) {
+      setErrors(errorList);
+      return;
+    }
+
+    if (password === confirmPassword) {
+      setErrors({});
+      const response = await dispatch(
+        signUp({
           firstName,
           lastName,
           address,
           city,
           state,
-          seller,
           email,
-          password
-        }));
-
-        if (res.ok) {
-          const data = await res.json();
-          history.push('/products');
-          return data;
-        } else {
-          const data = await res.json();
-          console.log(data)
-          return data;
-        }
+          password,
+          seller,
+        })
+      ).catch((res) => res);
+      if (response && response[0].startsWith("email")) {
+        const errorList_email = { "email": response[0].slice(8) };
+        setErrors(errorList_email);
+      } else {
+        dispatch(authenticate());
+        history.push('/products')
+      }
     } else {
-        setErrors(['Confirm Password field must be the same as the Password field']);
-    }
+    return setErrors({
+      confirmPassword:
+        "Confirm Password field must be the same as the Password field",
+    });
+  }
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
+    <div className="main-container">
+      <>
+        <h1>Sign Up</h1>
+        <form onSubmit={handleSubmit}>
+          {/* <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
+        </ul> */}
 
-        <label>
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </label>
+          <label>
+            First Name
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            {errors.firstName && (
+              <p style={{ fontSize: "10px", color: "red" }}>
+                *{errors.firstName}
+              </p>
+            )}
+          </label>
 
-        <label>
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </label>
+          <label>
+            Last Name
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            {errors.lastName && (
+              <p style={{ fontSize: "10px", color: "red" }}>
+                *{errors.lastName}
+              </p>
+            )}
+          </label>
 
-        <label>
-          Address
-          <input
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-          />
-        </label>
+          <label>
+            Address
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+            {errors.address && (
+              <p style={{ fontSize: "10px", color: "red" }}>
+                *{errors.address}
+              </p>
+            )}
+          </label>
 
-        <label>
-          City
-          <input
-            type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            required
-          />
-        </label>
+          <label>
+            City
+            <input
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+            {errors.city && (
+              <p style={{ fontSize: "10px", color: "red" }}>*{errors.city}</p>
+            )}
+          </label>
 
-        <label>
-          State
-          <input
-            type="text"
-            value={state}
-            onChange={(e) => setState(e.target.value)}
-            required
-          />
-        </label>
+          <label>
+            State
+            <select value={state} onChange={(e) => setState(e.target.value)}>
+              <option value="">Select a State</option>
+              <option value="AL">Alabama</option>
+              <option value="AK">Alaska</option>
+              <option value="AZ">Arizona</option>
+              <option value="AR">Arkansas</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="DE">Delaware</option>
+              <option value="DC">District Of Columbia</option>
+              <option value="FL">Florida</option>
+              <option value="GA">Georgia</option>
+              <option value="HI">Hawaii</option>
+              <option value="ID">Idaho</option>
+              <option value="IL">Illinois</option>
+              <option value="IN">Indiana</option>
+              <option value="IA">Iowa</option>
+              <option value="KS">Kansas</option>
+              <option value="KY">Kentucky</option>
+              <option value="LA">Louisiana</option>
+              <option value="ME">Maine</option>
+              <option value="MD">Maryland</option>
+              <option value="MA">Massachusetts</option>
+              <option value="MI">Michigan</option>
+              <option value="MN">Minnesota</option>
+              <option value="MS">Mississippi</option>
+              <option value="MO">Missouri</option>
+              <option value="MT">Montana</option>
+              <option value="NE">Nebraska</option>
+              <option value="NV">Nevada</option>
+              <option value="NH">New Hampshire</option>
+              <option value="NJ">New Jersey</option>
+              <option value="NM">New Mexico</option>
+              <option value="NY">New York</option>
+              <option value="NC">North Carolina</option>
+              <option value="ND">North Dakota</option>
+              <option value="OH">Ohio</option>
+              <option value="OK">Oklahoma</option>
+              <option value="OR">Oregon</option>
+              <option value="PA">Pennsylvania</option>
+              <option value="RI">Rhode Island</option>
+              <option value="SC">South Carolina</option>
+              <option value="SD">South Dakota</option>
+              <option value="TN">Tennessee</option>
+              <option value="TX">Texas</option>
+              <option value="UT">Utah</option>
+              <option value="VT">Vermont</option>
+              <option value="VA">Virginia</option>
+              <option value="WA">Washington</option>
+              <option value="WV">West Virginia</option>
+              <option value="WI">Wisconsin</option>
+              <option value="WY">Wyoming</option>
+            </select>
+            {errors.state && (
+              <p style={{ fontSize: "10px", color: "red" }}>*{errors.state}</p>
+            )}
+          </label>
 
-        <label>
-          Seller
-          <input
-            type="checkbox"
-            value={seller}
-            onChange={(e) => setSeller(e.target.checked)}
-          />
-        </label>
+          <label>
+            Email
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+            {errors.email && (
+              <p style={{ fontSize: "10px", color: "red" }}>*{errors.email}</p>
+            )}
+          </label>
 
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            {errors.password && (
+              <p style={{ fontSize: "10px", color: "red" }}>
+                *{errors.password}
+              </p>
+            )}
+          </label>
 
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
+          <label>
+            Confirm Password
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
+            />
+            {errors.confirmPassword && (
+              <p style={{ fontSize: "10px", color: "red" }}>
+                *{errors.confirmPassword}
+              </p>
+            )}
+          </label>
 
+          <label>
+            Seller
+            <input
+              type="checkbox"
+              checked={seller}
+              onChange={(e) => setSeller(e.target.checked)}
+            />
+          </label>
 
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Sign Up</button>
-      </form>
-    </>
+          <button type="submit">Sign Up</button>
+        </form>
+      </>
+    </div>
   );
 }
 

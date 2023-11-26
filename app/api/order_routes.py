@@ -1,3 +1,4 @@
+
 from flask import Blueprint, request
 from flask_login import current_user, login_required
 from ..models import db, Member, Order, Product,OrderDetail
@@ -82,23 +83,31 @@ def remove_from_shopping_cart(id):
     shopping_cart = [order for order in current_user.orders if order.purchased==False]
     if shopping_cart:
          cart = shopping_cart[0]
-         for product in cart.products:
+         print(cart.products)
+         if len(cart.products)>1:
+            for product in cart.products:
                 #if product exists
                 if product.product_id == id:
                      cart.products.remove(product)
                      order_detail = OrderDetail.query.get(product.id)
                      db.session.delete(order_detail)
                      db.session.commit()
-                     return {"message":"Successfully deleted"}
-
-    return {"errors":"Product Not Found"}
+                     return {"cart":cart.to_dict()}
+         elif len(cart.products)==1:
+              product = cart.products[0]
+              order_detail = OrderDetail.query.get(product.id)
+              db.session.delete(order_detail)
+              db.session.delete(cart)
+              db.session.commit()
+              return {"message":"Successfully Deleted"}
+    return {"errors":"There was an error deleting your order"}
 
 #complete order - transaction
 @order_routes.route('/cart/purchase',methods=['POST'])
 @login_required
 def complete_transaction():
      shopping_cart = [order for order in current_user.orders if order.purchased==False]
-     if shopping_cart:
+     if len(shopping_cart):
         cart = shopping_cart[0]
         total=0
         for product in cart.products:
@@ -115,9 +124,9 @@ def complete_transaction():
              seller_account.account_balance+=total
         cart.purchased=True
         cart.purchase_date=datetime.now()
-
         db.session.commit()
+        return {"cart":cart.to_dict(),"product":product_info.to_dict_descriptive()}
      else:
           return {"errors":"Order Not Found"}
 
-     return {"account_balance":current_user.account_balance, "purchase":cart.to_dict()}
+#make a return
