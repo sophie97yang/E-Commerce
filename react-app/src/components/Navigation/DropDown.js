@@ -54,9 +54,7 @@ function DropDown({ user }) {
             <li><NavLink to='/account'>Your Account</NavLink></li>
             <li>Account Balance:${user.account_balance}</li>
             <li><NavLink to='/orders/past'>View/Manage Your Orders</NavLink></li>
-            <li><NavLink to='/reviews'>View Your Reviews</NavLink></li>
-            <li><NavLink to='/wishlist'>View Your Wishlist</NavLink></li>
-            <li><NavLink to='/products'>View Your Products</NavLink></li>
+            <li><NavLink to='/orders'>View Your Wishlist</NavLink></li>
             <li>
               <button onClick={handleLogout}>Sign Out</button>
             </li>

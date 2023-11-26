@@ -15,4 +15,4 @@ function HandleReturn({product}) {
     )
 }
 
-export default HandleReturn
+export default HandleReturn;

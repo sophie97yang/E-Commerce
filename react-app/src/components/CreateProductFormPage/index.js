@@ -43,7 +43,11 @@ const CreateProductForm = () => {
 
 
 
-  if (member && !member.seller) return history.push("/login");
+  if (member && !member.seller) {
+    history.push("/login");
+    return null;
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,9 +65,14 @@ const CreateProductForm = () => {
       errorList.available = "Please add at least 1 availability";
     if(!category) errorList.category = "Please select a category"
 
-      if (!preview_img)
+    if (!preview_img)
       errorList.preview_img =
         "Please add a preview image (.jpg, .jpeg, .png, .gif, .pdf";
+
+    if(!product_image1) errorList.product_image1 = "Please add a product image"
+    if(!product_image2) errorList.product_image2 = "Please add a product image"
+    if(!product_image3) errorList.product_image3 = "Please add a product image"
+    if(!product_image4) errorList.product_image4 = "Please add a product image"
 
     if (Object.values(errorList).length > 0) {
       setErrors(errorList);
@@ -177,6 +186,7 @@ const CreateProductForm = () => {
             placeholder="Price of product"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            min="0"
             className=""
           />
 
@@ -214,7 +224,7 @@ const CreateProductForm = () => {
           <input
             type="number"
             min="1"
-            placeholder="Name of product"
+            placeholder="Number of available products"
             value={available}
             onChange={(e) => setAvailable(e.target.value)}
             className=""
@@ -250,6 +260,9 @@ const CreateProductForm = () => {
             onChange={(e) => setProduct_image1(e.target.files[0])}
             className=""
           />
+          {errors.product_image1 && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image1}</p>
+          )}
         </div>
 
         <div>
@@ -260,6 +273,9 @@ const CreateProductForm = () => {
             onChange={(e) => setProduct_image2(e.target.files[0])}
             className=""
           />
+          {errors.product_image2 && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image2}</p>
+          )}
         </div>
 
         <div>
@@ -270,6 +286,9 @@ const CreateProductForm = () => {
             onChange={(e) => setProduct_image3(e.target.files[0])}
             className=""
           />
+          {errors.product_image3 && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image3}</p>
+          )}
         </div>
 
         <div>
@@ -280,6 +299,9 @@ const CreateProductForm = () => {
             onChange={(e) => setProduct_image4(e.target.files[0])}
             className=""
           />
+          {errors.product_image4 && (
+            <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image4}</p>
+          )}
         </div>
 
         <div className="create-product-button">

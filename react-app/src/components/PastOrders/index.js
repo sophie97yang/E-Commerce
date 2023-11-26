@@ -1,12 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {Link} from 'react-router-dom';
+import {Link,useHistory} from 'react-router-dom';
 import OrderDetails from "./OrderDetails";
 
 function PastOrders() {
-    const member = useSelector(state => state.session.member)
+    const member = useSelector(state => state.session.member);
+    const history = useHistory();
 
-    if (!member) return null;
+    if (!member) {
+        history.push('/login')
+        return null;
+    }
     const past_orders = member.orders.filter(order => order.purchased==true);
 
     return (

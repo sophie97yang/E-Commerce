@@ -1,5 +1,4 @@
 import {useSelector,useDispatch} from 'react-redux'
-import {useHistory} from 'react-router-dom'
 import './Orders.css'
 import { authenticate, deleteCart, deleteFromCart } from '../../store/session';
 
@@ -7,7 +6,6 @@ import { authenticate, deleteCart, deleteFromCart } from '../../store/session';
 function RemoveFromCart({product}) {
     const member = useSelector(state => state.session.member);
     const dispatch = useDispatch();
-    const history = useHistory();
     const removeFromCart = (e) => {
         e.preventDefault();
         const shopping_cart= member?.orders.filter(order=> order.purchased===false)[0]

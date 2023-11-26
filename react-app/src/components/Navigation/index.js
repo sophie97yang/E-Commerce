@@ -35,11 +35,11 @@ function Navigation({ isLoaded }){
 	const shopping_cart = sessionUser && sessionUser.orders ? sessionUser.orders.filter(order=> order.purchased===false)[0] : null
 	const cart_products = shopping_cart ? shopping_cart.products.length : 0
 
-	useEffect(()=> {
-		const shopping_cart = sessionUser ? sessionUser.orders.filter(order=> order.purchased===false)[0] : null
-		const cart_products = shopping_cart ? shopping_cart.products.length : 0
-		setCart(cart_products)
-	},[cart_products,sessionUser])
+	// useEffect(()=> {
+	// 	const shopping_cart = sessionUser ? sessionUser.orders.filter(order=> order.purchased===false)[0] : null
+	// 	const cart_products = shopping_cart ? shopping_cart.products.length : 0
+	// 	setCart(cart_products)
+	// },[cart_products,sessionUser])
 
 	return (
 		<div>

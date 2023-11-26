@@ -1,7 +1,7 @@
 // frontend/src/components/LoginFormModal/index.js
 import React, { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 
 import "./LoginForm.css";
@@ -16,6 +16,8 @@ function LoginFormPage() {
 
   const [disabled, setDisabled] = useState(true);
   const history = useHistory();
+  const member = useSelector(state=>state.session.member);
+
 
 
   useEffect(() => {
@@ -29,6 +31,11 @@ function LoginFormPage() {
     if (password.length < 6) errorsForm.password = true;
     setFormErrors(errorsForm);
   }, [email, password])
+
+  if (member) {
+    history.push('/');
+    return null;
+  }
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();

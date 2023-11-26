@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {useHistory} from 'react-router-dom';
 import { getAllProducts } from "../../store/products";
 import { Link } from "react-router-dom";
 import './ProductAll.css';
@@ -9,10 +10,10 @@ import './ProductAll.css';
 
 const ProductAll = () => {
     const dispatch = useDispatch();
-    const productsObj = useSelector((state) => state.products.products)
-    //   const productsObj = useSelector((state) => console.log('stateHEREEE', state.products));
-
+    const history = useHistory();
+    const productsObj = useSelector((state) => state.products.products);
     const productList = productsObj ? Object.values(productsObj) : [];
+    const member = useSelector(state => state.session.member)
 
 
     useEffect(() => {
@@ -54,7 +55,7 @@ const ProductAll = () => {
     </div>
 
     <ul className="products-list">
-      {productList.length > 0 &&
+      {productList.length &&
         productList.map((product) => (
           <div key={product.id} title={product.name}>
             <Link to={`/products/${product.id}`}>
@@ -65,11 +66,18 @@ const ProductAll = () => {
                 <li>{product.name}</li>
                 <li>{product.price}</li>
                 <li>{product.reviews?.rating}</li>
+                <li>{product.rating_sum ? `Average Rating:${(product.rating_sum/product.reviews.length).toString().slice(0,4)}` : "No Reviews Yet"}</li>
               </div>
             </Link>
           </div>
         ))}
     </ul>
+    {member && member.seller ? <button onClick={
+      (e) => {
+        e.preventDefault();
+        history.push('/products/new');
+      }
+    }> Add a Product</button> : ""}
   </div>
 </div>
 

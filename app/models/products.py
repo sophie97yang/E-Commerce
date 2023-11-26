@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .wishlists import wishlists
+from .members import Member
 # from .order_details import order_details
 
 class Product(db.Model):
@@ -64,15 +65,20 @@ class Product(db.Model):
     # not returning members (through wishlist) or orders(through order_details)
     # returning all images and all reviews
     def to_dict_descriptive(self):
+        seller_info = Member.query.get(self.seller)
+        rating_sum = 0
+        for review in self.reviews:
+            rating_sum+= int(review.rating)
         product_dict =  {
             "id": self.id,
-            "seller": self.seller,
+            "seller": seller_info.to_dict(),
             "name": self.name,
             "description": self.description,
             "price": self.price,
             "category": self.category,
             "origin":(self.origin_city,self.origin_state),
             "reviews":[review.to_dict_descriptive() for review in self.reviews],
+            "rating_sum":rating_sum,
             "preview_image":self.preview_image,
             "product_image1":self.product_image1,
             "product_image2":self.product_image2,

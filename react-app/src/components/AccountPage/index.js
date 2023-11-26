@@ -61,11 +61,9 @@ function AccountPage() {
         </div>
       </div>
 
-      <li><NavLink to='/products/new'>Add a Product</NavLink></li>
+     {member.seller ? <li><NavLink to='/products/new'>Add a Product</NavLink></li>:""}
       <li><NavLink to='/orders/past'>View/Manage Your Orders</NavLink></li>
-      <li><NavLink to='/reviews'>View Your Reviews</NavLink></li>
-      <li><NavLink to='/wishlist'>View Your Wishlist</NavLink></li>
-      <li><NavLink to='/products'>View Your Products</NavLink></li>
+      <li><NavLink to='/orders'>View Your Wishlist</NavLink></li>
 
 
       <div id="account-orders-container">

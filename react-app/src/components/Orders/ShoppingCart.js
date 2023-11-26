@@ -2,7 +2,7 @@ import { useEffect,useState } from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import { Link } from 'react-router-dom'
 import './Orders.css'
-import CartForm from './CartFormPage'
+// import CartForm from './CartFormPage'
 import RemoveFromCart from './RemoveFromCart'
 import { addToWishlist,deleteCart,deleteFromCart,authenticate } from '../../store/session'
 
@@ -39,7 +39,8 @@ function ShoppingCart() {
         }
     }
 
-    const handleTransaction = () => {
+    const handleTransaction = (e) => {
+        e.preventDefault();
         alert('Feature coming soon!')
     }
 
@@ -55,14 +56,18 @@ function ShoppingCart() {
                         <p>{product.product.available>0 ? "In Stock": "Out of Stock"}</p>
                         <RemoveFromCart product={product}/>
                         <button onClick={()=>{AddToWishlist(product)}}>Add to Wishlist</button>
-                        <CartForm product={product}/>
+                        {/* <CartForm product={product}/> */}
+                        {/* Current feature doesn't allow members to directly edit order on shopping cart */}
+                        <p>Quantity:{product.quantity}</p>
                     </div>
                 ))
                  : <h3>You're looking a little hungry...</h3>
             }
+            <div>
             {
                 cart ? <button onClick={handleTransaction}>Complete Transaction</button> : <p><Link to='/products'>Browse our lovely selection of cheeses</Link></p>
             }
+            </div>
         </div>
 
     )
