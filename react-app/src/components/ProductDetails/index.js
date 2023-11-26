@@ -32,24 +32,57 @@ const ProductDetails = () => {
   if (!products) return null;
   //if product doesn't exist redirect them to a product not found page
   const product = products[id];
-
   if (!product) return history.push('/404')
 
-  //refactor product name to capitalize first letter
-  const product_name = product.name[0].toUpperCase()+product.name.slice(1)
+  //refactor product name to capitalize first letter and fix display price
+  const product_name = product.name[0].toUpperCase()+product.name.slice(1);
+  const product_price_split = product.price.toString().split('.')[1];
+  let new_product_price=product.price;
+    if (!product_price_split) {
+      new_product_price = product.price.toString()+".00"
+    }
+  //refactor product ratings to show stars
+  let product_average_rating;
+  if (product.rating_sum) {
+    product_average_rating = Math.floor(product.rating_sum/product.reviews.length);
+    product.average_rating=''
+    for (let i=0;i<product_average_rating;i++) {
+      product.average_rating+='★'
+    }
+  }
+  //refactor each review rating to show stars
+  product.reviews.forEach(review => {
+    review.stars ='';
+    for (let i=0;i<review.rating;i++) {
+      review.stars+='★'
+    }
+  })
+
   //add to cart callback
   const addToCart = async (e) => {
     e.preventDefault();
 
+    //if user is not authenticated, redirect them
     if (!member) {
       history.push('/login')
       return ['Forbidden'];
     }
 
+    //check validity of quantity data
+    if (!quantity || quantity<=0) {
+      alert('You need to purchase at least one item. Please try again.');
+      return null;
+    }
+
+    if (quantity>product.available) {
+      alert(`Item is low on stock. You cannot purchase more than ${product.available} items. Please try again.`)
+      return null;
+    }
+
     const shopping_cart = member.orders.filter(order=> order.purchased===false)[0];
+
     if (!shopping_cart) {
       const res = await dispatch(addOrder(quantity,id));
-      // dispatch(getAllProducts())
       if (!res.errors) {
         //check wishlist and delete product from wishlist if item is added to shopping cart
         const wishlist = member.products;
@@ -117,9 +150,7 @@ const ProductDetails = () => {
       if (shopping_cart) {
         for (let i=0;i<shopping_cart.products.length;i++) {
           let product = shopping_cart.products[i];
-          console.log('product',product)
           if (product.product.id === parseInt(id)) {
-            console.log('hi')
             if (shopping_cart.products.length>1) {
               const res = dispatch(deleteFromCart(parseInt(id))).catch(res=>console.log(res))
               if (!res.errors) break;
@@ -229,14 +260,14 @@ const ProductDetails = () => {
                 <div>Category: {product.category}</div>
                 <div>Description: {product.description}</div>
                 <div>Availability: {product.available}</div>
-                <div>${product.price}</div>
-                <label> Quantity:
-                <input type='number' min='1' max={`${product.available}`} value={`${quantity}`} onChange={handleChange} name='quantity' />
-                </label>
+                <div>${new_product_price}</div>
                 {
                   !(member && member.seller && (member.id===product.seller.id)) && (
                     <div>
-                    <button onClick={addToCart}>Add to Cart</button>
+                    <label> Quantity:
+                    {product.available ? <input type='number' min={1} max={`${product.available}`} value={`${quantity}`} onChange={handleChange} name='quantity' />:''}
+                    </label>
+                    {product.available ?<button onClick={addToCart}>Add to Cart</button>:<button disabled={true}>Add to Cart</button>}
                     <button onClick={AddToWishlist}>Add to Wishlist</button>
                     </div>
                   )
@@ -248,9 +279,7 @@ const ProductDetails = () => {
 
             <div className='product-reviews'>
               <h2>Written Reviews</h2>
-              {/* replace here with stars*/}
-              <i className="fa-solid fa-star"></i>
-              <h4>{product.rating_sum ? `Average Rating:${(product.rating_sum/product.reviews.length).toString().slice(0,4)}` : "No Reviews Yet"}</h4>
+              <h4>{product.rating_sum ? ` ${product.average_rating}・${(product.rating_sum/product.reviews.length).toString().slice(0,4)}・${product.reviews.length} ratings ` : "No Reviews Yet"}</h4>
               {!(member && member.seller && (member.id===product.seller.id)) && (
                 <button onClick={handleReviewClick}>Add Review</button>
               )}
@@ -260,9 +289,9 @@ const ProductDetails = () => {
               <div>
                 {product.reviews ? product.reviews.map(review => (
                   <div key={review.id}>
-                    <img src={review.review_image} style={{height: "100px", width: "100px;"}}/>
+                    {review.review_image ? <img src={review.review_image} style={{height: "100px", width: "100px;"}}/>: ''}
                     <h5>{review.headline}</h5>
-                    <div>{review.rating}</div>
+                    <div>{review.stars}</div>
                     <p>{review.member.first_name} {review.member.last_name}</p>
                     <p>{review.content}</p>
 

@@ -107,7 +107,7 @@ def remove_from_shopping_cart(id):
 @login_required
 def complete_transaction():
      shopping_cart = [order for order in current_user.orders if order.purchased==False]
-     if shopping_cart:
+     if len(shopping_cart):
         cart = shopping_cart[0]
         total=0
         for product in cart.products:
@@ -124,9 +124,9 @@ def complete_transaction():
              seller_account.account_balance+=total
         cart.purchased=True
         cart.purchase_date=datetime.now()
-
         db.session.commit()
+        return {"cart":cart.to_dict(),"product":product_info.to_dict_descriptive()}
      else:
           return {"errors":"Order Not Found"}
 
-     return {"account_balance":current_user.account_balance, "purchase":cart.to_dict()}
+    #  return {"account_balance":current_user.account_balance, "purchase":cart.to_dict()}

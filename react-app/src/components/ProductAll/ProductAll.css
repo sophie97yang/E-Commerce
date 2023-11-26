@@ -43,3 +43,11 @@
     object-fit: cover;
     border-radius: 5px;
 }
+
+.product_hidden img {
+    filter: grayscale(1)
+}
+
+.product_hidden {
+    background-color:rgba(166, 165, 165, 0.254)
+}

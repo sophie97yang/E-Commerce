@@ -1,30 +1,41 @@
 import { useEffect,useState } from 'react'
 import {useSelector,useDispatch} from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link,useHistory } from 'react-router-dom'
 import './Orders.css'
 // import CartForm from './CartFormPage'
 import RemoveFromCart from './RemoveFromCart'
-import { addToWishlist,deleteCart,deleteFromCart,authenticate } from '../../store/session'
+import { addToWishlist,deleteCart,deleteFromCart,authenticate, completeTransaction } from '../../store/session'
+import { getAllProducts } from '../../store/products'
 
 function ShoppingCart() {
     const sessionUser = useSelector(state => state.session.member)
     const [cart,setCart] = useState([])
     const dispatch = useDispatch();
+    const history = useHistory();
+    console.log('cart',cart);
 
     useEffect(()=> {
 		const shopping_cart = sessionUser ? sessionUser.orders.filter(order=> order.purchased===false)[0] : null
 		setCart(shopping_cart ? shopping_cart.products: null)
 	},[sessionUser])
 
+    useEffect(()=> {
+        dispatch(getAllProducts())
+    },[dispatch])
+
+    //calculate total price of cart
+    let total=0;
+    cart?.forEach(product=> total+=(product.product.price*product.quantity))
+
+
     const AddToWishlist= async (product) => {
         const shopping_cart= sessionUser?.orders.filter(order=> order.purchased===false)[0]
         //IF SHOPPING CART HAS MORE THAN ONE PRODUCT(DO NOT NEED TO DELETE FULL ORDER)
         if (shopping_cart.products.length>1) {
         const res = await dispatch(addToWishlist(product.product.id)).then(dispatch(deleteFromCart(product.product.id))).catch(res=>res)
-        console.log('res',res)
+
         if (!res.errors) {
             dispatch(authenticate())
-            alert('Item added to wishlist');
         }else {
             console.log(res.errors);
         }
@@ -32,16 +43,20 @@ function ShoppingCart() {
             const res = await dispatch(addToWishlist(product.product.id)).then(dispatch(deleteCart(shopping_cart,product.product.id))).catch(res=>res)
             if (!res.errors) {
                 dispatch(authenticate())
-                alert('Item added to wishlist');
             }else {
                 console.log(res.errors);
             }
         }
     }
 
-    const handleTransaction = (e) => {
+    const handleTransaction = async (e) => {
         e.preventDefault();
-        alert('Feature coming soon!')
+        //when transaction is complete,member order changes and product info (quantity) changes
+        const res = await dispatch(completeTransaction()).catch(res=>res);
+        if (!res.errors) {
+            dispatch(authenticate());
+            history.push(`/orders/${cart[0].order_id}/complete`);
+        }
     }
 
 
@@ -65,7 +80,12 @@ function ShoppingCart() {
             }
             <div>
             {
-                cart ? <button onClick={handleTransaction}>Complete Transaction</button> : <p><Link to='/products'>Browse our lovely selection of cheeses</Link></p>
+                cart ? <div className='transaction-details'>
+                    <div> <h4>Your Current Balance:</h4><p> {sessionUser.account_balance.toFixed(2)}</p></div>
+                    <div className='transaction-total'><h4>{`Total (${cart.length}`} {cart.length===1 ? 'item)':"items)"}:</h4><p>{total.toFixed(2)}</p></div>
+                    <div><h4>Your Balance After Checkout</h4><p>{(sessionUser.account_balance-total).toFixed(2)}</p></div>
+                    <button onClick={handleTransaction}>Complete Transaction</button>
+                    </div>: <p><Link to='/products'>Browse our lovely selection of cheeses</Link></p>
             }
             </div>
         </div>

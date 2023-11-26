@@ -26,6 +26,23 @@ const ProductAll = () => {
         return null
     }
 
+  //refactor product name to capitalize first letter and price display
+  //refactor to include review stars inside product object!
+  productList.forEach(product => {
+    product.name = product.name[0].toUpperCase()+product.name.slice(1);
+    const product_price_split = product.price.toString().split('.')[1];
+    if (!product_price_split) {
+      product.price = product.price.toString()+".00"
+    }
+    if (product.rating_sum) {
+      const product_average_rating = Math.floor(product.rating_sum/product.reviews.length);
+      product.average_rating=''
+      for (let i=0;i<product_average_rating;i++) {
+        product.average_rating+='★'
+      }
+    }
+  })
+
 
 
     return (
@@ -57,16 +74,15 @@ const ProductAll = () => {
     <ul className="products-list">
       {productList.length &&
         productList.map((product) => (
-          <div key={product.id} title={product.name}>
+          <div key={product.id} title={product.name} className={product.available ? '':'product_hidden'}>
             <Link to={`/products/${product.id}`}>
               <div>
                 <img src={product.preview_image} alt="product" className="product-img" />
               </div>
               <div>
                 <li>{product.name}</li>
-                <li>{product.price}</li>
-                <li>{product.reviews?.rating}</li>
-                <li>{product.rating_sum ? `Average Rating:${(product.rating_sum/product.reviews.length).toString().slice(0,4)}` : "No Reviews Yet"}</li>
+                <li>${product.price}</li>
+                <li>{product.rating_sum ? `${product.average_rating} ${product.reviews.length}` : "No Reviews Yet"}</li>
               </div>
             </Link>
           </div>

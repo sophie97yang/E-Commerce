@@ -20,7 +20,7 @@ const addProduct = (product) => ({
     product
 })
 
-const editProduct = (product) => ({
+export const editProduct = (product) => ({
     type: UPDATE_PRODUCT,
     product
 })

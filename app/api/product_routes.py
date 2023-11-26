@@ -11,7 +11,9 @@ product_routes = Blueprint("products",__name__,url_prefix='/products')
 #get all products
 @product_routes.route('/all')
 def get_all_products():
-    products = Product.query.filter(Product.available>0).order_by(Product.category).all()
+    # products = Product.query.filter(Product.available>0).order_by(Product.category).all()
+    # we want all products regardless of availability
+    products = Product.query.order_by(Product.category).all()
     list_dict_products = [product.to_dict_descriptive() for product in products]
     print(list_dict_products)
     return {"products":list_dict_products}

@@ -16,6 +16,7 @@ import PastOrders from "./components/PastOrders";
 import UpdateReviewForm from "./components/UpdateReviewFormPage";
 import UpdateProductForm from './components/UpdateProductFormPage'
 import ErrorPage from "./components/ErrorPage";
+import OrderComplete from "./components/OrderComplete";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,27 +30,38 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+
           <Route exact path="/">
           <LandingPage />
           </Route>
+
           <Route path="/login" >
             <LoginFormPage />
           </Route>
+
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+
+          <Route path='/orders/:orderId/complete'>
+            <OrderComplete />
           </Route>
           <Route  path='/orders/past'>
             <PastOrders />
           </Route>
+
           <Route path="/orders">
             <Order isLoaded={isLoaded}/>
           </Route>
+
           <Route path="/products/new">
             <CreateProductForm />
           </Route>
+
           <Route exact path="/products/:id/edit">
             <UpdateProductForm />
           </Route>
+
           <Route exact path="/products/:id/reviews/new">
             <CreateReviewForm />
           </Route>
@@ -68,10 +80,6 @@ function App() {
 
           <Route path="/products/:product_id/reviews/:id/edit">
             <UpdateReviewForm />
-          </Route>
-
-          <Route path='404'>
-            <h2>Page Not Found</h2>
           </Route>
 
           <Route path='*'>

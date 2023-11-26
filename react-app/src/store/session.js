@@ -1,3 +1,4 @@
+import { editProduct } from "./products";
 // constants
 const SET_MEMBER = "session/SET_MEMBER";
 const REMOVE_MEMBER = "session/REMOVE_MEMBER";
@@ -220,6 +221,21 @@ export const removeFromWishlist = (productId) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(removeWishlist(productId));
+		return data;
+	} else {
+		const data = await response.json();
+		return data;
+	}
+}
+
+export const completeTransaction= () => async (dispatch) => {
+	const response = await fetch(`/api/orders/cart/purchase`,{
+		method:"POST"
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(updateCart(data.cart));
+		dispatch(editProduct(data.product));
 		return data;
 	} else {
 		const data = await response.json();
