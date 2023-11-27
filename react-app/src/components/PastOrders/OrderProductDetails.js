@@ -85,11 +85,11 @@ function OrderProductDetails({ product, date }) {
     e.preventDefault();
     history.push(`/products/${product.product.id}/reviews/new`);
   };
-  
+
   return (
     <div className="order-product-details">
       <div className="order-block-1">
-        
+
         {/* <div>
           <span>Number of Ratings</span>
           <div>{product.product.rating_sum}</div>
@@ -98,14 +98,21 @@ function OrderProductDetails({ product, date }) {
         <div>
           {" "}
           <span>Total</span>
-          <div>{product.product.price}</div>
+          <div>{product.product.price*product.quantity}</div>
         </div>
+    {/*
 
         <div>
           {" "}
           <span>Category</span>
           <div>{product.product.category}</div>
+        </div> */}
+        <div>
+          {" "}
+          <span>Quantity</span>
+          <div>{product.quantity}</div>
         </div>
+
 
       </div>
 
@@ -113,11 +120,11 @@ function OrderProductDetails({ product, date }) {
 
       <div className="order-block-2">
         <div className="order-block-left">
-          <h4>{delivered ? "Delivered" : "Order Processing"}</h4>
+         {!product.returned ?  <h4>{delivered ? "Delivered" : "Order Processing"}</h4> : <h4>Returned</h4>}
           <Link
             to={`/products/${product.product.id}`}
             className="product-name-link"
-          > <img src={product.product.preview_image} alt={product.product.name} /> 
+          > <img src={product.product.preview_image} alt={product.product.name} />
           </Link>
         </div>
 
@@ -141,8 +148,9 @@ function OrderProductDetails({ product, date }) {
         <div className="order-block-right">
           <button onClick={TrackPackage}>Track Package</button>
           <OpenModalButton
-            modalComponent={<HandleReturn product={product.product} />}
+            modalComponent={<HandleReturn product={product} />}
             buttonText="Make a Return"
+            className={!product.returned ? "return_button": "return_button_hidden"}
           />
           <button onClick={WriteReview}>Write a Product Review</button>
         </div>

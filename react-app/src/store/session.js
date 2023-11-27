@@ -227,7 +227,7 @@ export const removeFromWishlist = (productId) => async (dispatch) => {
 		return data;
 	}
 }
-
+//bonus:complete transaction
 export const completeTransaction= () => async (dispatch) => {
 	const response = await fetch(`/api/orders/cart/purchase`,{
 		method:"POST"
@@ -235,6 +235,22 @@ export const completeTransaction= () => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(updateCart(data.cart));
+		dispatch(editProduct(data.product));
+		return data;
+	} else {
+		const data = await response.json();
+		return data;
+	}
+}
+//bonus: make a return
+export const createReturn = (orderId,productId) => async (dispatch) => {
+
+	const response = await fetch(`/api/orders/${orderId}/product/${productId}/return`,{
+		method:"POST"
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(updateCart(data.order));
 		dispatch(editProduct(data.product));
 		return data;
 	} else {
