@@ -1,7 +1,7 @@
 # Parmazon Prime 
 
 
-Parmazon is a website clone, inspired by Amazon. 
+[Parmazon](https://parmazon-prime.onrender.com) is a website clone, inspired by Amazon.
 
 
 ## Tech Stack
