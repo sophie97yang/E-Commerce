@@ -29,7 +29,7 @@ const CreateProductForm = () => {
   const [submitted, yesSubmitted] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  const categories = ["Fresh", "Bloomy Rind", "Wash Rind"];
+  const categories = ["Fresh", "Bloomy Rind", "Washed Rind"];
 
   useEffect(() => {
     dispatch(getAllProducts()).catch((res) => res);
@@ -143,7 +143,7 @@ const CreateProductForm = () => {
 
   return (
     <>
-    
+
       <h1 className="add-product-title">Add a Product</h1>
     <div className="create-product-container">
 
