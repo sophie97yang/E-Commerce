@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch,useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
+import { useHistory,Link } from 'react-router-dom';
 
 import "./LoginForm.css";
 
@@ -69,9 +69,7 @@ function LoginFormPage() {
   }
 
   const handleDemoMember = (e) => {
-    e.preventDefault()
-    // setEmail("givemecheese@gmail.com")
-    // setPassword("geniusmouse123")
+    e.preventDefault();
     return dispatch(sessionActions.login({
       email: "givemecheese@gmail.com",
       password: "geniusmouse123"
@@ -86,8 +84,6 @@ function LoginFormPage() {
 
   const handleDemoSeller = (e) => {
     e.preventDefault()
-    // setEmail("ih8Jerry@gmail.com")
-    // setPassword("killhim")
     return dispatch(sessionActions.login({
       email: "ih8Jerry@gmail.com",
       password: "killhim"
@@ -103,6 +99,7 @@ function LoginFormPage() {
     <div className="form-field">
 
       <h1>Log In</h1>
+      <p>New to Parmazon? <Link to='/signup'>Sign Up here.</Link></p>
 
       <form onSubmit={handleSubmit} >
 

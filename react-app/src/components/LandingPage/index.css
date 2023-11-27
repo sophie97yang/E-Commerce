@@ -26,12 +26,15 @@
     background-color: white;
     padding: 20px;
     font-family: 'Pacifico', cursive;
+    font-size:50px;
   }
 
   /* Carousel */
 
   .product-carousel {
     text-align: center;
+    width:800px;
+    margin:0px auto;
   }
   .product-carousel .legend {
     display: inline-block;
@@ -42,8 +45,8 @@
     margin: 0 auto;
   }
 
-  .landing-page img {
-    max-width:300px;
+  .product-carousel img {
+    max-width:750px;
   }
   /* Boxes Container */
   .boxes-container {

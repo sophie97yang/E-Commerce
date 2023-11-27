@@ -143,3 +143,8 @@ main {
     display: flex;
     flex-direction: column;
 }
+
+.product_hidden img{
+    filter:grayscale(1);
+    filter:blur(1);
+}

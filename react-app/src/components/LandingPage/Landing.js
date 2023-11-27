@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import { useHistory,NavLink } from 'react-router-dom';
+import { useHistory,NavLink,Link } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
 import {getAllProducts} from '../../store/products'
@@ -23,10 +23,6 @@ function LandingPage() {
 
   if (!products) return null;
 
-  //   Set a random background image
-  //   const randomIndex = Math.floor(Math.random() * backgroundImages.length);
-  //   setBackgroundImage(backgroundImages[randomIndex]);
-  // }, []);
 
   const handleBoxClick = (route, userRoleRequired) => {
     const isAuthenticated = currentUser;

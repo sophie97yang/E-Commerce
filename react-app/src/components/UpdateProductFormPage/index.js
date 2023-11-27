@@ -15,9 +15,7 @@ const UpdateProductForm = () => {
   const member = useSelector((state) => state.session.member);
 
   const product = products ? products[id] : null
-//   const product = useSelector((state) => state.products[id])
 
- console.log("PRODUCT ", product)
 
   const [name, setName] = useState(product?.name);
   const [description, setDescription] = useState(product?.description);
@@ -36,7 +34,7 @@ const UpdateProductForm = () => {
   const [submitted, yesSubmitted] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  const categories = ["Fresh", "Bloomy Rind", "Wash Rind"];
+  const categories = ["Fresh", "Bloomy Rind", "Washed Rind"];
 
 //   useEffect(() => {
 //     dispatch(getAllProducts()).catch((res) => res);
@@ -45,7 +43,7 @@ const UpdateProductForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(category);
 
     let errorList = {};
 
@@ -86,7 +84,7 @@ const UpdateProductForm = () => {
     if(data) setImageLoading(false)
 
     if(!data.errors) {
-        history.push('/products')
+        history.push(`/products/${id}`)
         yesSubmitted(true)
         closeModal()
         // reset()
@@ -138,7 +136,7 @@ const UpdateProductForm = () => {
   return (
 
     <>
-    
+
       <h1 className="add-product-title">Update Your Product</h1>
 
     <div className="create-product-container">
@@ -295,4 +293,3 @@ const UpdateProductForm = () => {
 };
 
 export default UpdateProductForm;
-
