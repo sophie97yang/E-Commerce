@@ -32,7 +32,7 @@ nav>div:hover {
 nav li:hover {
   border: 1px black solid;
   cursor: pointer;
-  
+
 }
 
 nav img {
@@ -107,6 +107,9 @@ nav img {
 .profile_dropdown a:hover {
   text-decoration: underline;
   color: #FF9900;
+  cursor: pointer;
+}
+.profile_dropdown button:hover {
   cursor: pointer;
 }
 

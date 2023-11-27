@@ -68,13 +68,14 @@ function DropDown({ user }) {
 
               }}>Sign In</button>
             </li>
-
+            <li>
             <div>Not a Member Yet?</div>
             <button onClick={(e) => {
                 e.preventDefault()
                 history.push('/signup')
 
               }}>Sign Up</button>
+              </li>
 
 
 

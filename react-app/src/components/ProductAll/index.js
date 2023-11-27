@@ -5,8 +5,6 @@ import { getAllProducts } from "../../store/products";
 import { addOrder, authenticate, editOrder, removeFromWishlist, addToWishlist, deleteCart, deleteFromCart } from "../../store/session";
 import { Link } from "react-router-dom";
 import './ProductAll.css';
-// import { Carousel } from "react-responsive-carousel";
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
 import truckImg from '../../assets/images/truckIcon.jpg';
 import memory from '../../assets/images/charcuterie.jpeg';
 
@@ -31,6 +29,7 @@ const ProductAll = () => {
   //refactor product name to capitalize first letter and price display
   //refactor to include review stars inside product object!
   productList.forEach(product => {
+    if (product){
     product.name = product.name[0].toUpperCase() + product.name.slice(1);
     const product_price_split = product.price.toString().split('.')[1];
     if (!product_price_split) {
@@ -42,6 +41,7 @@ const ProductAll = () => {
       for (let i = 0; i < product_average_rating; i++) {
         product.average_rating += '★'
       }
+    }
     }
   })
 
@@ -154,7 +154,7 @@ const ProductAll = () => {
                         <li>{product.rating_sum ? `${product.average_rating} ${product.reviews.length}` : "No Reviews Yet"}</li>
                       </div>
                     </Link>
-                    <button onClick={() => { handleAddCart(product.id) }}>Add to Cart</button>
+                 {product.available? <div>{!(member.seller && product.seller.id===member.id) ? <button onClick={() => { handleAddCart(product.id) }}>Add to Cart</button>:<></>}</div> :<p>Out of Stock</p>}
                   </div>
                 </div>
               ))}

@@ -2,7 +2,6 @@ import { useEffect,useState } from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import { Link,useHistory } from 'react-router-dom'
 import './Orders.css'
-// import CartForm from './CartFormPage'
 import RemoveFromCart from './RemoveFromCart'
 import { addToWishlist,deleteCart,deleteFromCart,authenticate, completeTransaction } from '../../store/session'
 import { getAllProducts } from '../../store/products'
@@ -64,31 +63,29 @@ function ShoppingCart() {
     return (
       <div className="shopping-cart">
         <h2>Shopping Cart</h2>
+        <div className='shopping-cart-items'>
         {cart ? (
           cart.map((product) => (
             <div key={product.id} className="cart-container">
-  
+
               <div className="cart-block-1">
                 <div>
                   <span>Total</span>
                   <div>{product.product.price}</div>
                 </div>
-  
-                <div>
-                  <span>Category</span>
-                  <div>{product.product.category}</div>
-                </div>
-  
-                <p> {product.product.available > 0 ? "In Stock" : "Out of Stock"} </p>
-  
+
+              <div>
+                <p id='stock_info'> {product.product.available > 0 ? "In Stock" : "Out of Stock"} </p>
+              </div>
+
                 <div>
                   <p>Quantity</p>
                   <div>{product.quantity}</div>
                 </div>
               </div>
-  
+
               <div className="block-divider"></div>
-  
+
               <div className="cart-block-2">
                 <div className="cart-block-left">
                   <img
@@ -96,7 +93,7 @@ function ShoppingCart() {
                     alt={product.product.name}
                   />
                 </div>
-  
+
                 <div className="cart-block-middle">
                 <Link
                 to={`/products/${product.product.id}`}
@@ -106,7 +103,7 @@ function ShoppingCart() {
                </Link>
                   <div className="product-description">{product.product.description}</div>
                 </div>
-  
+
                 <div className="cart-block-right">
                   <RemoveFromCart product={product} />
                   <button
@@ -123,14 +120,15 @@ function ShoppingCart() {
         ) : (
           <h3>You're looking a little hungry...</h3>
         )}
-  
+        </div>
+
         <div className="transaction-container">
         {
                   cart ? <div className='transaction-details'>
                       <div> <h4>Your Current Balance:</h4><p> {sessionUser.account_balance.toFixed(2)}</p></div>
                       <div className='transaction-total'><h4>{`Total (${cart.length}`} {cart.length===1 ? 'item)':"items)"}:</h4><p>{total.toFixed(2)}</p></div>
                       <div><h4>Your Balance After Checkout</h4><p>{(sessionUser.account_balance-total).toFixed(2)}</p></div>
-                      <button onClick={handleTransaction} className='complete-transaction-button'>Complete Transaction</button>
+                      <button onClick={handleTransaction} className='complete-transaction-button'>Checkout</button>
                       </div>: <p><Link to='/products'>Browse our lovely selection of cheeses</Link></p>
       }
         </div>
@@ -138,4 +136,3 @@ function ShoppingCart() {
     );
   };
   export default ShoppingCart;
-  

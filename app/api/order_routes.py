@@ -129,4 +129,23 @@ def complete_transaction():
      else:
           return {"errors":"Order Not Found"}
 
-#make a return
+#make a return for a product
+@order_routes.route('/<int:orderId>/product/<int:productId>/return', methods=['POST'])
+@login_required
+def make_return(orderId,productId):
+     #find order and change order detail to returned=true
+     order_to_return = [order for order in current_user.orders if order.id==orderId][0]
+     order_detail = [product for product in order_to_return.products if product.product.id==productId][0]
+     order_detail.returned=True
+     #find person and restore account balance
+     total_to_return = order_detail.quantity*order_detail.product.price
+     current_user.account_balance+=total_to_return
+     #find product and restore stock
+     product_to_return = Product.query.get(productId)
+     product_to_return.available+=order_detail.quantity
+     #find seller and remove money from account
+     seller_account=Member.query.get(product_to_return.seller)
+     seller_account.account_balance-=total_to_return
+     #return product and order
+     db.session.commit()
+     return {"order":order_to_return.to_dict(),"product":product_to_return.to_dict_descriptive()}

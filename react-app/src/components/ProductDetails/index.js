@@ -247,6 +247,7 @@ const ProductDetails = () => {
               {member && member.seller && (member.id===product.seller.id) && (
                 <>
                   <button onClick={handleUpdateClick}>Update Product</button>
+                  <DeleteProduct product={product} />
                 </>
               )}
 
@@ -273,7 +274,6 @@ const ProductDetails = () => {
                   )
                 }
 
-            <DeleteProduct product={product} />
               </div>
             </div>
 

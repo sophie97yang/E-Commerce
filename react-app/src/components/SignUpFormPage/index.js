@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect,useHistory } from "react-router-dom";
 import { signUp, authenticate } from "../../store/session";
 import "./SignupForm.css";
+import { Link } from "react-router-dom";
 
 
 function SignupFormPage() {
@@ -88,6 +89,9 @@ function SignupFormPage() {
     <div className="main-container">
       <>
         <h1>Sign Up</h1>
+        <div>
+          <p>Already a member? <Link to='/login'>Log in here.</Link></p>
+        </div>
         <form onSubmit={handleSubmit}>
           {/* <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
