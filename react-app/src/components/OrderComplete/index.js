@@ -3,6 +3,8 @@ import {useParams,Link} from 'react-router-dom';
 import {useSelector,useDispatch} from 'react-redux';
 import {getAllProducts} from '../../store/products'
 
+import "./OrderComplete.css"
+
 
 const OrderComplete = () => {
     const {orderId} = useParams();
@@ -39,7 +41,12 @@ const OrderComplete = () => {
 
     return (
         <div>
-            <h2>Thank you, your order has been placed.</h2>
+            <h2 className="thank-you-block">Thank you, your order has been placed.</h2>
+
+            <div className="thank-you-container">
+
+            
+
             <p>Your Order: <span id='transaction_product_list'>{product_list}</span> will be shipped to {member.first_name} {member.last_name} - by {seller_list}</p>
             <Link to='/orders/past'>You can check your order status here</Link>
 
@@ -47,8 +54,12 @@ const OrderComplete = () => {
                 <div>
                     <p>Based on your recent order of {recommendations[0].name}, we recommend:</p>
                     {recommendations[0].products.map(product=> (
-                        <img alt={product.name} src={product.preview_image}></img>
+                        
+                        <img alt={product.name} src={product.preview_image} className="thank-you-product"></img>
+                    
                     ))}
+                </div>
+
                 </div>
         </div>
     )

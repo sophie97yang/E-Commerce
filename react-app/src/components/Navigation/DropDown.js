@@ -52,7 +52,7 @@ function DropDown({ user }) {
         {user ?
           <>
             <li><NavLink to='/account'>Your Account</NavLink></li>
-            <li>Account Balance:${user.account_balance.toFixed(2)}</li>
+            <li>Account Balance: ${user.account_balance.toFixed(2)}</li>
             <li><NavLink to='/orders/past'>View/Manage Your Orders</NavLink></li>
             <li><NavLink to='/orders'>View Your Wishlist</NavLink></li>
             <li>

@@ -1,58 +1,145 @@
-.product-square {
-    display: flex;
-    flex-direction: row;
+main {
     padding: 20px;
 }
 
-.product-left,
-.product-right {
-    width: 50%;
+.product-square {
+    display: flex;
+    justify-content: space-between;
 }
 
-.all-products-image-container {
-    /* width: 60%; */
-    background-image: url('../../assets/images/truckIcon.jpg');
-    /* background-size: 100% auto;
-    background-repeat: no-repeat;
-    background-position: left center; */
+.product-left {
+    width: 35%;
+}
+
+.product-right {
+    width: 60%;
+}
+
+.product-left-outer-square {
+    position: sticky;
+    top: 40px;
+}
+
+.truck {
+    width: 60%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.memory {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
 }
 
 .product-left-inner-square,
 .product-right-inner-square {
+    border-radius: 5px;
     border: 1px solid #ccc;
     padding: 20px;
     margin-bottom: 20px;
     text-align: center;
+    background-color: white;
 }
+
+.product-left-inner-square h1,
+.product-right-inner-square h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.product-right button {
+    background-color: #235a81;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.product-right button:hover {
+    background-color: #032652;
+}
+
 
 .products-list {
     list-style: none;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .products-list>div {
+    background-color: white;
     width: 30%;
-    margin: 0 15px 20px 0;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.products-list a {
-    text-decoration:none;
-    color:#131a22;
-
+.products-list>div:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
 }
+
 .product-img {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+.products-list>div:hover .product-img {
+  transform: scale(1.1);
+}
+
+.product-summary {
+    padding: 10px;
+    background-color: white;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
-.product_hidden img {
-    filter: grayscale(1)
+.product-summary li {
+    margin-bottom: 5px;
 }
 
-.product_hidden {
-    background-color:rgba(166, 165, 165, 0.254)
+.product-ind-box button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.product-ind-box button:hover {
+    background-color: #3762ff;
+}
+
+.product-ind-box {
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.product-ind-box a {
+    text-decoration: none;
+    color: #131a22;
+    display: flex;
+    flex-direction: column;
 }
