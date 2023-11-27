@@ -142,10 +142,12 @@ const CreateProductForm = () => {
 
 
   return (
+    <>
+    
+      <h1 className="add-product-title">Add a Product</h1>
     <div className="create-product-container">
-      <h1>Add a Product</h1>
 
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form className="product-form" onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
           <label className="label">Name</label>
           <input
@@ -170,7 +172,7 @@ const CreateProductForm = () => {
             placeholder="description of product"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className=""
+            className="description-field"
           />
 
         {errors.description && (
@@ -310,6 +312,7 @@ const CreateProductForm = () => {
         {imageLoading && <p>Loading...</p>}
       </form>
     </div>
+    </>
   );
 };
 

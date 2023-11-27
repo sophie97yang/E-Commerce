@@ -3,7 +3,9 @@ import { useSelector,useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {addOrder,editOrder,authenticate, removeFromWishlist} from '../../store/session';
 import productsReducer from '../../store/products';
-// import './Wishlist.css';
+import './Wishlist.css';
+import { Link } from 'react-router-dom';
+
 
 function Wishlist() {
   const member = useSelector(state => state.session.member);
@@ -49,14 +51,32 @@ function Wishlist() {
         {wishlistItems?.length > 0 ? (
           wishlistItems?.map(item => (
             <div key={item.id} className='wishlist-item'>
+              <Link
+            to={`/products/${item.id}`}
+            className="product-name-link"
+          >
               <h3>{item.name}</h3>
+              </Link>
+
               <p>{item.description}</p>
+
+            <div className="wishlist-img-container">
+            <Link
+            to={`/products/${item.id}`}
+            className="product-name-link"
+          >
+            <img className="wishlist-img" src={item.preview_image}/>
+            </Link>
+            </div>
+
               <button onClick={() => RemoveFromWishlist(item)}>
                 Remove from Wishlist
               </button>
               <button onClick={()=> AddToCart(item)}>
                 Add to Shopping Cart
               </button>
+
+
             </div>
           ))
         ) : (

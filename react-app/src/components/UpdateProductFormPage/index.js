@@ -136,10 +136,14 @@ const UpdateProductForm = () => {
   if(product === undefined) return null;
 
   return (
-    <div className="create-product-container">
-      <h1>Update Your Product</h1>
 
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <>
+    
+      <h1 className="add-product-title">Update Your Product</h1>
+
+    <div className="create-product-container">
+
+      <form onSubmit={handleSubmit} encType="multipart/form-data" className="product-form">
         <div>
           <label className="label">Name</label>
           <input
@@ -163,7 +167,7 @@ const UpdateProductForm = () => {
             placeholder="description of product"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className=""
+            className="description-field"
           />
 
           {errors.description && (
@@ -285,7 +289,10 @@ const UpdateProductForm = () => {
 
       </form>
     </div>
+
+    </>
   );
 };
 
 export default UpdateProductForm;
+
