@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import {Link,useHistory} from 'react-router-dom';
 import OrderDetails from "./OrderDetails";
 import './PastOrders.css';
+import lonelyCheese from '../../assets/images/lonely-cheese.png';
 
 function PastOrders() {
     const member = useSelector(state => state.session.member);
@@ -14,7 +15,6 @@ function PastOrders() {
     }
     const past_orders = member.orders.filter(order => order.purchased==true);
 
-    // console.log("ORDERS ", past_orders)
 
     return (
         <div className="orders-container">
@@ -22,8 +22,9 @@ function PastOrders() {
             <h4 className="howManyOrders">{past_orders.length} {past_orders.length === 1 ? 'Order' : 'Orders'}</h4>
             {
                 !past_orders.length && (
-                    <div>
-                    <h4>Looks like you have not made any purchases</h4>
+                    <div id='no-purchase'>
+                    <h4>Looks like you have not made any purchases...</h4>
+                    <img src={lonelyCheese} alt='cheese'></img>
                     <Link to='/products'>Let's Change That</Link>
                     </div>
                 )

@@ -76,12 +76,13 @@ def seed_reviews():
         )
 
     review7 = Review(
-        rating= 2,
+        rating= 5,
         review_date= datetime.now(),
         product_id= 5,
         member_id= 7,
-        headline="Avoid this!",
-        content="It sucked"
+        headline="BEWARE! May tempt you to play with your food",
+        content="Yummy eats, an even better time.",
+        review_image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjEYgMvt9MDwE_c8OZ7Ylejpf5AxdOPFnKVUs7GeOJP9VsGY1226Xwji9MgGjb6pettxw&usqp=CAU"
         )
 
     review8 = Review(

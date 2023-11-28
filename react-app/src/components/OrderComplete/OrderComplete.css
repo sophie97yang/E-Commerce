@@ -1,5 +1,11 @@
 .thank-you-block{
     margin: 25px;
+    color:#ff9900;
+    font-size:30px
+}
+.thank-you-block img {
+    width:50px;
+    margin-top:35px;
 }
 
 .thank-you-container{
@@ -16,4 +22,41 @@
 .thank-you-product{
     width: 250px;
     height: 250px;
+}
+
+.thank-you-container a {
+    text-decoration:none;
+    color:#ff9900;
+    margin-top:10px;
+
+}
+
+.thank-you-container a:hover {
+    text-decoration:underline;
+
+}
+.thank-you-container h4{
+    font-size:24px;
+}
+
+.recommendations p {
+    margin-bottom:10px;
+    font-size:17px;
+    font-style:italic;
+
+}
+
+.ty-order-info {
+    border:1px solid black;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+
+.recommendations img {
+    margin:10px;
+    border:1px solid #232f3e;
+    padding:5px;
 }

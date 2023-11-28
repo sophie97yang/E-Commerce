@@ -121,17 +121,15 @@ body{
 
   .your-orders-text {
     padding-top: 20px;
-    padding-bottom: 20px;
     text-align: center;
     text-decoration: none;
     color: rgb(0, 100, 131);
-
   }
 
-  a.your-orders-text {
-    color: rgb(0, 100, 131);
+  .your-orders-text:hover{
+    text-decoration: underline;
   }
-
   .noContentText {
     text-align: center;
+    margin-bottom:30px;
   }

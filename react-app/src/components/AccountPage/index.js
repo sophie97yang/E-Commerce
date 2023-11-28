@@ -125,8 +125,9 @@ function AccountPage() {
 
       {member.seller && (
         <div id="account-products-container">
+          {userProducts.length ?
+          <>
           <div className="header-your-orders-text">Your Products</div>
-
           <Carousel className="products-carousel">
             {userProducts.map((product, index) => (
               <div key={index}>
@@ -139,6 +140,14 @@ function AccountPage() {
               </div>
             ))}
           </Carousel>
+          </> :
+          <div className="noContentText">
+          <h2 className="header-your-orders-text">You are selling no products</h2>
+          <Link to="/products/new" className="your-orders-text">
+            {" "}
+            Let's Change That
+          </Link>
+        </div>}
         </div>
       )}
     </div>

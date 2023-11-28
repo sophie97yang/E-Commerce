@@ -40,7 +40,7 @@ nav a {
 
 nav li:hover {
   border: 1px black solid;
-  cursor: pointer;
+  cursor: url('../../assets/images/cheeseFinger.png'), pointer;
 
 }
 
@@ -135,10 +135,10 @@ nav img {
 .profile_dropdown a:hover {
   text-decoration: underline;
   color: #FF9900;
-  cursor: pointer;
+  cursor: url('../../assets/images/cheeseFinger.png'), pointer;
 }
 .profile_dropdown button:hover {
-  cursor: pointer;
+  cursor: url('../../assets/images/cheeseFinger.png'), pointer;
 }
 
 .profile-dropdown {
@@ -229,7 +229,7 @@ nav img {
 }
 
 .dropdown-balance {
-  cursor: default;
+  cursor: url('../../assets/images/cheesePointer.png'), auto;
   padding: 5px;
 }
 

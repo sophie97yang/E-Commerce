@@ -96,7 +96,7 @@ html {
   padding: 20px;
   text-align: center;
   background-color: gold;
-  cursor: pointer;
+  cursor: url('../../assets/images/cheeseFinger.png'), pointer;
   font-family: 'Pacifico', cursive;
 }
 
