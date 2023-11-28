@@ -2,8 +2,24 @@
 
 .yourOrdersTitle{
     font-family: 'Pacifico', cursive;
+    color: gold;
+    margin-bottom: 20px;
+    font-size: 60px;
+
 }
 
 .orders-container{
-    align-items: center;
+    text-align: center;
+    margin: 100px;
+
+}
+
+h4 {
+    color: black;
+    margin-bottom: 10px;
+}
+
+.howManyOrders {
+    color: green;
+    font-size: 20px;
 }

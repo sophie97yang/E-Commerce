@@ -186,6 +186,5 @@ def undo_reviews():
         db.session.execute(f"TRUNCATE table {SCHEMA}.reviews RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM reviews"))
-        db.session.execute(text("DELETE FROM review_images"))
 
     db.session.commit()

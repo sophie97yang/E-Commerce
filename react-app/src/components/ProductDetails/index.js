@@ -13,6 +13,7 @@ import OpenModalButton from '../OpenModalButton'
 import UpdateReviewForm from "../UpdateReviewFormPage";
 import ManageReview from "../ManagementModal/ManageReview";
 import UpdateProductImage from "./UpdateProductImage";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -204,6 +205,10 @@ const ProductDetails = () => {
           <div>Loading...</div>
         ) : (
           <div className="product-content">
+            <div id='flex-display-pd'>
+            <div className='breadcrumbs'>
+              <p><Link to='/products'>All Products</Link> {">"} {product.name} </p>
+            </div>
             <div className="product-images-box">
               <Carousel className="Carousel-img">
                 <div>
@@ -278,6 +283,7 @@ const ProductDetails = () => {
                 </div>
               </Carousel>
             </div>
+            </div>
             <div className="test">
 
               {member && member.seller && (member.id===product.seller.id) && (
@@ -293,7 +299,7 @@ const ProductDetails = () => {
               </div>
 
               <div className="product-details">
-                <div>{product_name}</div>
+                <div id='product-detail-name'>{product_name}</div>
                 <div>Category: {product.category}</div>
                 <div>Description: {product.description}</div>
                 <div>Availability: {product.available}</div>

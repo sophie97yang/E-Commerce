@@ -19,11 +19,11 @@ function PastOrders() {
     return (
         <div className="orders-container">
             <h2 className="yourOrdersTitle">Your Orders</h2>
-            <h4>{past_orders.length} Orders</h4>
+            <h4 className="howManyOrders">{past_orders.length} {past_orders.length === 1 ? 'Order' : 'Orders'}</h4>
             {
                 !past_orders.length && (
                     <div>
-                    <h4>You look like you have not made any purchases.</h4>
+                    <h4>Looks like you have not made any purchases</h4>
                     <Link to='/products'>Let's Change That</Link>
                     </div>
                 )
