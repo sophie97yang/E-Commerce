@@ -17,6 +17,10 @@ import UpdateReviewForm from "./components/UpdateReviewFormPage";
 import UpdateProductForm from './components/UpdateProductFormPage'
 import ErrorPage from "./components/ErrorPage";
 import OrderComplete from "./components/OrderComplete";
+import Footer from './components/Footer';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import AboutUs from "./components/AboutUs";
+import CustomerReviews from "./components/CustomerReviews";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,28 +47,36 @@ function App() {
             <SignupFormPage />
           </Route>
 
-          <Route path='/orders/:orderId/complete'>
+          <Route path="/aboutus">
+            <AboutUs />
+          </Route>
+
+          <Route path="/customersreviews">
+            <CustomerReviews />
+          </Route>
+
+          <ProtectedRoute path='/orders/:orderId/complete'>
             <OrderComplete />
-          </Route>
-          <Route  path='/orders/past'>
+          </ProtectedRoute>
+          <ProtectedRoute  path='/orders/past'>
             <PastOrders />
-          </Route>
+          </ProtectedRoute>
 
-          <Route path="/orders">
+          <ProtectedRoute path="/orders">
             <Order isLoaded={isLoaded}/>
-          </Route>
+          </ProtectedRoute>
 
-          <Route path="/products/new">
+          <ProtectedRoute path="/products/new">
             <CreateProductForm />
-          </Route>
+          </ProtectedRoute>
 
-          <Route exact path="/products/:id/edit">
+          <ProtectedRoute exact path="/products/:id/edit">
             <UpdateProductForm />
-          </Route>
+          </ProtectedRoute>
 
-          <Route exact path="/products/:id/reviews/new">
+          <ProtectedRoute exact path="/products/:id/reviews/new">
             <CreateReviewForm />
-          </Route>
+          </ProtectedRoute>
 
           <Route exact path="/products/:id">
             <ProductDetails />
@@ -74,13 +86,13 @@ function App() {
             <ProductAll />
           </Route>
 
-          <Route path="/account">
+          <ProtectedRoute exact path="/account">
             <AccountPage />
-          </Route>
+          </ProtectedRoute>
 
-          <Route path="/products/:product_id/reviews/:id/edit">
+          <ProtectedRoute path="/products/:product_id/reviews/:id/edit">
             <UpdateReviewForm />
-          </Route>
+          </ProtectedRoute>
 
           <Route path='*'>
             <ErrorPage/>
@@ -88,6 +100,7 @@ function App() {
 
         </Switch>
       )}
+      <Footer />
     </>
   );
 }

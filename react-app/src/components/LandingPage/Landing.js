@@ -1,9 +1,18 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import { useHistory,NavLink,Link } from 'react-router-dom';
-import { useSelector,useDispatch } from 'react-redux';
+import { useHistory, NavLink, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
-import {getAllProducts} from '../../store/products'
+import { getAllProducts } from '../../store/products';
+import customerRevImg from '../../assets/images/customerReviewsImg.png';
+import tom from '../../assets/images/TomCat.png';
+import jerry from '../../assets/images/jerryMouse.png';
+import returnImg from '../../assets/images/freeReturn.png';
+import cheeseHeaven from '../../assets/images/cheeseHeaven.png';
+import cheeseSell from '../../assets/images/cheeseSell.png';
+import manageOrdersImg from '../../assets/images/manageOrdersImg.png';
+import aboutusImg from '../../assets/images/aboutUsImg.png';
+
 import "./index.css"
 
 function LandingPage() {
@@ -16,10 +25,10 @@ function LandingPage() {
   const products = useSelector(state => state.products.products);
 
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(getAllProducts())
-    .catch(res => res)
-  },[dispatch]);
+      .catch(res => res)
+  }, [dispatch]);
 
   if (!products) return null;
 
@@ -37,50 +46,56 @@ function LandingPage() {
   };
 
   // Define boxes for rendering
-// Define boxes for rendering based on the wireframe
-const boxes = [
+  // Define boxes for rendering based on the wireframe
+  const boxes = [
     {
       title: "Cheese Heaven: Every Enthusiasts Super Experience",
       description: "Explore a variety of cheeses",
+      image: cheeseHeaven,
       route: "/products",
       userRole: "all",
     },
     {
-      title: "Get your holiday gifts on time.",
-      description: "Only at Parmazon-Prime. The perfect place to enjoy cheese",
-      route: "/",
+      title: "Customer Reviews",
+      description: "See what our users have to say about our website",
+      image: customerRevImg,
+      route: "/customersreviews",
       userRole: "all",
     },
     {
       title: "Have cheese to sell?",
       description: "Click here to sell your cheese",
+      image: cheeseSell,
       route: "/products/new",
-      userRole: "seller",
+      userRole: "all",
     },
     {
       title: "Free Returns",
       description: "We guarantee the quality of our products",
+      image: returnImg,
       route: "/orders/past",
       userRole: "all",
     },
     {
       title: "About Parmazon Prime",
       description: "Learn about our mission and values",
-      route: "/",
+      image: aboutusImg,
+      route: "/aboutus",
       userRole: "all",
     },
     {
       title: "Manage Orders",
       description: "View and manage your orders",
+      image: manageOrdersImg,
       route: "/orders",
-      userRole: "authenticated", // Assuming 'authenticated' means any signed-in user
+      userRole: "all",
     },
-    {
-      title: "Top Picks for You",
-      description: "Personalized recommendations",
-      route: "/",
-      userRole: "authenticated",
-    },
+    // {
+    //   title: "Top Picks for You",
+    //   description: "Personalized recommendations",
+    //   route: "/",
+    //   userRole: "authenticated",
+    // },
   ];
 
 
@@ -89,21 +104,37 @@ const boxes = [
       {/* style={{ backgroundImage: `url(${backgroundImage})` }} */}
       <h1 className="main-title">Cheese Heaven: Every Enthusiasts Super Experience</h1>
 
-      <Carousel className="product-carousel">
-        {Object.values(products).map((product, index) => (
-          <div key={index}>
-            <img src={product.preview_image} alt={product.name} />
-            <p className="legend">{product.name}</p>
-          </div>
-        ))}
-      </Carousel>
+      <div className='image-header-landing'>
+
+        <div className="image-landing">
+          <img className="jerry-img" src={jerry} alt="jerry" />
+        </div>
+
+        <Carousel className="product-carousel">
+          {Object.values(products).map((product, index) => (
+            <div key={index}>
+              <img src={product.preview_image} alt={product.name} />
+              <p className="legend">
+                <NavLink to={`/products/${product.id}`}>{product.name}</NavLink>
+              </p>
+
+            </div>
+
+          ))}
+        </Carousel>
+
+        <div className="image-landing">
+          <img className="tom-img" src={tom} alt="tom" />
+        </div>
+
+      </div>
 
       <div className="boxes-container">
         {boxes.map((box, index) => {
           // Determine if the box should be shown based on user role
           const showBox = box.userRole === 'all' ||
-                          (box.userRole === 'authenticated' && currentUser) ||
-                          (box.userRole === currentUserRole);
+            (box.userRole === 'authenticated' && currentUser) ||
+            (box.userRole === currentUserRole);
 
           return showBox ? (
             <div
@@ -112,22 +143,12 @@ const boxes = [
               onClick={() => handleBoxClick(box.route, box.userRole)}
             >
               <h3>{box.title}</h3>
+              {box.image && <img src={box.image} alt={box.title} />}
               <p>{box.description}</p>
             </div>
           ) : null;
         })}
       </div>
-
-      {/* Other sections based on the wireframe */}
-      <div className="about-section">
-        <h2>About Parmazon Prime</h2>
-        <p>Learn about our mission, values, and the cheesy experience designed around you.</p>
-      </div>
-
-      {/* Footer */}
-      <footer className="landing-page-footer">
-        <p>&copy; {new Date().getFullYear()} Parmazon Prime</p>
-      </footer>
     </div>
   );
 
