@@ -62,6 +62,13 @@ function LoginFormPage() {
   //     });
   // };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const data = await dispatch(sessionActions.login({ email, password }));
+  //   if (data) setErrors(data)
+  // }
+
+  //new feature of identifying the person
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await dispatch(sessionActions.login({ email, password }));

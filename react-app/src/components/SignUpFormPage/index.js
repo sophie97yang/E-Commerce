@@ -47,7 +47,7 @@ function SignupFormPage() {
     if (!state) errorList.state = "Please select a state";
     if (!email || !email.includes("@"))
       errorList.email = "Valid email is required";
-    if (!password) errorList.password = "Valid Password is required";
+    if (!password || password.length<6) errorList.password = "Valid Password is required";
     if (password !== confirmPassword)
       errorList.confirmPassword = "Passwords must match";
 

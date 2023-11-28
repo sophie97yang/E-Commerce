@@ -4,7 +4,8 @@ import { Link,useHistory } from 'react-router-dom'
 import './Orders.css'
 import RemoveFromCart from './RemoveFromCart'
 import { addToWishlist,deleteCart,deleteFromCart,authenticate, completeTransaction } from '../../store/session'
-import { getAllProducts } from '../../store/products'
+import { getAllProducts } from '../../store/products';
+import hungryMouse from '../../assets/images/tempt-mouse.png'
 
 function ShoppingCart() {
     const sessionUser = useSelector(state => state.session.member)
@@ -147,7 +148,7 @@ function ShoppingCart() {
 
           <div className="empty-cart">
               <h3>You're looking a little hungry...</h3>
-
+              <img src={hungryMouse} alt='hungry mouse'></img>
           </div>
 
 

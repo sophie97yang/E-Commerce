@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createProduct, getAllProducts } from "../../store/products";
+import babyCheese from '../../assets/images/baby-cheese.png'
 
 import "./CreateProductForm.css";
 
@@ -149,6 +150,7 @@ const CreateProductForm = () => {
     <>
 
       <h1 className="add-product-title">Add a Product</h1>
+      <img src={babyCheese} alt='baby-cheese' id='add-prod-img'></img>
     <div className="create-product-container">
 
       <form className="product-form" onSubmit={handleSubmit} encType="multipart/form-data">
