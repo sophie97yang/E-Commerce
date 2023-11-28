@@ -1,4 +1,4 @@
-.form-field {
+/* .form-field {
 
     display: flex;
     flex-direction: column;
@@ -45,4 +45,93 @@
 .login-button:disabled{
     background-color: grey;
     cursor:default;
+} */
+
+
+/* Login Form CSS */
+
+/* General styling to match Signup Form */
+.form-field {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Title styling */
+.form-field h1 {
+    text-align: center;
+    font-size: 24px;
+    padding-bottom: 20px;
+}
+
+/* Form styling */
+.form-field form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Input field styling to match Signup Form */
+.form-slot input[type="text"],
+.form-slot input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+}
+
+/* Error message styling */
+.form-field ul {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Submit and Demo buttons styling */
+.login-button,
+.demo-user {
+    padding: 15px;
+    background-color: #f9a825;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Disabled button styling */
+.login-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Demo buttons specific styling */
+.demo-user {
+    background-color: transparent;
+    color: black;
+    text-decoration: underline;
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-field {
+        width: 75%;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-field {
+        width: 90%;
+    }
 }

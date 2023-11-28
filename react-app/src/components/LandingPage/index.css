@@ -135,6 +135,40 @@ html {
   }
 }
 
+/* Hover effect for boxes */
+.box:hover {
+  background-color: #f0f0f0;
+}
+
+/* About Section */
+.about-section {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Footer */
+.landing-page-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+
+.carousel .slide .legend a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .box {
+    width: calc(50% - 20px);
+  }
+}
+
 @media (max-width: 480px) {
   .box {
     width: 100%;

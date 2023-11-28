@@ -45,9 +45,14 @@ function Wishlist() {
   }
 
   return (
+    <>
+
+      <h2 className="wishlist-title">Wishlist</h2>
+      <p className="wishlist-subtitle">Let people know what gifts you'd like.  Save time.  Add your tiems and ideas in one convenient location.</p>
+
     <div className="wishlist-container">
-      <h2>Wishlist</h2>
       <div className="wishlist-items">
+
         {wishlistItems?.length > 0 ? (
           wishlistItems?.map(item => (
             <div key={item.id} className='wishlist-item'>
@@ -55,10 +60,12 @@ function Wishlist() {
             to={`/products/${item.id}`}
             className="product-name-link"
           >
-              <h3>{item.name}</h3>
+              <h3 className="wishlist-item-name">{item.name}</h3>
+
               </Link>
 
-              <p>{item.description}</p>
+              <div className="wishlist-item-description">{item.description}</div>
+
 
             <div className="wishlist-img-container">
             <Link
@@ -69,12 +76,14 @@ function Wishlist() {
             </Link>
             </div>
 
+              <div className="wishlist-button-divider"></div>
               <button onClick={() => RemoveFromWishlist(item)}>
                 Remove from Wishlist
               </button>
               <button onClick={()=> AddToCart(item)}>
                 Add to Shopping Cart
               </button>
+
 
 
             </div>
@@ -84,56 +93,8 @@ function Wishlist() {
         )}
       </div>
     </div>
+    </>
   );
 }
 
 export default Wishlist;
-
-
-  // useEffect(() => {
-  //   if (!user) {
-  //     history.push('/products'); // Redirect unauthenticated users to products page if they are not logged in
-  //     return;
-  //   }
-
-  //   setLoading(true);
-  //   fetch('/api/wishlist/current', {
-  //     method: 'GET',
-  //     credentials: 'include',
-  //   })
-  //   .then(response => {
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  //     return response.json();
-  //   })
-  //   .then(data => {
-  //     setWishlistItems(data.wishlist);
-  //   })
-  //   .catch(error => {
-  //     console.error('Error fetching wishlist:', error);
-  //     setError('Failed to fetch wishlist. Please try again later.');
-  //   })
-  //   .finally(() => setLoading(false));
-  // }, [user, history]);
-
-  // const handleRemoveFromWishlist = (productId) => {
-  //   fetch(`/api/wishlist/remove/${productId}`, {
-  //     method: 'DELETE',
-  //     credentials: 'include',
-  //   })
-  //   .then(response => {
-  //     if (!response.ok) {
-  //       throw new Error('Failed to remove item from wishlist');
-  //     }
-  //     setWishlistItems(currentItems => currentItems.filter(item => item.id !== productId));
-  //   })
-  //   .catch(error => {
-  //     console.error('Error removing item from wishlist:', error);
-  //     setError('Failed to remove item from wishlist.');
-  //   });
-  // };
-
-  // if (loading) {
-  //   return <p>Loading wishlist...</p>;
-  // }

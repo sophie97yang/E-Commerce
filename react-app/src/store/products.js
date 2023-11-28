@@ -92,11 +92,6 @@ export const createProduct = (formData) => async (dispatch) => {
 //Edit A Product
 export const updateProduct = (formData, productId) => async(dispatch) => {
 
-
-    console.log('updating product thunk starting')
-    console.log('this is the formdata', formData)
-    console.log('this is the singleProduct', productId)
-
     try {
 
         const res = await fetch(`/api/products/${productId}`, {
@@ -210,6 +205,25 @@ export const deleteReview = (productId,reviewId) => async (dispatch) => {
         return data
     }
 }
+
+//edit product image
+export const editImage = (formData,productId) => async (dispatch) => {
+    const res = await fetch(`/api/products/${productId}/image/update`, {
+        method:"PUT",
+        body:formData
+    }).catch(res=>res)
+
+    if(res.ok) {
+        const product = await res.json();
+        dispatch(editProduct(product))
+        return product
+    } else {
+        const data = await res.json();
+        console.log("There was an error updating product",data)
+        return data;
+    }
+}
+
 
 const initialState={};
 

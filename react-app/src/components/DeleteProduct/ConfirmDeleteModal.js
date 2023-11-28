@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { removeProduct } from "../../store/products";
 import { useModal } from "../../context/Modal";
+import './DeleteProduct.css'
 
 
 function ConfirmDeleteModal({product}) {
@@ -16,10 +17,11 @@ function ConfirmDeleteModal({product}) {
     }
 
     return (
-        <div>
-        <p>Are you sure you want to delete this product?</p>
-        <button onClick={handleDelete}>Yes</button>
-        <button onClick={closeModal}>No</button>
+        <div className='delete-modal'>
+            <h2>Confirm Delete</h2>
+        <p>Are you sure you want to delete this product? This action cannot be undone.</p>
+        <button onClick={handleDelete}>Yes, delete my product.</button>
+        <button onClick={closeModal}>No, keep my product.</button>
         </div>
     )
 }

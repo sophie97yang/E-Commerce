@@ -11,17 +11,17 @@ function Footer() {
       <div id="footer-left">
         <div>Our Githubs</div>
         <div id="github-links">
-          <div class="githubs">
-            <a href="https://github.com/sophie97yang"><i class="fa-brands fa-square-github"></i> Sophie Yang</a>
+          <div className="githubs">
+            <a href="https://github.com/sophie97yang"><i className="fa-brands fa-square-github"></i> Sophie Yang</a>
           </div>
-          <div class="githubs">
-            <a href="https://github.com/pingno"><i class="fa-brands fa-square-github"></i> Peang Ngo</a>
+          <div className="githubs">
+            <a href="https://github.com/pingno"><i className="fa-brands fa-square-github"></i> Peang Ngo</a>
           </div>
-          <div class="githubs">
-            <a href="https://github.com/314pdinh"><i class="fa-brands fa-square-github"></i> Peter Dinh</a>
+          <div className="githubs">
+            <a href="https://github.com/314pdinh"><i className="fa-brands fa-square-github"></i> Peter Dinh</a>
           </div>
-          <div class="githubs">
-            <a href="https://github.com/yoslatif"><i class="fa-brands fa-square-github"></i> Yoseph Latif</a>
+          <div className="githubs">
+            <a href="https://github.com/yoslatif"><i className="fa-brands fa-square-github"></i> Yoseph Latif</a>
           </div>
         </div>
       </div>
@@ -37,17 +37,17 @@ function Footer() {
       <div id="footer-right">
         <div>Our LinkedIns</div>
         <div id="linkedin-links">
-          <div class="linkedins">
-            <a href="https://www.linkedin.com/in/sophie-yang-bb9758156/"><i class="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i> Sophie Yang</a>
+          <div className="linkedins">
+            <a href="https://www.linkedin.com/in/sophie-yang-bb9758156/"><i className="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i> Sophie Yang</a>
           </div>
-          <div class="linkedins">
-            <a href="https://www.linkedin.com/in/peang-ngo-840860112/"><i class="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i> Peang Ngo</a>
+          <div className="linkedins">
+            <a href="https://www.linkedin.com/in/peang-ngo-840860112/"><i className="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i> Peang Ngo</a>
           </div>
-          <div class="linkedins">
-            <a href="https://www.linkedin.com/in/peter-dinh-5a22a01b3/"><i class="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i> Peter Dinh</a>
+          <div className="linkedins">
+            <a href="https://www.linkedin.com/in/peter-dinh-5a22a01b3/"><i className="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i> Peter Dinh</a>
           </div>
-          <div class="linkedins">
-            <a href="https://www.linkedin.com/in/yoseph-latif/"><i class="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i> Yoseph Latif</a>
+          <div className="linkedins">
+            <a href="https://www.linkedin.com/in/yoseph-latif/"><i className="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i> Yoseph Latif</a>
           </div>
         </div>
       </div>

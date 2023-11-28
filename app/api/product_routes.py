@@ -63,44 +63,46 @@ def create_new_product():
                 newProduct.preview_image = uploadPreviewImage["url"]
 
             product_image1 = form.data["product_image1"]
-            product_image1.filename = get_unique_filename(product_image1.filename)
-            uploadProductImage1 = upload_file_to_s3(product_image1)
+            if product_image1:
+                product_image1.filename = get_unique_filename(product_image1.filename)
+                uploadProductImage1 = upload_file_to_s3(product_image1)
 
-            if "url" not in uploadProductImage1:
-                print(uploadProductImage1)
-                return uploadProductImage1
-            else:
-                newProduct.product_image1 = uploadProductImage1["url"]
-
+                if "url" not in uploadProductImage1:
+                    print(uploadProductImage1)
+                    return uploadProductImage1
+                else:
+                    newProduct.product_image1 = uploadProductImage1["url"]
             product_image2 = form.data["product_image2"]
-            product_image2.filename = get_unique_filename(product_image2.filename)
-            uploadProductImage2 = upload_file_to_s3(product_image2)
+            if product_image2:
+                product_image2.filename = get_unique_filename(product_image2.filename)
+                uploadProductImage2 = upload_file_to_s3(product_image2)
 
-            if "url" not in uploadProductImage2:
-                print(uploadProductImage2)
-                return uploadProductImage2
-            else:
-                newProduct.product_image2 = uploadProductImage2["url"]
+                if "url" not in uploadProductImage2:
+                    print(uploadProductImage2)
+                    return uploadProductImage2
+                else:
+                    newProduct.product_image2 = uploadProductImage2["url"]
 
             product_image3 = form.data["product_image3"]
-            product_image3.filename = get_unique_filename(product_image3.filename)
-            uploadProductImage3 = upload_file_to_s3(product_image3)
+            if product_image3:
+                product_image3.filename = get_unique_filename(product_image3.filename)
+                uploadProductImage3 = upload_file_to_s3(product_image3)
 
-            if "url" not in uploadProductImage3:
-                print(uploadProductImage3)
-                return uploadProductImage3
-            else:
-                newProduct.product_image3 = uploadProductImage3["url"]
-
+                if "url" not in uploadProductImage3:
+                    print(uploadProductImage3)
+                    return uploadProductImage3
+                else:
+                    newProduct.product_image3 = uploadProductImage3["url"]
             product_image4 = form.data["product_image4"]
-            product_image4.filename = get_unique_filename(product_image4.filename)
-            uploadProductImage4 = upload_file_to_s3(product_image4)
+            if product_image4:
+                product_image4.filename = get_unique_filename(product_image4.filename)
+                uploadProductImage4 = upload_file_to_s3(product_image4)
 
-            if "url" not in uploadProductImage4:
-                print(uploadProductImage4)
-                return uploadProductImage4
-            else:
-                newProduct.product_image4 = uploadProductImage4["url"]
+                if "url" not in uploadProductImage4:
+                    print(uploadProductImage4)
+                    return uploadProductImage4
+                else:
+                    newProduct.product_image4 = uploadProductImage4["url"]
 
             db.session.add(newProduct)
             db.session.commit()
@@ -225,3 +227,85 @@ def add_product_review(id):
         db.session.commit()
         return {"review":new_review.to_dict_descriptive()}
     return {"errors":form.errors},400
+
+# update a product image
+@product_routes.route('/<int:productId>/image/update', methods=['PUT'])
+@login_required
+def update_product_image(productId):
+    product = Product.query.get(productId)
+
+    if product.seller!= current_user.id:
+        return {"message":"Forbidden"},403
+
+    form = ProductForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        preview_image = form.data["preview_image"]
+        if preview_image:
+            preview_image.filename = get_unique_filename(preview_image.filename)
+            if product.preview_image:
+                remove_file_from_s3(product.preview_image)
+            uploadPreviewImage = upload_file_to_s3(preview_image)
+
+            if "url" not in uploadPreviewImage:
+                print(uploadPreviewImage)
+                return uploadPreviewImage
+            else:
+                product.preview_image = uploadPreviewImage["url"]
+
+        product_image1 = form.data["product_image1"]
+        if product_image1:
+                product_image1.filename = get_unique_filename(product_image1.filename)
+                if product.product_image1:
+                    remove_file_from_s3(product.product_image1)
+                uploadProductImage1 = upload_file_to_s3(product_image1)
+
+                if "url" not in uploadProductImage1:
+                    print(uploadProductImage1)
+                    return uploadProductImage1
+                else:
+                    product.product_image1 = uploadProductImage1["url"]
+
+        product_image2 = form.data["product_image2"]
+        if product_image2:
+                product_image2.filename = get_unique_filename(product_image2.filename)
+                if product.product_image2:
+                    remove_file_from_s3(product.product_image2)
+                uploadProductImage2 = upload_file_to_s3(product_image2)
+
+                if "url" not in uploadProductImage2:
+                    print(uploadProductImage2)
+                    return uploadProductImage2
+                else:
+                    product.product_image2 = uploadProductImage2["url"]
+
+        product_image3 = form.data["product_image3"]
+        if product_image3:
+                product_image3.filename = get_unique_filename(product_image3.filename)
+                if product.product_image3:
+                    remove_file_from_s3(product.product_image3)
+                uploadProductImage3 = upload_file_to_s3(product_image3)
+
+                if "url" not in uploadProductImage3:
+                    print(uploadProductImage3)
+                    return uploadProductImage3
+                else:
+                    product.product_image3 = uploadProductImage3["url"]
+        product_image4 = form.data["product_image4"]
+        if product_image4:
+                product_image4.filename = get_unique_filename(product_image4.filename)
+                if product.product_image4:
+                    remove_file_from_s3(product.product_image4)
+                uploadProductImage4 = upload_file_to_s3(product_image4)
+
+                if "url" not in uploadProductImage4:
+                    print(uploadProductImage4)
+                    return uploadProductImage4
+                else:
+                    product.product_image4 = uploadProductImage4["url"]
+        db.session.commit()
+
+        return {"product": product.to_dict_descriptive()}
+    else:
+        return {"errors": form.errors}, 400

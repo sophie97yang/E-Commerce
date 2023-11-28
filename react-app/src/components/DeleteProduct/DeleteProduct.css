@@ -1,3 +1,15 @@
 .delete_product_button_hidden {
     display:none;
 }
+
+.delete-modal {
+    padding:10px 50px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    text-align:center;
+    padding-bottom:60px;
+}
+.delete-modal >h2{
+    padding:20px 0px;
+}

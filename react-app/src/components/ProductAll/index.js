@@ -29,19 +29,19 @@ const ProductAll = () => {
   //refactor product name to capitalize first letter and price display
   //refactor to include review stars inside product object!
   productList.forEach(product => {
-    if (product) {
-      product.name = product.name[0].toUpperCase() + product.name.slice(1);
-      const product_price_split = product.price.toString().split('.')[1];
-      if (!product_price_split) {
-        product.price = product.price.toString() + ".00"
+    if (product){
+    product.name = product.name[0].toUpperCase() + product.name.slice(1);
+    const product_price_split = product.price.toString().split('.')[1];
+    if (!product_price_split) {
+      product.price = product.price.toString() + ".00"
+    }
+    if (product.rating_sum) {
+      const product_average_rating = Math.floor(product.rating_sum / product.reviews.length);
+      product.average_rating = ''
+      for (let i = 0; i < product_average_rating; i++) {
+        product.average_rating += '★'
       }
-      if (product.rating_sum) {
-        const product_average_rating = Math.floor(product.rating_sum / product.reviews.length);
-        product.average_rating = ''
-        for (let i = 0; i < product_average_rating; i++) {
-          product.average_rating += '★'
-        }
-      }
+    }
     }
   })
 
@@ -70,8 +70,8 @@ const ProductAll = () => {
             }
           }
         }
-        dispatch(authenticate())
-        alert('Successfully added to cart')
+        dispatch(authenticate());
+        history.push('/orders')
       }
     } else {
       const res = await dispatch(editOrder(1, productId));
@@ -92,7 +92,7 @@ const ProductAll = () => {
           }
         }
         dispatch(authenticate())
-        alert('Successfully added to cart')
+        history.push('/orders')
       }
     }
 
@@ -154,26 +154,7 @@ const ProductAll = () => {
                         <li>{product.rating_sum ? `${product.average_rating} ${product.reviews.length}` : "No Reviews Yet"}</li>
                       </div>
                     </Link>
-                    {/* {product.available ?
-                      <div>
-                        {!(member.seller && product.seller.id === member.id) ? <button onClick={() => { handleAddCart(product.id) }}>Add to Cart</button> 
-                        : <></>
-                      }
-                        </div> 
-                        : <p>Out of Stock</p>
-                        } */}
-                    {product.available ? (
-                      <div>
-                        {member && member.seller && product.seller && member.seller.id !== product.seller.id ? (
-                          <button onClick={() => { handleAddCart(product.id) }}>Add to Cart</button>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-                    ) : (
-                      <p>Out of Stock</p>
-                    )}
-
+                 {product.available? <div>{!(member.seller && product.seller.id===member.id) ? <button onClick={() => { handleAddCart(product.id) }}>Add to Cart</button>:<></>}</div> :<p>Out of Stock</p>}
                   </div>
                 </div>
               ))}

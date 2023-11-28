@@ -8,7 +8,7 @@ import "./CreateProductForm.css";
 const CreateProductForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const member = useSelector((state) => state.session.member); // session.member?
+  const member = useSelector((state) => state.session.member);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -43,7 +43,7 @@ const CreateProductForm = () => {
 
 
 
-  if (member && !member.seller) {
+  if (!member || !member?.seller) {
     history.push("/login");
     return null;
   }
@@ -67,12 +67,12 @@ const CreateProductForm = () => {
 
     if (!preview_img)
       errorList.preview_img =
-        "Please add a preview image (.jpg, .jpeg, .png, .gif, .pdf";
+        "Please add a preview image (.jpg, .jpeg, .png, .gif, .pdf)";
 
-    if(!product_image1) errorList.product_image1 = "Please add a product image"
-    if(!product_image2) errorList.product_image2 = "Please add a product image"
-    if(!product_image3) errorList.product_image3 = "Please add a product image"
-    if(!product_image4) errorList.product_image4 = "Please add a product image"
+    // if(!product_image1) errorList.product_image1 = "Please add a product image"
+    // if(!product_image2) errorList.product_image2 = "Please add a product image"
+    // if(!product_image3) errorList.product_image3 = "Please add a product image"
+    // if(!product_image4) errorList.product_image4 = "Please add a product image"
 
     if (Object.values(errorList).length > 0) {
       setErrors(errorList);
@@ -90,24 +90,28 @@ const CreateProductForm = () => {
     form.append("preview_image", preview_img);
     if (product_image1) {
       form.append("product_image1", product_image1);
-    } else {
-      form.append("product_image1", defaultImage);
     }
+    // else {
+    //   form.append("product_image1", defaultImage);
+    // }
     if (product_image2) {
       form.append("product_image2", product_image2);
-    } else {
-      form.append("product_image2", defaultImage);
     }
+    // else {
+    //   form.append("product_image2", defaultImage);
+    // }
     if (product_image3) {
       form.append("product_image3", product_image3);
-    } else {
-      form.append("product_image3", defaultImage);
     }
+    // else {
+    //   form.append("product_image3", defaultImage);
+    // }
     if (product_image4) {
       form.append("product_image4", product_image4);
-    } else {
-      form.append("product_image4", defaultImage);
     }
+    // else {
+    //   form.append("product_image4", defaultImage);
+    // }
 
     setImageLoading(true);
 
@@ -185,6 +189,7 @@ const CreateProductForm = () => {
           <label className="label">Price</label>
           <input
             type="number"
+            step='0.01'
             placeholder="Price of product"
             value={price}
             onChange={(e) => setPrice(e.target.value)}

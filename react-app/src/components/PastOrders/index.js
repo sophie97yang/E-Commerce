@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import {Link,useHistory} from 'react-router-dom';
 import OrderDetails from "./OrderDetails";
+import './PastOrders.css';
 
 function PastOrders() {
     const member = useSelector(state => state.session.member);
@@ -17,12 +18,12 @@ function PastOrders() {
 
     return (
         <div className="orders-container">
-            <h2>Your Orders</h2>
-            <h4>{past_orders.length} Orders</h4>
+            <h2 className="yourOrdersTitle">Your Orders</h2>
+            <h4 className="howManyOrders">{past_orders.length} {past_orders.length === 1 ? 'Order' : 'Orders'}</h4>
             {
                 !past_orders.length && (
                     <div>
-                    <h4>You look like you have not made any purchases.</h4>
+                    <h4>Looks like you have not made any purchases</h4>
                     <Link to='/products'>Let's Change That</Link>
                     </div>
                 )

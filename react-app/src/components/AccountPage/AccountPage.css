@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+body{
+    padding: 5px;
+    background-color: white;
+}
+
+#account-page-container {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+
+  #profile-pic {
+    margin: 20px auto;
+    display:flex;
+    justify-content:center;
+
+  }
+
+  #profile-pic img {
+    width: 120px;
+    height: auto;
+    border-radius: 50%;
+    border:1px solid black;
+    padding:10px;
+  }
+
+  #account-container {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  #account-container h1 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+
+
+
+  .navigation-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .navigation-links a {
+    background-color: goldenrod;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    font-size: 0.9em;
+  }
+
+  .navigation-links a:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+  }
+
+  #account-carousel {
+    background: none;
+    padding: 0;
+  }
+
+  .wishlist-carousel .carousel .slide,
+  .orders-carousel .carousel .slide,
+  .products-carousel .carousel .slide {
+    margin: 0;
+    padding: 0;
+    background: none;
+    height: 400px;
+    border: 1px solid #CCC;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .wishlist-carousel .carousel .slide img,
+  .orders-carousel .carousel .slide img,
+  .products-carousel .carousel .slide img {
+    width: 450px;
+    max-height: 400px;
+    object-fit: contain;
+    margin: 0;
+  }
+
+  .carousel .control-dots {
+    bottom: -50px;
+  }
+
+  .account-buttons {
+    display: block;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin: 10px 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+  }
+
+  .account-buttons:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+  }
+
+
+  .header-your-orders-text {
+    font-family: 'Pacifico', cursive;
+    font-size: 24px;
+    padding-top: 90px;
+    color: rgb(191, 144, 24);
+    text-align: center;
+  }
+
+  .your-orders-text {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(0, 100, 131);
+
+  }
+
+  a.your-orders-text {
+    color: rgb(0, 100, 131);
+  }
+
+  .noContentText {
+    text-align: center;
+  }

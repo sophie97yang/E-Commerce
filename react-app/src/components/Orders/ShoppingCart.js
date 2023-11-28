@@ -61,8 +61,10 @@ function ShoppingCart() {
     }
 
     return (
+      <>
+        <h2 className="shoppingcart-h2">Shopping Cart</h2>
+
       <div className="shopping-cart">
-        <h2>Shopping Cart</h2>
         <div className='shopping-cart-items'>
         {cart ? (
           cart.map((product) => (
@@ -118,21 +120,28 @@ function ShoppingCart() {
             </div>
           ))
         ) : (
-          <h3>You're looking a little hungry...</h3>
+
+          <div className="empty-cart">
+              <h3>You're looking a little hungry...</h3>
+
+          </div>
+
+
         )}
         </div>
 
-        <div className="transaction-container">
+
         {
-                  cart ? <div className='transaction-details'>
+                  cart ? <div className="transaction-container"><div className='transaction-details'>
                       <div> <h4>Your Current Balance:</h4><p> {sessionUser.account_balance.toFixed(2)}</p></div>
                       <div className='transaction-total'><h4>{`Total (${cart.length}`} {cart.length===1 ? 'item)':"items)"}:</h4><p>{total.toFixed(2)}</p></div>
                       <div><h4>Your Balance After Checkout</h4><p>{(sessionUser.account_balance-total).toFixed(2)}</p></div>
                       <button onClick={handleTransaction} className='complete-transaction-button'>Checkout</button>
-                      </div>: <p><Link to='/products'>Browse our lovely selection of cheeses</Link></p>
+                      </div></div>: <p className="empty-cart-container"><Link to='/products' className="empty-cart-link">Browse our lovely selection of cheeses</Link></p>
       }
-        </div>
+
       </div>
+      </>
     );
   };
   export default ShoppingCart;
