@@ -18,10 +18,10 @@
 
 .delete-review-button {
     background-color: #f0c14b;
-    cursor: pointer;
+    cursor: url('../../../assets/images/cheeseFinger.png'), pointer;
 }
 
 .update-review-button {
     background-color:  #f0c14b;
-    cursor: pointer;
+    cursor: url('../../../assets/images/cheeseFinger.png'), pointer;
 }

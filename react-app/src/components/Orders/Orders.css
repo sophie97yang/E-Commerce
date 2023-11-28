@@ -26,6 +26,7 @@
 
 .shoppingcart-h2{
     margin: 50px 50px;
+    margin-bottom:30px;
 }
 
 .cart-container{
@@ -55,11 +56,14 @@
 
 .transaction-container {
     padding-left:30px;
-    padding-top:25px;
+    padding-top:40px;
+    margin-right:20px;
+    align-self: flex-start;
+    position:sticky;
 }
 
 .shopping-cart-items {
-    padding-bottom:20px;
+    padding:20px;
 }
 
 
@@ -95,17 +99,17 @@
     border-radius: 5px;
     border: 1px solid lightgray;
     width: 150px;
-    height: 25px;
+    height: 35px;
     margin: 5px 0px;
-    cursor: pointer;
+    cursor: url('../../assets/images/cheeseFinger.png'), pointer;
 }
 
 .complete-transaction-button{
     border-radius: 10px;
     border: 1px solid lightgrey;
     width: 100px;
-    height: 30px;
-    cursor: pointer;
+    height: 35px;
+    cursor: url('../../assets/images/cheeseFinger.png'), pointer;
     margin-top: 10px;
 
 }
@@ -133,4 +137,14 @@
 
 .empty-cart-container{
     margin: 30px;
+}
+
+#stock_info-out {
+    color:red
+}
+
+#cart-error {
+    color:red;
+    font-style:italic;
+    font-size:12px;
 }

@@ -8,7 +8,9 @@ import { getAllProducts } from '../../store/products'
 
 function ShoppingCart() {
     const sessionUser = useSelector(state => state.session.member)
-    const [cart,setCart] = useState([])
+    const [cart,setCart] = useState([]);
+    const [disabled,setDisabled] = useState(false);
+    const [cartErr,setCartErr] = useState([]);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -23,9 +25,29 @@ function ShoppingCart() {
         dispatch(getAllProducts())
     },[dispatch])
 
+    //handle when product is out of stock
+    useEffect(()=> {
+      if (cart) {
+        const out = [];
+        let toggle;
+        cart.forEach(product=> {
+          if (product.product.available<=0 || product.product.available<product.quantity) {
+            out.push(product.product.name);
+            setDisabled(true);
+            toggle=true;
+          }
+        })
+        if (!toggle) setDisabled(false);
+        setCartErr(out);
+
+      }
+    },[cart])
+
+    console.log(cart);
     //calculate total price of cart
     let total=0;
     cart?.forEach(product=> total+=(product.product.price*product.quantity))
+
 
 
     const AddToWishlist= async (product) => {
@@ -79,7 +101,7 @@ function ShoppingCart() {
                 </div>
 
               <div>
-                <p id='stock_info'> {product.product.available > 0 ? "In Stock" : "Out of Stock"} </p>
+                {product.product.available > 0 ? <p id='stock_info'> {product.product.available>2 ?'In Stock' : 'Low Quantity' }</p> : <p id='stock_info-out'>Out of Stock</p>}
               </div>
 
                 <div>
@@ -134,11 +156,12 @@ function ShoppingCart() {
 
 
         {
-                  cart ? <div className="transaction-container"><div className='transaction-details'>
+                  cart?.length ? <div className="transaction-container"><div className='transaction-details'>
                       <div> <h4>Your Current Balance:</h4><p> {sessionUser.account_balance.toFixed(2)}</p></div>
                       <div className='transaction-total'><h4>{`Total (${cart.length}`} {cart.length===1 ? 'item)':"items)"}:</h4><p>{total.toFixed(2)}</p></div>
                       <div><h4>Your Balance After Checkout</h4><p>{(sessionUser.account_balance-total).toFixed(2)}</p></div>
-                      <button onClick={handleTransaction} className='complete-transaction-button'>Checkout</button>
+                      <button onClick={handleTransaction} className='complete-transaction-button' disabled={disabled}>Checkout</button>
+                      {cartErr.length ?<p id='cart-error'>{cartErr.join(',')} {cartErr.length===1? 'is':'are'} out of stock. Please remove from cart before proceeding.</p>: ''}
                       </div></div>: <p className="empty-cart-container"><Link to='/products' className="empty-cart-link">Browse our lovely selection of cheeses</Link></p>
       }
 

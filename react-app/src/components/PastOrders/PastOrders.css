@@ -14,14 +14,35 @@
 
 }
 
+.orders-container a {
+    color:#004683;
+    text-decoration:none;
+    font-size:20px
+}
+
+.orders-container a:hover{
+    font-weight:bold;
+}
+
+.orders-container img {
+    width:300px;
+}
+
 h4 {
     color: black;
     margin-bottom: 10px;
 }
 
 .howManyOrders {
-    color: green;
+    color: #232f3e;
     font-size: 20px;
+}
+
+#no-purchase {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
 }
 
 
@@ -38,13 +59,13 @@ h4 {
     text-align: center;
     vertical-align: middle;
     line-height: normal;
-    color: white;
+    color: black;
     padding: 12px 24px;
     font-size: 16px;
     margin: 4px;
     border: none;
-    background-color: #f0ad4e;
-    cursor: pointer;
+    background-color: #f0c14b;
+    cursor: url('../../assets/images/cheeseFinger.png'), pointer;
     outline: none;
 }
 
@@ -60,7 +81,7 @@ h4 {
 .order-block-right button:hover,
 .order-block-middle .buy-again-button:hover,
 .return_button:hover {
-    background-color: #007bff;
+    background-color: #ff9900;
     color: white;
 }
 

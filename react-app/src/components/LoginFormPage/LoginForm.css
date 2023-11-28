@@ -74,6 +74,15 @@
     gap: 10px;
 }
 
+.form-field a {
+    color:#ff9900;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.form-field a:hover {
+    text-decoration:underline;
+}
 /* Input field styling to match Signup Form */
 .form-slot input[type="text"],
 .form-slot input[type="password"] {
@@ -104,7 +113,7 @@
     font-size: 18px;
     font-weight: bold;
     margin-top: 20px;
-    cursor: pointer;
+    cursor: url('../../assets/images/cheeseFinger.png'), pointer;
     width: 100%;
 }
 
@@ -121,7 +130,13 @@
     text-decoration: underline;
 }
 
+.demo-user:hover {
+    background-color: transparent;
+    color: #ff9900;
+    text-decoration: underline;
 
+
+}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
