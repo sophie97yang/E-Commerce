@@ -24,3 +24,8 @@
 .add-product-title{
     margin: 40px;
 }
+
+#add-prod-img {
+    width:300px;
+    position:absolute;
+}

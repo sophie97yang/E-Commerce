@@ -166,3 +166,8 @@ main {
     background-color:#FF9900;
     color:white;
 }
+
+#breadcrumb-padding {
+    margin-bottom:10px;
+    margin-top:10px;
+}

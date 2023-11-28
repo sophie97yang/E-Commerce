@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { createReview,getAllProducts } from "../../store/products";
-
 import "./CreateReviewForm.css";
+import critic from '../../assets/images/critic.png'
 
 function CreateReviewForm() {
   const dispatch = useDispatch();
@@ -75,13 +75,14 @@ function CreateReviewForm() {
 
   return (
     <div className="create-review-container">
-      
+
       <form onSubmit={handleSubmit}
       className="create-review-field"
         encType="multipart/form-data"
         >
         <div>
         <h1 className="h1Review">Add a Review</h1>
+        <img src={critic} alt='critic'></img>
           <label className="label">Rating</label>
           <input
             type="text"
@@ -120,7 +121,7 @@ function CreateReviewForm() {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             className="review-input review-content-input"
-            
+
           />
         </div>
 

@@ -14,19 +14,10 @@ const ProductAll = () => {
   const productsObj = useSelector((state) => state.products.products);
   let productList = productsObj ? Object.values(productsObj) : [];
   const member = useSelector(state => state.session.member);
-  const [toggleInStock,setToggle] = useState(false);
-
-
-  useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
 
   useEffect(()=> {
-    if (toggleInStock) {
-      productList = productList.filter(product=>product.available)
-      console.log(productList)
-    }
-  },[toggleInStock])
+    dispatch(getAllProducts())
+  },[dispatch])
 
   if (!productList) {
     return null
@@ -53,8 +44,6 @@ const ProductAll = () => {
       }
     }
   })
-
-
 
   //handle Add Cart Callback
   const handleAddCart = async (productId) => {
@@ -113,9 +102,10 @@ const ProductAll = () => {
     <main>
       <div>
         <h1>Products</h1>
+        <div className='breadcrumbs' id='breadcrumb-padding'>
+              <p><Link to='/'>Home</Link> {">"} All Products </p>
+            </div>
       </div>
-
-
 
       <div className="product-square">
 
@@ -139,17 +129,6 @@ const ProductAll = () => {
         <div className="product-right">
           <div className="product-right-inner-square">
             <h1>Cheese Collection</h1>
-            <label>In Stock Only
-            <input
-                type='checkbox'
-                value={toggleInStock}
-                onChange={(e)=> {
-                  e.preventDefault();
-                  setToggle(e.target.value)
-                  console.log(toggleInStock);
-                }}
-            />
-            </label>
           </div>
           {member && member.seller ? <button onClick={
             (e) => {
@@ -161,7 +140,7 @@ const ProductAll = () => {
 
 
           <ul className="products-list">
-            {productList.length &&
+            {productList &&
               productList.map((product) => (
                 <div key={product.id} title={product.name} className={!product.available ? 'product_hidden' : ''}>
                   <div className="product-ind-box">
@@ -182,9 +161,6 @@ const ProductAll = () => {
           </ul>
         </div>
       </div>
-
-
-
 
     </main>
   );
