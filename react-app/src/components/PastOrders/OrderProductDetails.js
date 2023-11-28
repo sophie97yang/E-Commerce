@@ -46,7 +46,6 @@ function OrderProductDetails({ product, date }) {
           }
         }
         dispatch(authenticate());
-        alert("Successfully added to cart");
         history.push("/orders");
       }
     } else {
@@ -70,7 +69,6 @@ function OrderProductDetails({ product, date }) {
           }
         }
         dispatch(authenticate());
-        alert("Successfully added to cart");
         history.push("/orders");
       }
     }
@@ -90,23 +88,12 @@ function OrderProductDetails({ product, date }) {
     <div className="order-product-details">
       <div className="order-block-1">
 
-        {/* <div>
-          <span>Number of Ratings</span>
-          <div>{product.product.rating_sum}</div>
-        </div> */}
-
         <div>
           {" "}
           <span>Total</span>
-          <div>{product.product.price*product.quantity}</div>
+          <div>{(product.product.price*product.quantity).toFixed(2)}</div>
         </div>
-    {/*
 
-        <div>
-          {" "}
-          <span>Category</span>
-          <div>{product.product.category}</div>
-        </div> */}
         <div>
           {" "}
           <span>Quantity</span>
@@ -139,20 +126,25 @@ function OrderProductDetails({ product, date }) {
             {product.product.description}
           </div>
 
-          <button className="buy-again-button" onClick={BuyItAgain}>
+          {product.product.available ? <button className="buy-again-button" onClick={BuyItAgain}>
             {" "}
             Buy it again{" "}
           </button>
+          :
+          <button className="buy-again-button" disabled={true}>
+          {" "}
+          Buy it again{" "}
+        </button>}
         </div>
 
         <div className="order-block-right">
-          <button onClick={TrackPackage}>Track Package</button>
+          <button id="orderButt" onClick={TrackPackage}>Track Package</button>
           <OpenModalButton
             modalComponent={<HandleReturn product={product} />}
-            buttonText="Make a Return"
+            id="orderButt" buttonText="Make a Return"
             className={!product.returned ? "return_button": "return_button_hidden"}
           />
-          <button onClick={WriteReview}>Write a Product Review</button>
+          <button id="orderButt" onClick={WriteReview}>Write a Review</button>
         </div>
       </div>
     </div>

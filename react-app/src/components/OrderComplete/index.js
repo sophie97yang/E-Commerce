@@ -45,7 +45,7 @@ const OrderComplete = () => {
 
             <div className="thank-you-container">
 
-            
+
 
             <p>Your Order: <span id='transaction_product_list'>{product_list}</span> will be shipped to {member.first_name} {member.last_name} - by {seller_list}</p>
             <Link to='/orders/past'>You can check your order status here</Link>
@@ -54,9 +54,9 @@ const OrderComplete = () => {
                 <div>
                     <p>Based on your recent order of {recommendations[0].name}, we recommend:</p>
                     {recommendations[0].products.map(product=> (
-                        
-                        <img alt={product.name} src={product.preview_image} className="thank-you-product"></img>
-                    
+
+                        <Link to={`/products/${product.id}`}><img alt={product.name} src={product.preview_image} className="thank-you-product"></img></Link>
+
                     ))}
                 </div>
 

@@ -2,6 +2,7 @@ import {useState} from 'react';
 import { editImage, getAllProducts } from '../../store/products';
 import { useDispatch } from 'react-redux';
 import {useModal} from '../../context/Modal';
+import "./UpdateProductImage.css"
 
 function UpdateProductImage({product,type}) {
     const [productImg,setProductImg] = useState(null);
@@ -47,22 +48,22 @@ function UpdateProductImage({product,type}) {
             }
           });
     }
-return (
-    <form>
-          <label className="label"> Add a New Product Image </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-                setProductImg(e.target.files[0])
-            }}
-            className=""
-          />
-          {errors?.productImg && (
-            <p style={{ fontSize: "10px", color: "red" }}>*{errors.productImg}</p>
-          )}
-          <button onClick={handleSubmit}>Upload Image</button>
-    </form>
-)
-}
-export default UpdateProductImage;
+    return (
+        <form className="update-image-form">
+              <label className="update-product-title"> Add a New Product Image </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                    setProductImg(e.target.files[0])
+                }}
+                className=""
+              />
+              {errors?.productImg && (
+                <p style={{ fontSize: "10px", color: "red" }}>*{errors.productImg}</p>
+              )}
+              <button onClick={handleSubmit}>Upload Image</button>
+        </form>
+    )
+    }
+    export default UpdateProductImage;

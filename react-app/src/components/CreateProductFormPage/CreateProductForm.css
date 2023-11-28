@@ -17,6 +17,8 @@
 .description-field{
     width: 400px;
     height: 150px;
+    padding: 10px;
+    font-size: 16px;
 }
 
 .add-product-title{

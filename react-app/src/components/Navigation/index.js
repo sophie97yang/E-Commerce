@@ -61,7 +61,7 @@ function Navigation({ isLoaded }) {
 				</div>
 				<div className='nav-location'>
 					<p>Deliver to {sessionUser ? sessionUser.first_name : 'Location'}</p>
-					{sessionUser ? <p><i className="fa-solid fa-location-dot"/> {sessionUser.city}, {sessionUser.state}</p> : <button onClick={(e) => {
+					{sessionUser ? <p><i className="fa-solid fa-location-dot"/> {sessionUser.city}, {sessionUser.state}</p> : <button className="locationButton" onClick={(e) => {
 						e.preventDefault();
 						history.push('/signup')
 					}}>Sign up to Set Location</button>}

@@ -12,15 +12,21 @@ const ProductAll = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const productsObj = useSelector((state) => state.products.products);
-  const productList = productsObj ? Object.values(productsObj) : [];
-  const member = useSelector(state => state.session.member)
+  let productList = productsObj ? Object.values(productsObj) : [];
+  const member = useSelector(state => state.session.member);
+  const [toggleInStock,setToggle] = useState(false);
 
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
 
-
+  useEffect(()=> {
+    if (toggleInStock) {
+      productList = productList.filter(product=>product.available)
+      console.log(productList)
+    }
+  },[toggleInStock])
 
   if (!productList) {
     return null
@@ -35,6 +41,9 @@ const ProductAll = () => {
       if (!product_price_split) {
         product.price = product.price.toString() + ".00"
       }
+      else if (product_price_split.toString().length!=2) {
+        product.price = product.price.toString() + "0"
+      }
       if (product.rating_sum) {
         const product_average_rating = Math.floor(product.rating_sum / product.reviews.length);
         product.average_rating = ''
@@ -44,6 +53,8 @@ const ProductAll = () => {
       }
     }
   })
+
+
 
   //handle Add Cart Callback
   const handleAddCart = async (productId) => {
@@ -128,7 +139,17 @@ const ProductAll = () => {
         <div className="product-right">
           <div className="product-right-inner-square">
             <h1>Cheese Collection</h1>
-            {/* <img className="product-left-inner-truck" src={} alt="img"/> */}
+            <label>In Stock Only
+            <input
+                type='checkbox'
+                value={toggleInStock}
+                onChange={(e)=> {
+                  e.preventDefault();
+                  setToggle(e.target.value)
+                  console.log(toggleInStock);
+                }}
+            />
+            </label>
           </div>
           {member && member.seller ? <button onClick={
             (e) => {
@@ -154,7 +175,7 @@ const ProductAll = () => {
                         <li>{product.rating_sum ? `${product.average_rating} ${product.reviews.length}` : "No Reviews Yet"}</li>
                       </div>
                     </Link>
-                    {product.available ? <div>{!member || !(member?.seller && product.seller.id === member.id) ? <button onClick={() => { handleAddCart(product.id) }}>Add to Cart</button> : <></>}</div> : <p>Out of Stock</p>}
+                    {product.available ? <div>{!member || !(member?.seller && product.seller.id === member.id) ? <button onClick={() => { handleAddCart(product.id) }}>Add to Cart</button> : <></>}</div> : <div className='out-of-stock'><p>Out of Stock</p></div>}
                   </div>
                 </div>
               ))}

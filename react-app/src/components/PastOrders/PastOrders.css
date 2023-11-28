@@ -23,3 +23,60 @@ h4 {
     color: green;
     font-size: 20px;
 }
+
+
+#orderButt {
+    text-align: center;
+    color: white;
+    padding: 10px 20px;
+}
+
+/* Apply common styles to all buttons with the same class */
+.order-block-right button,
+.order-block-middle .buy-again-button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: normal;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    margin: 4px;
+    border: none;
+    background-color: #f0ad4e;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Ensure that the button is large enough to fit the text */
+.order-block-right button,
+.order-block-middle .buy-again-button {
+    min-width: 150px;
+    height: auto;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+}
+
+.order-block-right button:hover,
+.order-block-middle .buy-again-button:hover,
+.return_button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+
+.order-block-right,
+.order-block-middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Apply flexbox to buttons to center text vertically */
+.order-block-right button,
+.order-block-middle .buy-again-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -27,7 +27,7 @@ function RemoveFromCart({product}) {
         }
 }
     return (
-        <button onClick={removeFromCart}>Remove From Cart</button>
+        <button className="shopButton" onClick={removeFromCart}>Remove From Cart</button>
     )
 }
 

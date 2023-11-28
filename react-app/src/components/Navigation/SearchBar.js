@@ -26,6 +26,7 @@ function SearchBar() {
 
     const handleClick= (e) => {
         e.preventDefault();
+        alert("Feature Coming Soon!");
     }
 
 
@@ -45,7 +46,7 @@ function SearchBar() {
                 onChange={handleChange}
                 value={searchInput}
             />
-            <button onClick={handleClick}><i className="fa-solid fa-magnifying-glass"/></button>
+            <button className="searchBarButton" onClick={handleClick}><i className="fa-solid fa-magnifying-glass"/></button>
         </div>
 
     )

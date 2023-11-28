@@ -207,9 +207,9 @@ body {
 
 /* Revert button styles to previous appearance */
 button {
-    background-color: #f0c14b;
+    background-color:#f0c14b;
+    color:black;
     border: 1px solid #a88734;
-    color: #111;
     padding: 8px 16px;
     margin-right: 8px;
     border-radius: 3px;
@@ -220,8 +220,8 @@ button {
 }
 
 button:hover {
-    background-color: #e7b00d;
-
+    background-color:#FF9900;
+    color:white;
 }
 
 /* Adjust the product details box if it's not taking the full height */

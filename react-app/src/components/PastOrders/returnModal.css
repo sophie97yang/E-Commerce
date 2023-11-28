@@ -1,0 +1,40 @@
+.return-modal {
+    padding: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.return-modal p {
+    font-size: 15px;
+    color: #000000;
+    margin-bottom: 25px;
+}
+
+.return-modal label {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.return-modal input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.return-modal button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+.return-modal button:hover {
+    background-color: #45a049;
+}
