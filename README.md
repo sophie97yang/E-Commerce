@@ -23,6 +23,6 @@ Parmazon Prime, your ultimate online marketplace, redefines the e-commerce exper
 - Wishlist
 - Returns
 
-##About Our Site
+## About Our Site
 If you are interestied in checkout out our site, please create a membership by signing up! You are also able to login as a demo member or seller.
 <img width="1381" alt="Screenshot 2023-11-28 at 10 19 27 AM" src="https://github.com/sophie97yang/Parmazon-Prime/assets/129304831/9356b862-15d4-462d-b534-27347e0ef2d1">
