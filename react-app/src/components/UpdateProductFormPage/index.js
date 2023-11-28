@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { updateProduct, getAllProducts } from "../../store/products";
 import { useModal } from "../../context/Modal";
-import { resetWarningCache } from "prop-types";
 
 const UpdateProductForm = () => {
   const { id } = useParams();
@@ -15,6 +14,11 @@ const UpdateProductForm = () => {
   const member = useSelector((state) => state.session.member);
 
   const product = products ? products[id] : null
+
+
+  if (!member || (member.id!==product?.seller.id)) {
+    history.push('/products')
+  }
 
 
   const [name, setName] = useState(product?.name);

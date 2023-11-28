@@ -84,6 +84,78 @@ def seed_reviews():
         content="It sucked"
         )
 
+    review8 = Review(
+        rating= 4,
+        review_date= datetime.now(),
+        product_id= 8,
+        member_id= 7,
+        headline="This is my kind of cheese",
+        content="Oh yeah that's the good stuff"
+        )
+
+    review9 = Review(
+        rating= 5,
+        review_date= datetime.now(),
+        product_id= 9,
+        member_id= 8,
+        headline="I need more!",
+        content="I can't get enough of this!"
+        )
+
+    review10 = Review(
+        rating= 4,
+        review_date= datetime.now(),
+        product_id= 10,
+        member_id= 3,
+        headline="I'm buying it all!",
+        content="No one touch my cheese"
+        )
+
+    review11 = Review(
+        rating= 3,
+        review_date= datetime.now(),
+        product_id= 11,
+        member_id= 4,
+        headline="This cheese smelled kind of funky",
+        content="I know that smell isn't coming from me"
+        )
+
+    review12 = Review(
+        rating= 5,
+        review_date= datetime.now(),
+        product_id= 12,
+        member_id= 1,
+        headline="SHEEEEESH",
+        content="THIS SOME GOOD CHEESE"
+        )
+
+    review13 = Review(
+        rating= 1,
+        review_date= datetime.now(),
+        product_id= 13,
+        member_id= 2,
+        headline="This cheese made me poop",
+        content="I've never been on the toilet for so long"
+        )
+
+    review14 = Review(
+        rating= 4,
+        review_date= datetime.now(),
+        product_id= 14,
+        member_id= 6,
+        headline="Everyone needs to try this",
+        content="This cheese can literally go with everything!"
+        )
+
+    review15 = Review(
+        rating= 5,
+        review_date= datetime.now(),
+        product_id= 15,
+        member_id= 4,
+        headline="I need moreeeeee",
+        content="I want a house made of this cheese"
+        )
+
     # images = [image1,image2,image3]
     db.session.add(review1)
     db.session.add(review2)
@@ -92,19 +164,27 @@ def seed_reviews():
     db.session.add(review5)
     db.session.add(review6)
     db.session.add(review7)
+    db.session.add(review8)
+    db.session.add(review9)
+    db.session.add(review10)
+    db.session.add(review11)
+    db.session.add(review12)
+    db.session.add(review13)
+    db.session.add(review14)
+    db.session.add(review15)
+
     # post_images = [db.session.add(image) for image in images]
 
     db.session.commit()
 
     print("Successful Reviewsss completed!!!!!")
 
-    return [review1, review2, review3, review4, review5, review6, review7]
+    return [review1, review2, review3, review4, review5, review6, review7, review8, review9, review10, review11, review12, review13, review14, review15]
 
 def undo_reviews():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.reviews RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM reviews"))
-        db.session.execute(text("DELETE FROM review_images"))
 
     db.session.commit()

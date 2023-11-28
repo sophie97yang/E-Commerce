@@ -45,8 +45,8 @@ function DropDown({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        {showMenu ? <i className="fa-solid fa-angle-up" /> : <i className="fa-solid fa-angle-down" />}
+      <button onClick={openMenu} id='dropdown-icon'>
+        {showMenu ? <i className="fa-solid fa-angle-up fa-xl" /> : <i className="fa-solid fa-angle-down fa-xl" />}
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ?
@@ -55,37 +55,30 @@ function DropDown({ user }) {
             <li>Account Balance: ${user.account_balance.toFixed(2)}</li>
             <li><NavLink to='/orders/past'>View/Manage Your Orders</NavLink></li>
             <li><NavLink to='/orders'>View Your Wishlist</NavLink></li>
-            <li>
+            <li className='login-signup-div'>
               <button onClick={handleLogout}>Sign Out</button>
             </li>
           </>
           :
-          <>
-            <li>
+          <div className='unauth-dropdown'>
+            <li className='login-signup-div'>
               <button onClick={(e) => {
-                e.preventDefault()
+                e.preventDefault();
+                closeMenu();
                 history.push('/login')
 
               }}>Sign In</button>
             </li>
-            <li>
-            <div>Not a Member Yet?</div>
+            <li className='login-signup-div' id='italics'>
+            Not a Member Yet?
             <button onClick={(e) => {
-                e.preventDefault()
+                e.preventDefault();
+                closeMenu();
                 history.push('/signup')
 
               }}>Sign Up</button>
               </li>
-
-
-
-            {/* <li><NavLink to='/login'>Your Account</NavLink></li>
-            <li><NavLink to='/login'>View/Manage Your Orders</NavLink></li>
-            <li><NavLink to='/login'>View Your Reviews</NavLink></li>
-            <li><NavLink to='/login'>View Your Wishlist</NavLink></li>
-            <li><NavLink to='/login'>View Your Products</NavLink></li> */}
-
-          </>
+          </div>
         }
       </ul>
     </>

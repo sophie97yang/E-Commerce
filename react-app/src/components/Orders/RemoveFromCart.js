@@ -14,7 +14,6 @@ function RemoveFromCart({product}) {
         const res = dispatch(deleteFromCart(product.product.id)).catch(res=>console.log(res))
         if (!res.errors) {
             dispatch(authenticate())
-            alert('Item removed from shopping cart');
         }else {
             console.log(res.errors);
         }
@@ -22,7 +21,6 @@ function RemoveFromCart({product}) {
             const res = dispatch(deleteCart(shopping_cart,product.product.id)).catch(res=>console.log(res))
             if (!res.errors) {
                 dispatch(authenticate())
-                alert('Item removed from shopping cart');
             }else {
                 console.log(res.errors);
             }

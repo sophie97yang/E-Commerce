@@ -90,13 +90,18 @@ const boxes = [
       <h1 className="main-title">Cheese Heaven: Every Enthusiasts Super Experience</h1>
 
       <Carousel className="product-carousel">
-        {Object.values(products).map((product, index) => (
-          <div key={index}>
-            <img src={product.preview_image} alt={product.name} />
-            <p className="legend">{product.name}</p>
-          </div>
-        ))}
-      </Carousel>
+  {Object.values(products).map((product, index) => (
+
+    <div key={index}>
+        <img src={product.preview_image} alt={product.name} />
+        <p className="legend">
+          <NavLink to={`/products/${product.id}`}>{product.name}</NavLink>
+          </p>
+
+    </div>
+
+))}
+</Carousel>
 
       <div className="boxes-container">
         {boxes.map((box, index) => {

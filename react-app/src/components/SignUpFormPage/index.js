@@ -88,10 +88,12 @@ function SignupFormPage() {
   return (
     <div className="main-container">
       <>
-        <h1>Sign Up</h1>
+      <div className="topPart"></div>
+        <h1 className="signUpPart">Sign Up</h1>
         <div>
-          <p>Already a member? <Link to='/login'>Log in here.</Link></p>
+          <p className="alreadyMember"> Already a member? <Link to='/login'>Log in here.</Link></p>
         </div>
+        <div></div>
         <form onSubmit={handleSubmit}>
           {/* <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}

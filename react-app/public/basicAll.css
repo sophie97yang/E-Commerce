@@ -1,0 +1,7 @@
+body, a {
+    cursor: url('./cheesePointer.png'), auto;
+}
+
+a:hover, a:focus {
+    cursor: url('./cheeseFinger.png'), pointer;
+}

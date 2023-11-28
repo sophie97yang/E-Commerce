@@ -13,16 +13,16 @@ function Footer() {
 
         <div id="github-links">
 
-          <div class="githubs">
+          <div className="githubs">
             <a href="https://github.com/sophie97yang">Sophie Yang</a>
           </div>
-          <div class="githubs">
+          <div className="githubs">
             <a href="https://github.com/pingno">Peang Ngo</a>
           </div>
-          <div class="githubs">
+          <div className="githubs">
             <a href="https://github.com/314pdinh">Peter Dinh</a>
           </div>
-          <div class="githubs">
+          <div className="githubs">
             <a href="https://github.com/yoslatif">Yoseph Latif</a>
           </div>
 
@@ -38,22 +38,22 @@ function Footer() {
 
         <div id="linkedin-links">
 
-          <div class="linkedins">
+          <div className="linkedins">
             <a href="https://www.linkedin.com/in/sophie-yang-bb9758156/">
               Sophie Yang
             </a>
           </div>
-          <div class="linkedins">
+          <div className="linkedins">
             <a href="https://www.linkedin.com/in/peang-ngo-840860112/">
               Peang Ngo
             </a>
           </div>
-          <div class="linkedins">
+          <div className="linkedins">
             <a href="https://www.linkedin.com/in/peter-dinh-5a22a01b3/">
               Peter Dinh
             </a>
           </div>
-          <div class="linkedins">
+          <div className="linkedins">
             <a href="https://www.linkedin.com/in/yoseph-latif/">Yoseph Latif</a>
           </div>
 

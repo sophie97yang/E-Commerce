@@ -35,6 +35,20 @@ body, html {
     padding-bottom: 20px;
 }
 
+.topPart{
+    margin: 5px;
+
+}
+
+.signUpPart {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.alreadyMember{
+    margin-bottom: 10px;
+}
+
 /* Form styling */
 form {
     display: flex;
