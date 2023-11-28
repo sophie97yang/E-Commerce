@@ -43,7 +43,7 @@ const ProductDetails = () => {
     if (!product_price_split) {
       new_product_price = product.price.toString()+".00"
     }
-    if (product_price_split.toString().length!=2) {
+    else if (product_price_split.toString().length!=2) {
       product.price = product.price.toString() + "0"
     }
   //refactor product ratings to show stars
