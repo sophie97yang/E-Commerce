@@ -21,14 +21,12 @@ function Wishlist() {
       const res = await dispatch(addOrder(1,item.id)).then(dispatch(removeFromWishlist(item.id))).catch(res => res);
       if (!res.errors) {
         dispatch(authenticate())
-        alert('Successfully added to cart')
         history.push('/orders')
       }
     } else {
       const res = await dispatch(editOrder(1,item.id)).then(dispatch(removeFromWishlist(item.id))).catch(res => res);
       if (!res.errors) {
         dispatch(authenticate())
-        alert('Successfully added to cart')
         history.push('/orders')
       }
     }
@@ -48,7 +46,7 @@ function Wishlist() {
     <>
 
       <h2 className="wishlist-title">Wishlist</h2>
-      <p className="wishlist-subtitle">Let people know what gifts you'd like.  Save time.  Add your tiems and ideas in one convenient location.</p>
+      <p className="wishlist-subtitle">Let people know what gifts you'd like.  Save time.  Add your items and ideas in one convenient location.</p>
 
     <div className="wishlist-container">
       <div className="wishlist-items">
@@ -80,9 +78,11 @@ function Wishlist() {
               <button onClick={() => RemoveFromWishlist(item)}>
                 Remove from Wishlist
               </button>
-              <button onClick={()=> AddToCart(item)}>
+              {item.available ? <button onClick={()=> AddToCart(item)}>
                 Add to Shopping Cart
-              </button>
+              </button> : <button disabled={true} id='disabled_button'>
+                Add to Shopping Cart
+              </button>}
 
 
 

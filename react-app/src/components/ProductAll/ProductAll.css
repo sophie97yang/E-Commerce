@@ -148,3 +148,21 @@ main {
     filter:grayscale(1);
     filter:blur(1);
 }
+
+.out-of-stock {
+    margin-left:10px;
+}
+
+.out-of-stock>p {
+    color:red;
+}
+
+.product-square button {
+    background-color:#f0c14b;
+    color:black;
+}
+
+.product-square button:hover {
+    background-color:#FF9900;
+    color:white;
+}

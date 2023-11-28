@@ -82,8 +82,8 @@ def seed_products():
         available=5,
         preview_image="https://cdn.britannica.com/09/3809-004-50E1BB9B/Roquefort-cheese.jpg",
         product_image1="https://i0.wp.com/3.bp.blogspot.com/-SoRdsKybX28/TtPnbfV9pzI/AAAAAAAAHfE/tx6bS2n36qw/s1600/IMG_7990.JPG",
-        product_image2="chttps://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2014/5/8/1399567173853/69266628-eedd-41f9-8dda-56a29706e137-2060x1236.jpeg",
-        product_image3="https://detoxinista.com/wp-content/uploads/2014/02/pizza1.jpg",
+        product_image2="https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2014/5/8/1399567173853/69266628-eedd-41f9-8dda-56a29706e137-2060x1236.jpeg",
+        product_image3="https://maytagdairyfarms.com/images/made/uploads/images/_safe/Maytag2020-1390_480_480_60_c1.jpg",
         product_image4="https://laurenslatest.com/wp-content/uploads/2021/07/bacon-blue-cheese-burger-1.jpg"
         )
 

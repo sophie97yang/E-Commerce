@@ -52,17 +52,17 @@ function DropDown({ user }) {
         {user ?
           <>
             <li><NavLink to='/account'>Your Account</NavLink></li>
-            <li>Account Balance: ${user.account_balance.toFixed(2)}</li>
             <li><NavLink to='/orders/past'>View/Manage Your Orders</NavLink></li>
             <li><NavLink to='/orders'>View Your Wishlist</NavLink></li>
+            <p className="dropdown-balance">Account Balance: ${user.account_balance.toFixed(2)}</p>
             <li className='login-signup-div'>
-              <button onClick={handleLogout}>Sign Out</button>
+              <button className="signOutButt" onClick={handleLogout}>Sign Out</button>
             </li>
           </>
           :
           <div className='unauth-dropdown'>
             <li className='login-signup-div'>
-              <button onClick={(e) => {
+              <button className="signInUp" onClick={(e) => {
                 e.preventDefault();
                 closeMenu();
                 history.push('/login')
@@ -71,7 +71,7 @@ function DropDown({ user }) {
             </li>
             <li className='login-signup-div' id='italics'>
             Not a Member Yet?
-            <button onClick={(e) => {
+            <button className="signInUp" onClick={(e) => {
                 e.preventDefault();
                 closeMenu();
                 history.push('/signup')

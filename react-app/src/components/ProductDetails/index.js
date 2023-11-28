@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../store/products";
@@ -14,6 +14,8 @@ import UpdateReviewForm from "../UpdateReviewFormPage";
 import ManageReview from "../ManagementModal/ManageReview";
 import UpdateProductImage from "./UpdateProductImage";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import {MinimumAdd, LowStock} from './QuantityWarnings';
+import {useModal} from '../../context/Modal'
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -21,9 +23,11 @@ const ProductDetails = () => {
   const history = useHistory();
   const [quantity, setQuantity] = useState(1)
   const [hidden, setHidden] = useState(true)
+  const modalRef = useRef();
 
   const products = useSelector((state) => state.products.products)
   const member = useSelector((state) => state.session.member)
+  const { setModalContent } = useModal();
 
 
 
@@ -75,12 +79,13 @@ const ProductDetails = () => {
 
     //check validity of quantity data
     if (!quantity || quantity<=0) {
-      alert('You need to purchase at least one item. Please try again.');
+      setModalContent(<MinimumAdd />);
       return null;
+
     }
 
     if (quantity>product.available) {
-      alert(`Item is low on stock. You cannot purchase more than ${product.available} items. Please try again.`)
+      setModalContent(<LowStock product={product}/>);
       return null;
     }
 

@@ -1,0 +1,16 @@
+
+
+.update-image-form{
+    margin: 40px;
+}
+
+.update-product-title{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+
+}
+
+#modal-content{
+    border-radius: 20px;
+}

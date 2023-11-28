@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 body{
-    padding: 5px;
     background-color: white;
 }
 
@@ -116,7 +115,7 @@ body{
     font-family: 'Pacifico', cursive;
     font-size: 24px;
     padding-top: 90px;
-    color: rgb(191, 144, 24);
+    color: #f0c14b;
     text-align: center;
   }
 

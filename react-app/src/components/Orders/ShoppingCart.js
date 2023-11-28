@@ -11,7 +11,6 @@ function ShoppingCart() {
     const [cart,setCart] = useState([])
     const dispatch = useDispatch();
     const history = useHistory();
-    console.log('cart',cart);
 
   useEffect(() => {
     const shopping_cart = sessionUser
@@ -66,7 +65,10 @@ function ShoppingCart() {
 
       <div className="shopping-cart">
         <div className='shopping-cart-items'>
-        {cart ? (
+          {cart && cart.length ?  <div className='breadcrumbs'id='cart-breadcrumb'>
+              <p><Link to='/products'>All Products</Link> {">"} {sessionUser.first_name}'s Cart </p>
+            </div> : ""}
+        {cart && cart.length ? (
           cart.map((product) => (
             <div key={product.id} className="cart-container">
 

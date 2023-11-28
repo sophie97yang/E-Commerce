@@ -6,7 +6,7 @@ from random import choice, sample, randint
 
 def seed_wishlists(members,products):
     for member in members:
-        member.products = sample(products,randint(0,len(products)))
+        member.products = sample(products,randint(0,6))
 
     db.session.commit()
 

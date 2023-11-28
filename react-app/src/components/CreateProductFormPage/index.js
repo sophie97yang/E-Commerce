@@ -173,7 +173,7 @@ const CreateProductForm = () => {
 
           <textarea
             type="textarea"
-            placeholder="description of product"
+            placeholder="Description of product"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="description-field"
