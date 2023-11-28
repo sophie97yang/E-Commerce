@@ -27,15 +27,11 @@ function Navigation({ isLoaded }) {
 		"Nothing can get cheddar than this",
 		"Wow, you're shredded"
 	]
-	// useEffect(() => {
-	// 	const randIdx = Math.floor(Math.random() * 13);
-	// 	setPun(pun_rotation[randIdx]);
-	// }, [])
 
 	useEffect(() => {
 		const randIdx = Math.floor(Math.random() * pun_rotation.length);
 		setPun(pun_rotation[randIdx]);
-	
+
 		// https://developer.mozilla.org/en-US/docs/Web/API/setInterval
 		// change every 5 sesonds
 		const intervalId = setInterval(() => {
@@ -63,7 +59,7 @@ function Navigation({ isLoaded }) {
 				<div className='logo'>
 					<NavLink exact to="/"><img src={logo} alt='logo' /></NavLink>
 				</div>
-				<div>
+				<div className='nav-location'>
 					<p>Deliver to {sessionUser ? sessionUser.first_name : 'Location'}</p>
 					<p>{sessionUser ? `${sessionUser.city}, ${sessionUser.state}` : <button onClick={(e) => {
 						e.preventDefault();

@@ -35,6 +35,9 @@ const ProductAll = () => {
     if (!product_price_split) {
       product.price = product.price.toString() + ".00"
     }
+    if (product_price_split.toString().length!=2) {
+      product.price = product.price.toString() + "0"
+    }
     if (product.rating_sum) {
       const product_average_rating = Math.floor(product.rating_sum / product.reviews.length);
       product.average_rating = ''
@@ -70,8 +73,8 @@ const ProductAll = () => {
             }
           }
         }
-        dispatch(authenticate())
-        alert('Successfully added to cart')
+        dispatch(authenticate());
+        history.push('/orders')
       }
     } else {
       const res = await dispatch(editOrder(1, productId));
@@ -92,7 +95,7 @@ const ProductAll = () => {
           }
         }
         dispatch(authenticate())
-        alert('Successfully added to cart')
+        history.push('/orders')
       }
     }
 
@@ -154,7 +157,7 @@ const ProductAll = () => {
                         <li>{product.rating_sum ? `${product.average_rating} ${product.reviews.length}` : "No Reviews Yet"}</li>
                       </div>
                     </Link>
-                 {product.available? <div>{!(member.seller && product.seller.id===member.id) ? <button onClick={() => { handleAddCart(product.id) }}>Add to Cart</button>:<></>}</div> :<p>Out of Stock</p>}
+                 {product.available? <div>{(member && !(product.seller.id===member.id)) ? <button onClick={() => { handleAddCart(product.id) }}>Add to Cart</button>:<></>}</div> :<p>Out of Stock</p>}
                   </div>
                 </div>
               ))}

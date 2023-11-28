@@ -4,7 +4,6 @@ import UpdateReviewForm from "../../UpdateReviewFormPage";
 import './ManageReview.css';
 
 const ManageReview = ({ review }) => {
-    console.log('this time for review', review)
 
     return (
         <>

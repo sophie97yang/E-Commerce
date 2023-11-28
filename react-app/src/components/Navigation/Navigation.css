@@ -1,3 +1,8 @@
+.logo {
+  flex-grow:0.5;
+  display:flex;
+  align-items:center;
+}
 .hidden {
   display: none;
 }
@@ -14,9 +19,13 @@ nav {
   padding: 10px 20px;
 }
 
-nav>div {
+nav div {
   padding-left: 15px;
   padding-right: 15px;
+  height:60px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
 nav a {
@@ -35,14 +44,28 @@ nav li:hover {
 
 }
 
+.login-signup-div:hover {
+  border:none;
+}
+
+.login-signup-div div{
+  padding:0px;
+  margin-bottom:0px;
+
+}
 nav img {
-  width: 100px;
+  min-width: 100px;
+  max-width:150px;
+  max-height:50px;
 }
 
 .search_bar {
   display: flex;
   flex-direction: row;
   background-color: white;
+  height:40px;
+  padding-right:0px;
+  border-radius:5px;
 }
 
 .search_bar select {
@@ -59,21 +82,24 @@ nav img {
 
 .search_bar button {
   width: 30px;
-  padding: 5px;
+  padding: 5px 20px;
   background-color: #FF9900;
   border: none;
+  margin:0px;
+  max-height:40px;
 }
 
 .drop-down-box {
   display: flex;
   flex-direction: row;
+  padding-right:0px
 }
 
 .drop-down button{
   padding: 7px;
-  background-color: transparent;
+  background-color: #FF9900;
   border: none;
-  color: red;
+  color: white;
 }
 
 .fun-puns {
@@ -92,6 +118,7 @@ nav img {
 
 .profile-dropdown {
   position: absolute;
+  top:75px;
   z-index: 1000;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -125,21 +152,26 @@ nav img {
 }
 
 .cart_info {
-  flex-grow: 1;
+  height:60px;
+  flex-grow:0.5
 }
 
 .cart_info h2 {
   color: #FF9900;
   z-index: 1;
+  height:22px
 }
+
+.cart_info a {
+  padding-top:5px;
+}
+
 
 .fa-2xl {
   z-index: 0;
   font-size: 45px;
   margin-bottom: 25px;
 }
-
-
 
 .search_bar_nav_component {
   width: fit-content;
@@ -158,4 +190,36 @@ nav img {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.nav-location button {
+  background-color:#FF9900
+}
+
+#dropdown-icon {
+  width:50px;
+  height:50px;
+  margin-right:0px;
+  background-color:#131A22
+}
+
+.unauth-dropdown {
+  padding:30px 0px;
+  margin-top:10px;
+  height:130px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.unauth-dropdown li {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center
+}
+
+#italics {
+  font-style:italic;
 }

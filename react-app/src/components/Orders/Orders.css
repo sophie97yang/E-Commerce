@@ -8,16 +8,22 @@
 
 
 .shopping-cart{
-    margin: 50px 100px;
+    margin: 10px 100px;
     display:flex;
     flex-direction:row;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.shoppingcart-h2{
+    margin: 50px 50px;
 }
 
 .cart-container{
     background-color: white;
     border: 1px solid lightgrey;
     border-radius: 10px;
-
     margin-top: 25px;
 }
 
@@ -99,4 +105,18 @@
 
 #stock_info {
     color:#FF9900
+}
+
+
+.empty-cart{
+    margin: 30px;
+}
+
+.empty-cart-link{
+    text-decoration: none;
+    color: rgb(0, 100, 131);
+}
+
+.empty-cart-container{
+    margin: 30px;
 }

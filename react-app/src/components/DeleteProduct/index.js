@@ -15,12 +15,11 @@ const DeleteProduct = ({ product }) => {
     }
   }, [member, product]);
 
-
   return (
     <OpenModalButton
     modalComponent={<ConfirmDeleteModal product={product} />}
     buttonText="Delete Product"
-    className={!hidden ? "delete_product_button_hidden": "delete_product_button"}
+    className={hidden ? "delete_product_button_hidden": "delete_product_button"}
   />
   );
 };

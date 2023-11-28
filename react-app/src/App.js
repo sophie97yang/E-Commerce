@@ -17,6 +17,7 @@ import UpdateReviewForm from "./components/UpdateReviewFormPage";
 import UpdateProductForm from './components/UpdateProductFormPage'
 import ErrorPage from "./components/ErrorPage";
 import OrderComplete from "./components/OrderComplete";
+import Footer from './components/Footer'
 
 function App() {
   const dispatch = useDispatch();
@@ -88,6 +89,7 @@ function App() {
 
         </Switch>
       )}
+      <Footer />
     </>
   );
 }

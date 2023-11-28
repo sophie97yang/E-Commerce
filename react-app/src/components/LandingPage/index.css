@@ -88,6 +88,13 @@
   }
 
 
+  .carousel .slide .legend a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+
+
   /* Media Queries for Responsive Design */
   @media (max-width: 768px) {
     .box {

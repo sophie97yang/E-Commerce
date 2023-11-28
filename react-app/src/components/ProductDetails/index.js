@@ -12,6 +12,7 @@ import DeleteReview from "../DeleteReview";
 import OpenModalButton from '../OpenModalButton'
 import UpdateReviewForm from "../UpdateReviewFormPage";
 import ManageReview from "../ManagementModal/ManageReview";
+import UpdateProductImage from "./UpdateProductImage";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -40,6 +41,9 @@ const ProductDetails = () => {
   let new_product_price=product.price;
     if (!product_price_split) {
       new_product_price = product.price.toString()+".00"
+    }
+    if (product_price_split.toString().length!=2) {
+      product.price = product.price.toString() + "0"
     }
   //refactor product ratings to show stars
   let product_average_rating;
@@ -98,7 +102,6 @@ const ProductDetails = () => {
           }
         }}
         dispatch(authenticate())
-        alert('Successfully added to cart')
         history.push('/orders')
       }
     } else {
@@ -119,7 +122,6 @@ const ProductDetails = () => {
             }
           }}
         dispatch(authenticate())
-        alert('Successfully added to cart')
         history.push('/orders')
       }
     }
@@ -170,7 +172,6 @@ const ProductDetails = () => {
         }
       }
       dispatch(authenticate())
-      alert('Successfully added to wishlist')
       history.push('/orders')
     } else {
       console.log('Failed to add item to wishlist',res)
@@ -211,6 +212,13 @@ const ProductDetails = () => {
                     src={product.preview_image}
                     alt="product"
                   />
+                  { member && member.id===product.seller.id ?
+                  <OpenModalButton
+                  modalComponent={<UpdateProductImage product={product} type={'preview'}/>}
+                  buttonText='Update Product Image'/>
+                  :
+                  ""
+                  }
                 </div>
                 <div>
                   <img
@@ -218,6 +226,13 @@ const ProductDetails = () => {
                     src={product.product_image1 ? product.product_image1 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
+                  { member && member.id===product.seller.id ?
+                  <OpenModalButton
+                  modalComponent={<UpdateProductImage product={product} type={1}/>}
+                  buttonText='Update Product Image'/>
+                  :
+                  ""
+                  }
                 </div>
                 <div>
                   <img
@@ -225,6 +240,13 @@ const ProductDetails = () => {
                     src={product.product_image2 ? product.product_image2 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
+                  { member && member.id===product.seller.id ?
+                  <OpenModalButton
+                  modalComponent={<UpdateProductImage product={product} type={2}/>}
+                  buttonText='Update Product Image'/>
+                  :
+                  ""
+                  }
                 </div>
                 <div>
                   <img
@@ -232,6 +254,13 @@ const ProductDetails = () => {
                     src={product.product_image3 ? product.product_image3 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
+                  { member && member.id===product.seller.id ?
+                  <OpenModalButton
+                  modalComponent={<UpdateProductImage product={product} type={3}/>}
+                  buttonText='Update Product Image'/>
+                  :
+                  ""
+                  }
                 </div>
                 <div>
                   <img
@@ -239,6 +268,13 @@ const ProductDetails = () => {
                     src={product.product_image4 ? product.product_image4 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
                   />
+                  { member && member.id===product.seller.id ?
+                  <OpenModalButton
+                  modalComponent={<UpdateProductImage product={product} type={4}/>}
+                  buttonText='Update Product Image'/>
+                  :
+                  ""
+                  }
                 </div>
               </Carousel>
             </div>
@@ -268,8 +304,10 @@ const ProductDetails = () => {
                     <label> Quantity:
                     {product.available ? <input type='number' min={1} max={`${product.available}`} value={`${quantity}`} onChange={handleChange} name='quantity' />:''}
                     </label>
-                    {product.available ?<button onClick={addToCart}>Add to Cart</button>:<button disabled={true}>Add to Cart</button>}
-                    <button onClick={AddToWishlist}>Add to Wishlist</button>
+                    <div className="actionButtons">
+                    {member ? <>{product.available ?<button onClick={addToCart}>Add to Cart</button>:<button disabled={true}>Add to Cart</button>}</> : <><button disabled={true}>Add to Cart</button></>}
+                    {member ? <button onClick={AddToWishlist}>Add to Wishlist</button>:<button disabled={true}>Add to Wishlist</button> }
+                    </div>
                     </div>
                   )
                 }
@@ -280,19 +318,17 @@ const ProductDetails = () => {
             <div className='product-reviews'>
               <h2>Written Reviews</h2>
               <h4>{product.rating_sum ? ` ${product.average_rating}・${(product.rating_sum/product.reviews.length).toString().slice(0,4)}・${product.reviews.length} ratings ` : "No Reviews Yet"}</h4>
-              {!(member && member.seller && (member.id===product.seller.id)) && (
-                <button onClick={handleReviewClick}>Add Review</button>
-              )}
+                {!member || (member.id===product.seller.id) ? "":<button onClick={handleReviewClick}>Add Review</button>}
               <div>
 
               </div>
               <div>
                 {product.reviews ? product.reviews.map(review => (
-                  <div key={review.id}>
+                  <div key={review.id} className='product-detail-review'>
                     {review.review_image ? <img src={review.review_image} style={{height: "100px", width: "100px;"}}/>: ''}
                     <h5>{review.headline}</h5>
                     <div>{review.stars}</div>
-                    <p>{review.member.first_name} {review.member.last_name}</p>
+                    <p id='author-review'>{review.member.first_name} {review.member.last_name}</p>
                     <p>{review.content}</p>
 
 
