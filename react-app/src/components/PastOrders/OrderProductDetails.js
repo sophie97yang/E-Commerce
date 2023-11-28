@@ -141,7 +141,7 @@ function OrderProductDetails({ product, date }) {
           <button id="orderButt" onClick={TrackPackage}>Track Package</button>
           <OpenModalButton
             modalComponent={<HandleReturn product={product} />}
-            id="orderButt" buttonText="Make a Return"
+            buttonText="Make a Return"
             className={!product.returned ? "return_button": "return_button_hidden"}
           />
           <button id="orderButt" onClick={WriteReview}>Write a Review</button>
