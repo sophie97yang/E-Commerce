@@ -16,6 +16,7 @@ import UpdateProductImage from "./UpdateProductImage";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import {MinimumAdd, LowStock} from './QuantityWarnings';
 import {useModal} from '../../context/Modal'
+import RatingDistribution from "./RatingDistribution";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -56,14 +57,14 @@ const ProductDetails = () => {
     product_average_rating = Math.floor(product.rating_sum/product.reviews.length);
     product.average_rating=''
     for (let i=0;i<product_average_rating;i++) {
-      product.average_rating+='★'
+      product.average_rating+='🧀'
     }
   }
   //refactor each review rating to show stars
   product.reviews.forEach(review => {
     review.stars ='';
     for (let i=0;i<review.rating;i++) {
-      review.stars+='★'
+      review.stars+='🧀'
     }
   })
 
@@ -202,6 +203,31 @@ const ProductDetails = () => {
     history.push(`/products/${id}/reviews/new`);
   };
 
+  // const calculateRatingsDistribution = (reviews) => {
+  //   const distribution = {};
+  //   reviews.forEach(review => {
+  //     distribution[review.rating] = (distribution[review.rating] || 0) + 1;
+  //   });
+  //   return Object.entries(distribution).map(([stars, count]) => ({ stars, count }));
+  // };
+
+  const calculateRatingsDistribution = (reviews) => {
+    const distribution = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  
+    reviews.forEach(review => {
+      if (distribution.hasOwnProperty(review.rating)) {
+        distribution[review.rating]++;
+      }
+    });
+  
+    return Object.entries(distribution)
+      .map(([stars, count]) => ({ stars: parseInt(stars), count }))
+      .sort((a, b) => b.stars - a.stars);
+  };
+  
+
+  const ratingsDistribution = calculateRatingsDistribution(product.reviews);
+
   return (
     <>
       <div>
@@ -332,12 +358,15 @@ const ProductDetails = () => {
             </div>
 
             <div className='product-reviews'>
-              <h2>Written Reviews</h2>
-              <h4>{product.rating_sum ? ` ${product.average_rating}・${(product.rating_sum/product.reviews.length).toString().slice(0,4)}・${product.reviews.length} ratings ` : "No Reviews Yet"}</h4>
+              <div className='reviewsTop'>
+              <h2>Reviews</h2>
+              <h4>{product.rating_sum ? ` ${product.average_rating} ${(product.rating_sum/product.reviews.length).toString().slice(0,4)} ||| ${product.reviews.length} ratings ` : "No Reviews Yet"}</h4>
                 {!member || (member.id===product.seller.id) ? "":<button onClick={handleReviewClick}>Add Review</button>}
+                </div>
               <div>
 
               </div>
+              <RatingDistribution ratings={ratingsDistribution} />
               <div>
                 {product.reviews ? product.reviews.map(review => (
                   <div key={review.id} className='product-detail-review'>

@@ -238,9 +238,14 @@ button:hover {
 /* If the reviews section is not full-width, adjust it */
 .product-reviews {
     width: calc(100% - 40px);
+    padding: 5px;
 }
 
-
+.reviewsTop {
+    width: 100%; /* Adjust this as needed, e.g., 80% of the parent's width */
+    margin: 0 auto; /* Keeps it centered within the specified width */
+    /* Other styles as needed */
+}
 
 .actionButton {
     margin-top: 2px;
@@ -254,9 +259,10 @@ button:hover {
 }
 
 .product-detail-review {
-    border:1px #131a22 solid;
-    margin:10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     padding:10px;
+    margin-bottom: 30px;
 }
 
 #author-review {
