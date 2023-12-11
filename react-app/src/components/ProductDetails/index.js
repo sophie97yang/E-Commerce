@@ -221,6 +221,7 @@ const ProductDetails = () => {
                     className="product-img"
                     src={product.preview_image}
                     alt="product"
+                    onError={e => { e.currentTarget.src = "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"; }}
                   />
                   { member && member.id===product.seller.id ?
                   <OpenModalButton
@@ -235,6 +236,7 @@ const ProductDetails = () => {
                     className="product-img"
                     src={product.product_image1 ? product.product_image1 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
+                    onError={e => { e.currentTarget.src = "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"; }}
                   />
                   { member && member.id===product.seller.id ?
                   <OpenModalButton
@@ -249,6 +251,7 @@ const ProductDetails = () => {
                     className="product-img"
                     src={product.product_image2 ? product.product_image2 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
+                    onError={e => { e.currentTarget.src = "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"; }}
                   />
                   { member && member.id===product.seller.id ?
                   <OpenModalButton
@@ -263,6 +266,7 @@ const ProductDetails = () => {
                     className="product-img"
                     src={product.product_image3 ? product.product_image3 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
+                    onError={e => { e.currentTarget.src = "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"; }}
                   />
                   { member && member.id===product.seller.id ?
                   <OpenModalButton
@@ -277,6 +281,7 @@ const ProductDetails = () => {
                     className="product-img"
                     src={product.product_image4 ? product.product_image4 : 'https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg'}
                     alt="product"
+                    onError={e => { e.currentTarget.src = "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"; }}
                   />
                   { member && member.id===product.seller.id ?
                   <OpenModalButton
@@ -336,7 +341,7 @@ const ProductDetails = () => {
               <div>
                 {product.reviews ? product.reviews.map(review => (
                   <div key={review.id} className='product-detail-review'>
-                    {review.review_image ? <img src={review.review_image} style={{height: "100px", width: "100px;"}}/>: ''}
+                    {review.review_image ? <img src={review.review_image} style={{height: "100px", width: "100px;"}} onError={e => { e.currentTarget.src = "your_image_not_found_defalt_picture_here"; }}/>: ''}
                     <h5>{review.headline}</h5>
                     <div>{review.stars}</div>
                     <p id='author-review'>{review.member.first_name} {review.member.last_name}</p>
