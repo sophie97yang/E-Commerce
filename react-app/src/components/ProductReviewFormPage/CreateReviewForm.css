@@ -11,6 +11,8 @@
 
 .create-review-field{
     width: 600px;
+    height: 600px;
+    padding: 20px;
 }
 
 .review-rating-input{
