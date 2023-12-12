@@ -302,6 +302,7 @@ const ProductDetails = () => {
                       className="product-img"
                       src={product.preview_image}
                       alt="product"
+                    onError={e => { e.currentTarget.src = "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"; }}
                     />
                     {member && member.id === product.seller.id ? (
                       <OpenModalButton
@@ -326,6 +327,7 @@ const ProductDetails = () => {
                           : "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"
                       }
                       alt="product"
+                    onError={e => { e.currentTarget.src = "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"; }}
                     />
                     {member && member.id === product.seller.id ? (
                       <OpenModalButton
@@ -347,6 +349,7 @@ const ProductDetails = () => {
                           : "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"
                       }
                       alt="product"
+                    onError={e => { e.currentTarget.src = "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"; }}
                     />
                     {member && member.id === product.seller.id ? (
                       <OpenModalButton
@@ -368,6 +371,7 @@ const ProductDetails = () => {
                           : "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"
                       }
                       alt="product"
+                    onError={e => { e.currentTarget.src = "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"; }}
                     />
                     {member && member.id === product.seller.id ? (
                       <OpenModalButton
@@ -389,6 +393,7 @@ const ProductDetails = () => {
                           : "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"
                       }
                       alt="product"
+                    onError={e => { e.currentTarget.src = "https://karinedeli.com/wp-content/uploads/2021/12/image-coming-soon.jpg"; }}
                     />
                     {member && member.id === product.seller.id ? (
                       <OpenModalButton
@@ -501,7 +506,7 @@ const ProductDetails = () => {
                       {review.review_image ? (
                         <img
                           src={review.review_image}
-                          style={{ height: "100px", width: "100px;" }}
+                          style={{ height: "100px", width: "100px;"}} onError={e => { e.currentTarget.src = "your_image_not_found_defalt_picture_here";  }}
                         />
                       ) : (
                         ""
