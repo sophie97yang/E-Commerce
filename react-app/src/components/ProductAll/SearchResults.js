@@ -3,19 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { getAllProducts } from "../../store/products";
 import { addOrder, authenticate, editOrder, removeFromWishlist, addToWishlist, deleteCart, deleteFromCart } from "../../store/session";
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import './ProductAll.css';
 import truckImg from '../../assets/images/truckIcon.jpg';
 import memory from '../../assets/images/charcuterie.jpeg';
 
-const ProductAll = () => {
+const SearchResults = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const productsObj = useSelector((state) => state.products.products);
+  const {category,search} = useParams();
 
   const member = useSelector(state => state.session.member);
   const [productList,setProducts] = useState(null);
-  const [filterByCategory,setCategory] = useState('All');
+  const [filterByCategory,setCategory] = useState(category);
   const [categoryOn,setCategoryOn]=useState(false);
   const [filterByReviews,setReview] = useState('All');
   const [reviewOn,setReviewOn]=useState(false);
@@ -28,7 +29,11 @@ const ProductAll = () => {
 
   useEffect(()=> {
     if (productsObj) {
-      setProducts(Object.values(productsObj))
+        if (filterByCategory!=='All') {
+        setProducts(Object.values(productsObj).filter(product=> product.category===filterByCategory && product.name.toLowerCase().includes(search.toLowerCase())));
+        } else {
+        setProducts(Object.values(productsObj).filter(product=> product.name.toLowerCase().includes(search.toLowerCase())));
+        }
     }
   },[productsObj])
 
@@ -40,7 +45,7 @@ const ProductAll = () => {
     }
     else {
       if (!categoryOn) {
-      setProducts(productList.filter(obj=> obj.category===filterByCategory))
+      setProducts(productList?.filter(obj=> obj.category===filterByCategory))
       setCategoryOn(true);
       } else {
         setReview('All');
@@ -60,7 +65,7 @@ const ProductAll = () => {
     }
     else {
       if (!reviewOn) {
-      setProducts(productList.filter(obj=> Number(obj.rating_sum/obj.reviews?.length)>=filterByReviews));
+      setProducts(productList?.filter(obj=> Number(obj.rating_sum/obj.reviews?.length)>=filterByReviews));
       setReviewOn(true);
     }
       else {
@@ -80,7 +85,7 @@ const ProductAll = () => {
     }
     else {
       if (!stockOn) {
-      setProducts(productList.filter(obj=> obj.available>0));
+      setProducts(productList?.filter(obj=> obj.available>0));
       setStockOn(true);
     }
       else {
@@ -172,9 +177,9 @@ const ProductAll = () => {
   return (
     <main>
       <div>
-        <h1>Products</h1>
+        <h1>Search Results for: "{search.split(',').join(' ')}" in {category==='All' ? 'All Categories' : category}</h1>
         <div className='breadcrumbs' id='breadcrumb-padding'>
-              <p><Link to='/'>Home</Link> {">"} All Products </p>
+              <p><Link to='/products'>All Products</Link> {">"} Search Results: "{search.split(',').join(' ')}"</p>
             </div>
       </div>
 
@@ -285,7 +290,8 @@ const ProductAll = () => {
 
 
 
-        {productList?.length ?
+
+            {productList?.length ?
            <ul className="products-list">
               {productList.map((product) => (
                 <div key={product.id} title={product.name} className={!product.available ? 'product_hidden' : ''}>
@@ -306,17 +312,7 @@ const ProductAll = () => {
               ))}
               </ul>:
               <div className='no-results'>
-                <p>Well, this is just grate. Looks like I camembert to find the cheese I'm looking for.
-              <button
-              onClick={()=> {
-                setCategory('All');
-                setCategoryOn(false);
-                setReview('All');
-                setReviewOn(false);
-              }}
-              >
-               Try again
-              </button>and gouda luck next time!</p>
+                <p>Well, this is just grate. Looks like I camembert to find the cheese I'm looking for. <Link to='/products'>Try again</Link> and gouda luck next time!</p>
               </div>
             }
         </div>
@@ -325,4 +321,4 @@ const ProductAll = () => {
   );
 };
 
-export default ProductAll;
+export default SearchResults;

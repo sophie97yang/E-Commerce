@@ -156,6 +156,143 @@ def seed_reviews():
         headline="I need moreeeeee",
         content="I want a house made of this cheese"
         )
+    
+    review16 = Review(
+        rating=4,
+        review_date=datetime.now(),
+        product_id=8,
+        member_id=7,
+        headline="Delicious!",
+        content="This product exceeded my expectations."
+    )
+
+    review17 = Review(
+        rating=3,
+        review_date=datetime.now(),
+        product_id=10,
+        member_id=2,
+        headline="Not bad",
+        content="It's an okay product, but I expected more."
+    )
+
+    review18 = Review(
+        rating=5,
+        review_date=datetime.now(),
+        product_id=19,
+        member_id=5,
+        headline="Fantastic!",
+        content="I can't get enough of this. Truly amazing."
+    )
+
+    review19 = Review(
+        rating=2,
+        review_date=datetime.now(),
+        product_id=3,
+        member_id=8,
+        headline="Disappointing",
+        content="I regret purchasing this product."
+    )
+
+    review20 = Review(
+        rating=4,
+        review_date=datetime.now(),
+        product_id=12,
+        member_id=1,
+        headline="Great value",
+        content="Affordable and high quality. I highly recommend it."
+    )
+
+    review21 = Review(
+        rating=5,
+        review_date=datetime.now(),
+        product_id=6,
+        member_id=3,
+        headline="Love it!",
+        content="This product has become a staple in my daily life."
+    )
+
+    review22 = Review(
+        rating=3,
+        review_date=datetime.now(),
+        product_id=23,
+        member_id=9,
+        headline="Decent",
+        content="It does the job, but there's room for improvement."
+    )
+
+    review23 = Review(
+        rating=4,
+        review_date=datetime.now(),
+        product_id=17,
+        member_id=6,
+        headline="Impressed",
+        content="I didn't expect much, but this product surprised me in a good way."
+    )
+
+    review24 = Review(
+        rating=5,
+        review_date=datetime.now(),
+        product_id=1,
+        member_id=4,
+        headline="Must try!",
+        content="You won't be disappointed. It's simply amazing."
+    )
+
+    review25 = Review(
+        rating=4,
+        review_date=datetime.now(),
+        product_id=16,
+        member_id=7,
+        headline="Satisfying",
+        content="I enjoyed using this product. It met my expectations."
+    )
+
+    review26 = Review(
+        rating=3,
+        review_date=datetime.now(),
+        product_id=18,
+        member_id=2,
+        headline="Average",
+        content="Not bad, not great. Just an average product."
+    )
+
+    review27 = Review(
+        rating=5,
+        review_date=datetime.now(),
+        product_id=20,
+        member_id=5,
+        headline="A game-changer!",
+        content="This product has revolutionized the way I do things. Highly recommend."
+    )
+
+    review28 = Review(
+        rating=2,
+        review_date=datetime.now(),
+        product_id=21,
+        member_id=8,
+        headline="Disappointed",
+        content="I had high hopes, but this product let me down."
+    )
+
+    review29 = Review(
+        rating=4,
+        review_date=datetime.now(),
+        product_id=22,
+        member_id=1,
+        headline="Good buy",
+        content="Happy with my purchase. It's worth the money."
+    )
+
+    review30 = Review(
+        rating=5,
+        review_date=datetime.now(),
+        product_id=23,
+        member_id=3,
+        headline="Exceptional quality",
+        content="I've tried many similar products, and this one stands out for its quality."
+    )
+
+
 
     # images = [image1,image2,image3]
     db.session.add(review1)
@@ -173,6 +310,21 @@ def seed_reviews():
     db.session.add(review13)
     db.session.add(review14)
     db.session.add(review15)
+    db.session.add(review16)
+    db.session.add(review17)
+    db.session.add(review18)
+    db.session.add(review19)
+    db.session.add(review20)
+    db.session.add(review21)
+    db.session.add(review22)
+    db.session.add(review23)
+    db.session.add(review24)
+    db.session.add(review25)
+    db.session.add(review26)
+    db.session.add(review27)
+    db.session.add(review28)
+    db.session.add(review29)
+    db.session.add(review30)
 
     # post_images = [db.session.add(image) for image in images]
 
@@ -180,7 +332,8 @@ def seed_reviews():
 
     print("Successful Reviewsss completed!!!!!")
 
-    return [review1, review2, review3, review4, review5, review6, review7, review8, review9, review10, review11, review12, review13, review14, review15]
+    return [review1, review2, review3, review4, review5, review6, review7, review8, review9, review10, review11, review12, review13, review14, review15,
+            review16, review17, review18, review19, review20, review21, review22, review23, review24, review25, review26, review27, review28, review29, review30]
 
 def undo_reviews():
     if environment == "production":
