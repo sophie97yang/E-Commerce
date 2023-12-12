@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 .create-review-container{
     display: flex;
     justify-content: center;
@@ -7,6 +9,10 @@
 .h1Review{
     margin-top: 25px;
     margin-bottom: 25px;
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+    color: goldenrod;
+    font-size: 40px;
 }
 
 .create-review-field{

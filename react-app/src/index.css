@@ -3,3 +3,7 @@
     font-family: 'Amazon Ember', sans-serif;
 
 }
+
+.main-content {
+    min-height: calc(100vh - 60px); /* Adjust 60px to the height of the footer */
+  }
