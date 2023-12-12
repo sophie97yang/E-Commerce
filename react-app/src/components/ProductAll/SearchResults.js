@@ -207,6 +207,8 @@ const SearchResults = () => {
                 setCategoryOn(false);
                 setReview('All');
                 setReviewOn(false);
+                setStock('All');
+                setStockOn(false);
               }}
               >
                Remove All Filters
@@ -288,9 +290,10 @@ const SearchResults = () => {
 
 
 
-          <ul className="products-list">
-            {productList &&
-              productList.map((product) => (
+
+            {productList?.length ?
+           <ul className="products-list">
+              {productList.map((product) => (
                 <div key={product.id} title={product.name} className={!product.available ? 'product_hidden' : ''}>
                   <div className="product-ind-box">
                     <Link to={`/products/${product.id}`}>
@@ -307,7 +310,11 @@ const SearchResults = () => {
                   </div>
                 </div>
               ))}
-          </ul>
+              </ul>:
+              <div className='no-results'>
+                <p>Well, this is just grate. Looks like I camembert to find the cheese I'm looking for. <Link to='/products'>Try again</Link> and gouda luck next time!</p>
+              </div>
+            }
         </div>
       </div>
     </main>

@@ -171,3 +171,18 @@ main {
     margin-bottom:10px;
     margin-top:10px;
 }
+
+.no-results a {
+    color:#ff9900;
+    text-decoration:none;
+}
+.no-results {
+    font-weight:200;
+    font-size:40px;
+    padding-top:10px;
+}
+.no-results button {
+    color:#ff9900;
+    border:none;
+    font-size:40px;
+}
