@@ -21,6 +21,7 @@ import Footer from './components/Footer';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import AboutUs from "./components/AboutUs";
 import CustomerReviews from "./components/CustomerReviews";
+import { getAllProducts } from "./store/products";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
 
   return (
     <>

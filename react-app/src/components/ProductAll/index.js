@@ -12,20 +12,92 @@ const ProductAll = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const productsObj = useSelector((state) => state.products.products);
-  let productList = productsObj ? Object.values(productsObj) : [];
+
   const member = useSelector(state => state.session.member);
+  const [productList,setProducts] = useState(null);
+  const [filterByCategory,setCategory] = useState('All');
+  const [categoryOn,setCategoryOn]=useState(false);
+  const [filterByReviews,setReview] = useState('All');
+  const [reviewOn,setReviewOn]=useState(false);
+  const [filterByStock,setStock] = useState('All');
+  const [stockOn,setStockOn] = useState(false);
+  console.log(productList);
+  console.log(filterByReviews,reviewOn);
 
   useEffect(()=> {
-    dispatch(getAllProducts())
+    dispatch(getAllProducts());
   },[dispatch])
 
-  if (!productList) {
-    return null
+  useEffect(()=> {
+    if (productsObj) {
+      setProducts(Object.values(productsObj))
+    }
+  },[productsObj])
+
+
+  useEffect(()=> {
+    if (productsObj) {
+    if (filterByCategory==='All') {
+      setProducts(Object.values(productsObj));
+    }
+    else {
+      if (!categoryOn) {
+      setProducts(productList.filter(obj=> obj.category===filterByCategory))
+      setCategoryOn(true);
+      } else {
+        setReview('All');
+        setReviewOn(false);
+        setStock('All');
+        setStockOn(false);
+        setProducts(Object.values(productsObj).filter(obj=>obj.category===filterByCategory));
+      }
+    }
   }
+  },[filterByCategory])
+
+  useEffect(()=> {
+    if (productsObj) {
+    if (filterByReviews==='All') {
+      setProducts(Object.values(productsObj));
+    }
+    else {
+      if (!reviewOn) {
+      setProducts(productList.filter(obj=> Number(obj.rating_sum/obj.reviews?.length)>=filterByReviews));
+      setReviewOn(true);
+    }
+      else {
+        setCategory('All');
+        setCategoryOn(false);
+        setStock('All');
+        setStockOn(false);
+        setProducts(Object.values(productsObj).filter(obj=> Number(obj.rating_sum/obj.reviews?.length)>=filterByReviews))
+      }
+    }
+  }},[filterByReviews])
+
+  useEffect(()=> {
+    if (productsObj) {
+    if (filterByStock==='All') {
+      setProducts(Object.values(productsObj));
+    }
+    else {
+      if (!stockOn) {
+      setProducts(productList.filter(obj=> obj.available>0));
+      setStockOn(true);
+    }
+      else {
+        setCategory('All');
+        setCategoryOn(false);
+        setReview('All');
+        setReviewOn(false);
+        setProducts(Object.values(productsObj).filter(obj=> obj.available>0))
+      }
+    }
+  }},[filterByStock])
 
   //refactor product name to capitalize first letter and price display
   //refactor to include review stars inside product object!
-  productList.forEach(product => {
+  productList?.forEach(product => {
     if (product) {
       product.name = product.name[0].toUpperCase() + product.name.slice(1);
       const product_price_split = product.price.toString().split('.')[1];
@@ -44,6 +116,7 @@ const ProductAll = () => {
       }
     }
   })
+  //BONUS: FILTERING AND ORDERING BY
 
   //handle Add Cart Callback
   const handleAddCart = async (productId) => {
@@ -123,6 +196,75 @@ const ProductAll = () => {
                 <img className="memory" src={memory} alt="memory" />
               </div>
             </div>
+            <div>
+              <h2>Filters</h2>
+              <button
+              onClick={()=> {
+                setCategory('All');
+                setCategoryOn(false);
+                setReview('All');
+                setReviewOn(false);
+              }}
+              >
+               Remove All Filters
+              </button>
+              <div className='filter-by'>
+                <h4>Filter by Category</h4>
+                {/* <button onClick={(e)=> setCategory("Fresh")}>Fresh</button>
+                <button onClick={(e)=> setCategory("Bloomy Rind")}>Bloomy Rind</button>
+                <button onClick={(e)=> setCategory("Washed Rind")}>Washed Rind</button> */}
+                <select
+                value={filterByCategory}
+                onChange={(e)=>{
+                  setCategory(e.target.value);
+                }
+                }
+                >
+                  <option value={'All'} disabled>Select a category...</option>
+                  <option value={'Fresh'}>Fresh</option>
+                  <option value={'Bloomy Rind'}>Bloomy Rind</option>
+                  <option value={'Washed Rind'}>Washed Rind</option>
+
+                </select>
+              </div>
+
+              <div className='filter-by'>
+                <h4>Filter by Customer Reviews</h4>
+               {/*  <button onClick={(e)=> setReview(4)}>★★★★ & Up</button>
+                <button onClick={(e)=> setReview(3)}>★★★ & Up</button>
+                <button onClick={(e)=> setReview(2)}>★★ & Up</button>
+                <button onClick={(e)=> setReview(1)}>★ & Up</button> */}
+                <select
+                value={filterByReviews}
+                onChange={(e)=>{
+                  setReview(e.target.value);
+                }
+                }
+                >
+                  <option value={'All'} disabled>Select a rating...</option>
+                  <option value={4}>★★★★ & Up</option>
+                  <option value={3}>★★★ & Up</option>
+                  <option value={2}>★★ & Up</option>
+                  <option value={1}>★ & Up</option>
+
+                </select>
+              </div>
+
+              <div className='filter-by'>
+                <h4>Filter by Availability</h4>
+                <select
+                value={filterByStock}
+                onChange={(e)=>{
+                  setStock(e.target.value);
+                }
+                }
+                >
+                  <option value={'All'}>Include Out of Stock</option>
+                  <option value={'In-Stock'}>In-Stock Only</option>
+                </select>
+              </div>
+
+            </div>
           </div>
         </div>
 
@@ -161,7 +303,6 @@ const ProductAll = () => {
           </ul>
         </div>
       </div>
-
     </main>
   );
 };
