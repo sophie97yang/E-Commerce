@@ -47,6 +47,7 @@ useEffect(()=> {
     const res = await dispatch(editReview(formData, review.id));
 
     if (!res.errors) {
+      dispatch(getAllProducts());
       history.push(`/products/${review.product_id}`);
       closeModal();
       yesSubmitted(true);
