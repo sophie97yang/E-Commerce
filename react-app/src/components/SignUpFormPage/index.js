@@ -101,6 +101,7 @@ function SignupFormPage() {
 
           <label>
             First Name
+            </label>
             <input
               type="text"
               value={firstName}
@@ -111,10 +112,11 @@ function SignupFormPage() {
                 *{errors.firstName}
               </p>
             )}
-          </label>
+          
 
           <label>
             Last Name
+            </label>
             <input
               type="text"
               value={lastName}
@@ -125,10 +127,10 @@ function SignupFormPage() {
                 *{errors.lastName}
               </p>
             )}
-          </label>
 
           <label>
             Address
+            </label>
             <input
               type="text"
               value={address}
@@ -139,10 +141,10 @@ function SignupFormPage() {
                 *{errors.address}
               </p>
             )}
-          </label>
 
           <label>
             City
+            </label>
             <input
               type="text"
               value={city}
@@ -151,7 +153,6 @@ function SignupFormPage() {
             {errors.city && (
               <p style={{ fontSize: "10px", color: "red" }}>*{errors.city}</p>
             )}
-          </label>
 
           <label>
             State
@@ -216,6 +217,7 @@ function SignupFormPage() {
 
           <label>
             Email
+            </label>
             <input
               type="text"
               value={email}
@@ -226,10 +228,10 @@ function SignupFormPage() {
             {errors.email && (
               <p style={{ fontSize: "10px", color: "red" }}>*{errors.email}</p>
             )}
-          </label>
 
           <label>
             Password
+            </label>
             <input
               type="password"
               value={password}
@@ -242,10 +244,10 @@ function SignupFormPage() {
                 *{errors.password}
               </p>
             )}
-          </label>
 
           <label>
             Confirm Password
+            </label>
             <input
               type="password"
               value={confirmPassword}
@@ -258,7 +260,6 @@ function SignupFormPage() {
                 *{errors.confirmPassword}
               </p>
             )}
-          </label>
 
           <label>
             Seller
