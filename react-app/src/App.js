@@ -34,6 +34,8 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+
+      <div className="main-content">
       {isLoaded && (
         <Switch>
 
@@ -102,6 +104,7 @@ function App() {
 
         </Switch>
       )}
+      </div>
       <Footer />
     </>
   );
