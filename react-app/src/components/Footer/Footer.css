@@ -49,3 +49,20 @@ footer {
     display: flex;
     flex-direction: column;
 }
+
+
+.fa-square-odnoklassniki{
+    color: orange;
+
+    
+}
+
+.p-link{
+    text-decoration: none;
+    color: white;
+}
+
+.above-p-link{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}

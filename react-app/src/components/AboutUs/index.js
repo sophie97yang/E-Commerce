@@ -21,28 +21,30 @@ const AboutUs = () => {
                     <img src={peter} alt='peter' />
                     Peter Dinh
                     <div className='profiles-links'>
-                        <a href="https://github.com/314pdinh"><i class="fa-brands fa-square-github"></i></a>             <a href="https://www.linkedin.com/in/peter-dinh-5a22a01b3/"><i class="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i></a>
+                        <a href="https://github.com/314pdinh"><i className="fa-brands fa-square-github"></i></a>             <a href="https://www.linkedin.com/in/peter-dinh-5a22a01b3/"><i className="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i></a>             <a href="314pdinh.github.io"><i class="fa-brands fa-square-odnoklassniki"></i></a>
                     </div>
                 </div>
                 <div className='profiles'>
                     <img src={peang} alt='peang' />
                     Peang Ngo
                     <div className='profiles-links'>
-                        <a href="https://github.com/pingno"><i class="fa-brands fa-square-github"></i></a>             <a href="https://www.linkedin.com/in/peang-ngo-840860112/"><i class="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i></a>
+                        <a href="https://github.com/pingno"><i className="fa-brands fa-square-github"></i></a>             <a href="https://www.linkedin.com/in/peang-ngo-840860112/"><i className="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i></a>                <a href="https://pingno.github.io/"><i class="fa-brands fa-square-odnoklassniki"></i></a>
+                        
+                    
                     </div>
                 </div>
                 <div className='profiles'>
                     <img src={sophie} alt='sophie' />
                     Sophie Yang
                     <div className='profiles-links'>
-                        <a href="https://github.com/sophie97yang"><i class="fa-brands fa-square-github"></i></a>             <a href="https://www.linkedin.com/in/sophie-yang-bb9758156/"><i class="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i></a>
+                        <a href="https://github.com/sophie97yang"><i className="fa-brands fa-square-github"></i></a>             <a href="https://www.linkedin.com/in/sophie-yang-bb9758156/"><i className="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i></a>                 <a href="https://sophie97yang.github.io/"><i class="fa-brands fa-square-odnoklassniki"></i></a>
                     </div>
                 </div>
                 <div className='profiles'>
                     <img src={yoseph} alt='yoseph' />
                     Yoseph Latiff
                     <div className='profiles-links'>
-                        <a href="https://github.com/yoslatif"><i class="fa-brands fa-square-github"></i></a>             <a href="https://www.linkedin.com/in/yoseph-latif/"><i class="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i></a>
+                        <a href="https://github.com/yoslatif"><i className="fa-brands fa-square-github"></i></a>             <a href="https://www.linkedin.com/in/yoseph-latif/"><i className="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i></a>                     <a href=""><i class="fa-brands fa-square-odnoklassniki"></i></a>
                     </div>
                 </div>
 

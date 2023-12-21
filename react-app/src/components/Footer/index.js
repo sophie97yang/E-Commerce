@@ -31,6 +31,17 @@ function Footer() {
         <p>&copy; {new Date().getFullYear()} ParmazonPrime, Inc. All Rights Reserved. Terms, Privacy & Accessibility
         </p>
 
+
+<div className="above-p-link">
+
+Checkout our portfolios!
+</div>
+
+
+<a href="https://sophie97yang.github.io/" className="p-link"><i className="fa-brands fa-square-odnoklassniki" ></i> Sophie Yang</a>  <a href="https://pingno.github.io/" className="p-link"><i className="fa-brands fa-square-odnoklassniki"></i> Peang Ngo </a>  <a href="https://314pdinh.github.io" className="p-link"><i className="fa-brands fa-square-odnoklassniki"></i> Peter Dinh </a>  <a href="" className="p-link"><i className="fa-brands fa-square-odnoklassniki"></i> Yosef Latif </a> 
+
+
+
       </div>
 
 
