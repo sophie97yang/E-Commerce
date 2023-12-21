@@ -1,0 +1,14 @@
+.star-rating span {
+    cursor: pointer;
+    font-size: 64px;
+    text-align: center;
+  }
+  
+.star-rating {
+    text-align: center;
+  }
+  
+  .star-rating span:hover {
+    color: gold;
+  }
+  

@@ -21,7 +21,7 @@ class ProductForm(FlaskForm):
     name = StringField("Product Name", validators=[DataRequired(), Length(max=30)])
     description = TextAreaField("Description", validators=[DataRequired(), Length(max=500)])
     price = DecimalField("Price", validators=[DataRequired(), NumberRange(min=0)], places=2)
-    category = SelectField("Category", validators=[DataRequired()], choices=[('Fresh', 'Fresh'), ('Bloomy Rind', 'Bloomy Rind'), ('Washed Rind', 'Washed Rind'), ])  # Populate choices #this should be dynammic
+    category = SelectField("Category", validators=[DataRequired()], choices=[('Fresh', 'Fresh'), ('Bloomy Rind', 'Bloomy Rind'), ('Washed Rind', 'Washed Rind'), ('Semi-Hard', 'Semi-Hard'), ('Hard','Hard'), ('Blue', 'Blue'), ('Accessories', 'Accessories'), ('Food-Pairings', 'Food-Pairings'), ('Drink-Pairings', 'Drink-Pairings')])  # Populate choices #this should be dynammic
     available = IntegerField("Stock Quantity", validators=[DataRequired(), NumberRange(min=0)])
     preview_image = FileField("Product Image Preview", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
     product_image1 = FileField("Product Image 1", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])

@@ -30,45 +30,57 @@ html {
   font-size: 50px;
   text-shadow:
     -1px -1px 0 #000,
-     1px -1px 0 #000,
+    1px -1px 0 #000,
     -1px 1px 0 #000,
-     1px 1px 0 #000;
+    1px 1px 0 #000;
 }
 
 /* Carousel */
 
 .image-header-landing {
+  justify-content: center;
+  align-items: center;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   padding: 50px;
+  width: 100%;
+  /* background-color: red; */
+  margin: 0;
 }
 
-.image-landing {
+/* .image-landing {
   height: 400px;
   width: 300px;
-}
+  background-color: blue;
+} */
 
 .jerry-img {
-  margin-top: 550px;
-  margin-left: 100px;
+  /* margin-top: 550px;
+  margin-left: 100px; */
   height: 200px;
   width: auto;
+  /* background-color: grey; */
 }
 
 .tom-img {
   height: 500px;
   width: auto;
+  /* background-color: grey; */
 }
 
 .product-carousel {
-  text-align: center;
-  width: 800px;
-  margin: 0px auto;
+  /* text-align: center; */
+  max-width: 50%;
+  min-width: 250px;
+  min-height: 20%;
+  /* margin: 0px auto; */
+  /* background-color: green; */
 }
 
 .product-carousel .legend {
   display: inline-block;
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
   color: #fff;
   padding: 10px 20px;
   border-radius: 20px;
@@ -78,6 +90,13 @@ html {
 .product-carousel img {
   max-width: 750px;
   max-height: 575px;
+  object-fit: cover;
+}
+
+.product-carousel .thumb img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
 }
 
 /* Boxes Container */
@@ -92,6 +111,8 @@ html {
 /* Individual Box */
 .box {
   width: calc(33.333% - 20px);
+  /* width: 280px; */
+  min-width: 280px;
   border: 1px solid #ccc;
   padding: 20px;
   text-align: center;
@@ -101,6 +122,7 @@ html {
 }
 
 .box img {
+  max-width: 200px;
   width: 200px;
   height: auto;
   border-radius: 15px;
@@ -132,15 +154,6 @@ html {
   color: #ffffff;
 }
 
-
-
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-  .box {
-    width: calc(50% - 20px);
-  }
-}
-
 /* Hover effect for boxes */
 .box:hover {
   background-color: #f0f0f0;
@@ -165,27 +178,6 @@ html {
   text-decoration: none;
   color: #ffffff;
 }
-
-
-
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-  .box {
-    width: calc(50% - 20px);
-  }
-}
-
-@media (max-width: 480px) {
-  .box {
-    width: 100%;
-  }
-}
-
-
-
-
-
-
 
 .carousel-wrapper {
   perspective: 1000px;
@@ -210,40 +202,8 @@ html {
 
 .carousel .slide.right {
   transform: translateX(50%) scale(0.8);
-}.about-section {
-  padding: 20px;
-  text-align: center;
 }
 
-/* Footer */
-.landing-page-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #333;
-  color: #fff;
-}
-
-
-.carousel .slide .legend a {
-  text-decoration: none;
-  color: #ffffff;
-}
-
-
-
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-  .box {
-    width: calc(50% - 20px);
-  }
-}
-
-/* Hover effect for boxes */
-.box:hover {
-  background-color: #f0f0f0;
-}
-
-/* About Section */
 .about-section {
   padding: 20px;
   text-align: center;
@@ -264,9 +224,33 @@ html {
 }
 
 
+/* Hover effect for boxes */
+.box:hover {
+  background-color: #f0f0f0;
+}
+
+/* About Section */
+/* .about-section {
+  padding: 20px;
+  text-align: center;
+} */
+
+/* Footer */
+/* .landing-page-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+
+.carousel .slide .legend a {
+  text-decoration: none;
+  color: #ffffff;
+} */
 
 /* Media Queries for Responsive Design */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .box {
     width: calc(50% - 20px);
   }
@@ -276,4 +260,4 @@ html {
   .box {
     width: 100%;
   }
-}
+} */

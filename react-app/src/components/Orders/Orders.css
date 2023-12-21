@@ -156,3 +156,7 @@
     font-style:italic;
     font-size:12px;
 }
+.product-description {
+    max-height:125px;
+    overflow:scroll;
+}

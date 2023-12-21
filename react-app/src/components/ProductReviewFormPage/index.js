@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { createReview,getAllProducts } from "../../store/products";
 import "./CreateReviewForm.css";
 import critic from '../../assets/images/critic.png'
+import StarRating from './StarRating';
 
 function CreateReviewForm() {
   const dispatch = useDispatch();
@@ -82,8 +83,8 @@ function CreateReviewForm() {
         >
         <div>
         <h1 className="h1Review">Add a Review</h1>
-        <img src={critic} alt='critic'></img>
-          <label className="label">Rating</label>
+        <img src={critic} alt='critic' className="remy"></img>
+          {/* <label className="label">Rating</label>
           <input
             type="text"
             placeholder=""
@@ -92,10 +93,12 @@ function CreateReviewForm() {
             className="review-rating-input"
           />
 
-          {errors.rating && (
+          {errors.rating && (∂
             <p style={{ fontSize: "10px", color: "red" }}>*{errors.rating[0]}</p>
-          )}
-
+          )} */}
+<label className="label">Rating</label>
+          <StarRating rating={rating} setRating={setRating} />
+          {errors.rating && <p style={{ fontSize: "10px", color: "red" }}>*{errors.rating[0]}</p>}
 
         </div>
 

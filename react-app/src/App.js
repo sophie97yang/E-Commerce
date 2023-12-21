@@ -21,6 +21,8 @@ import Footer from './components/Footer';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import AboutUs from "./components/AboutUs";
 import CustomerReviews from "./components/CustomerReviews";
+import { getAllProducts } from "./store/products";
+import SearchResults from "./components/ProductAll/SearchResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,9 +31,12 @@ function App() {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+
+      <div className="main-content">
       {isLoaded && (
         <Switch>
 
@@ -66,6 +71,10 @@ function App() {
             <Order isLoaded={isLoaded}/>
           </ProtectedRoute>
 
+          <Route path='/search/:category&:search'>
+            <SearchResults />
+          </Route>
+
           <ProtectedRoute path="/products/new">
             <CreateProductForm />
           </ProtectedRoute>
@@ -82,7 +91,7 @@ function App() {
             <ProductDetails />
           </Route>
 
-          <Route path="/products">
+          <Route exact path="/products">
             <ProductAll />
           </Route>
 
@@ -100,6 +109,7 @@ function App() {
 
         </Switch>
       )}
+      </div>
       <Footer />
     </>
   );

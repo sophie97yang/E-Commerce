@@ -189,7 +189,7 @@ def seed_products():
         origin_city="Alsace",
         origin_state="France",
         available=15,
-        preview_image="https://blog.wisconsincheeseman.com/wp-content/uploads/sites/10/2016/08/muenster-cheese_large-1.jpg",
+        preview_image="https://www.tastingtable.com/img/gallery/munster-and-muenster-cheese-have-more-differences-than-just-spelling/intro-1695967633.jpg",
         product_image1="https://pearlvalleycheese.com/cdn/shop/products/muenster-cheese_800x.jpg?v=1676473673",
         product_image2="https://colosse.com/wp-content/uploads/2016/03/muenster-stock.jpg",
         product_image3="https://store.pagelsponderosa.com/wp-content/uploads/2020/08/Muenster-Block-resized-scaled.jpg",
@@ -301,6 +301,135 @@ def seed_products():
         product_image4="https://muscofood.com/wp-content/uploads/2019/01/36S032-655x561.jpg",
         )
 
+    product16 = Product(
+        name="Camembert Cheese",
+        seller=5,
+        description="A soft, creamy, and earthy Camembert cheese with a bloomy rind. Perfect for spreading on crackers.",
+        price=16.99,
+        category="Bloomy Rind",
+        origin_city="Normandy",
+        origin_state="France",
+        available=18,
+        preview_image="https://idealcheese.com/cdn/shop/products/FermierCamembert.jpg?v=1621632153",
+        product_image1="https://www.thepetitecook.com/wp-content/uploads/2019/06/baked-camembert-recipe.jpg",
+        product_image2="https://cheesemaking.com/cdn/shop/products/pic31_4e5b3400-1d12-433e-9fb6-0b6c400cdb96_grande.jpg?v=1529434177",
+        product_image3="https://yummybazaar.com/cdn/shop/articles/camembert.jpg?v=1665147035",
+        product_image4="https://lovefoodnotcooking.com/wp-content/uploads/2023/08/air-fryer-camembert-s.jpg",
+    )
+
+    product17 = Product(
+        name="Provolone Cheese",
+        seller=7,
+        description="Provolone is an Italian semi-hard cheese with a smooth texture and mild, tangy flavor. It is often used in sandwiches, salads, and melted on pizzas.",
+        price=9.99,
+        category="Semi-Hard",
+        origin_city="Southern Italy",
+        origin_state="Italy",
+        available=15,
+        preview_image="https://www.wisconsincheesemart.com/cdn/shop/products/Cedar-Valley-Provolone-Resh.jpg?v=1690917745",
+        product_image1="https://static.wixstatic.com/media/4ee715_4eb209370b69429996d7cfc7c7980cce~mv2.jpg/v1/fill/w_560,h_380,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/4ee715_4eb209370b69429996d7cfc7c7980cce~mv2.jpg",
+        product_image2="https://www.thespruceeats.com/thmb/-97xxZPsf_t7K6yX1gEgwwjTQIo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/157433201-56a126585f9b58b7d0bc806b.jpg",
+        product_image3="https://www.renardscheese.com/wp-content/uploads/CS0A3978-scaled.jpg",
+        product_image4="https://www.cheese.com/media/img/cheese/Provolone.jpg",
+    )
+
+    product18= Product(
+        name="Gorgonzola Cheese",
+        seller=8,
+        description="Gorgonzola is a bold and creamy blue cheese with a distinctive tangy flavor. Perfect for salads and pairing with honey and nuts.",
+        price=17.95,
+        category="Blue",
+        origin_city="Piedmont",
+        origin_state="Italy",
+        available=8,
+        preview_image="https://pastaevangelists.com/cdn/shop/articles/1_b1c01156-cc36-4da2-8ee1-7f09381adbcf_1200x1200.png?v=1643217092",
+        product_image1="https://capellacheese.com/cdn/shop/articles/gorgonzola-header-953x475_953x.jpg?v=1663947390",
+        product_image2="https://fromagination.com/wp-content/uploads/2015/11/Little-Boy-Blue-cheese.650x464.72res.jpg",
+        product_image3="https://www.allrecipes.com/thmb/MqsHdxw48goMXBx2jAgolmnvc-4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/What-Is-Gorgonzola-3x2-1-338b57d7eb2e4305a17e7de6cd5abafd.jpg",
+        product_image4="https://media.post.rvohealth.io/wp-content/uploads/2020/09/mold-moldy-blue-cheese-1200x628-facebook-1200x628.jpg",
+    )
+
+    product19= Product(
+        name="Stilton Cheese",
+        seller=3,
+        description="Stilton is a classic English blue cheese with a rich and robust flavor. It has a crumbly texture and is often enjoyed on its own or with fruits, nuts, and crackers.",
+        price=20.99,
+        category="Blue",
+        origin_city="Melton Mowbray",
+        origin_state="England",
+        available=14,
+        preview_image="https://images.squarespace-cdn.com/content/v1/58d5711a9f7456928cbaf420/1529698413013-CRCN2X765WYZH5WO5OMZ/Image+%5BSquare%5D.JPG",
+        product_image1="https://cdn11.bigcommerce.com/s-7c08qbh/images/stencil/1280x1280/products/195/903/ColstonBassettStilton_web_2_edited_db__01483.1637004019.jpg?c=2",
+        product_image2="https://mission-food.com/wp-content/uploads/2015/07/Stilton28392928600x40029.jpg",
+        product_image3="https://falstaff.b-cdn.net/storage/2021/12/Blue_Stilton.jpg?aspect_ratio=4:3",
+        product_image4="https://sweetgrassdairy.com/cdn/shop/products/asherblue_2_2000x.jpg?v=1695909951",
+    )
+
+    product20= Product(
+        name="Gruyère Cheese",
+        seller=4,
+        description="Gruyère is a firm and flavorful Swiss cheese. It has a sweet, nutty taste and a smooth texture, making it perfect for melting in fondues or gratins. Gruyère also complements a variety of dishes and is a versatile addition to any cheese board.",
+        price=17.99,
+        category="Hard",
+        origin_city="Gruyères",
+        origin_state="Switzerland",
+        available=12,
+        preview_image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Gruyere_alpage_th_wa.jpg/800px-Gruyere_alpage_th_wa.jpg",
+        product_image1="https://s3.us-east-2.amazonaws.com/cheesemaking-supply-co/908fd134d8c97c039c7a40f6304469a2.jpg",
+        product_image2="https://alpanddellcheese.com/wp-content/uploads/2018/11/Switzerland-Le-Gruyere-AOP-Mild-Cheese.jpg",
+        product_image3="https://i0.wp.com/millroadcheeseshop.com/wp-content/uploads/2022/02/beeler-600.jpg?fit=600%2C600&ssl=1",
+        product_image4="https://eurousa.com/wp-content/uploads/017504-emmi-le-gruyere-quarter-wheel-01.jpg",
+    )
+
+    product21= Product(
+        name="Charcuterie Board with Knife Set",
+        seller=5,
+        description="STORES as a COMPACT WEDGE - Swivels Open to an 18 inch Diameter, Tiered Serving Board for cheese & Appetizers",
+        price=81.99,
+        category="Accessories",
+        origin_city="San Diego",
+        origin_state="United States",
+        available=10,
+        preview_image="https://m.media-amazon.com/images/I/71c3XIDAeNL._AC_SX679_.jpg",
+        product_image1="https://m.media-amazon.com/images/I/81lkJddFoTL._AC_SX679_.jpg",
+        product_image2="https://m.media-amazon.com/images/I/811Yi-S2Z8L._AC_SX679_.jpg",
+        product_image3="https://m.media-amazon.com/images/I/81MSKH05S3L._AC_SX679_.jpg",
+        product_image4="https://m.media-amazon.com/images/I/61wL1+oj5bL._AC_SX679_.jpg",
+    )
+
+    product22= Product(
+        name="Yanggang Charcuterie Board",
+        seller=5,
+        description="Cheese Board, Unique Bamboo, Elegant Charcuterie and Wine Board with Removable Tray,Wine Glass Holder,Wine and Cheese Caddy for Christmas, Weddings and Housewarming Gifts.",
+        price=50.99,
+        category="Accessories",
+        origin_city="San Diego",
+        origin_state="United States",
+        available=10,
+        preview_image="https://m.media-amazon.com/images/I/61Y6hC5lywL._AC_SX679_.jpg",
+        product_image1="https://m.media-amazon.com/images/I/719H-O13BoL._AC_SX679_.jpg",
+        product_image2="https://m.media-amazon.com/images/I/91EIoqDGheL._AC_SY879_.jpg",
+        product_image3="https://m.media-amazon.com/images/I/61bCTgqgxuL._AC_SL1500_.jpg",
+        product_image4="https://m.media-amazon.com/images/I/61iqk8mS52L._AC_SL1500_.jpg",
+    )
+
+    product23= Product(
+        name="Oshin Cheese Grater",
+        seller=7,
+        description="Large Stainless Steel 4 Sides Grater Slicer with Handle, Multifunctional Cutter Planing for Ginger, Garlic, Cucumbers, Carrots, Cheese, Potato, Ergonomic Design Kitchen Gadgets Accessories Gold",
+        price=10.99,
+        category="Accessories",
+        origin_city="San Diego",
+        origin_state="United States",
+        available=15,
+        preview_image="https://m.media-amazon.com/images/I/61qqO3vcb9L._AC_SX679_.jpg",
+        product_image1="https://m.media-amazon.com/images/I/814i1TRI4eL._AC_SX679_.jpg",
+        product_image2="https://m.media-amazon.com/images/I/818uAhsY5OL._AC_SX679_.jpg",
+        product_image3="https://m.media-amazon.com/images/I/91Xsb4fMhRL._AC_SX679_.jpg",
+        product_image4="https://m.media-amazon.com/images/I/61gYO3s4jzL._AC_SX679_.jpg",
+    )
+
+
 
 
     # images = [image1,image2,image3,image4,image5,image6,image7]
@@ -319,13 +448,22 @@ def seed_products():
     db.session.add(product13)
     db.session.add(product14)
     db.session.add(product15)
+    db.session.add(product16)
+    db.session.add(product17)
+    db.session.add(product18)
+    db.session.add(product19)
+    db.session.add(product20)
+    db.session.add(product21)
+    db.session.add(product22)
+    db.session.add(product23)
+
     # add_images = [db.session.add(image) for image in images]
 
     db.session.commit()
 
     print("Successful CHEESY Products completed!!!!!")
 
-    return [product1, product2, product3, product4, product5, product6, product7, product8, product9, product10, product11, product12, product13, product14, product15]
+    return [product1, product2, product3, product4, product5, product6, product7, product8, product9, product10, product11, product12, product13, product14, product15, product16, product17, product18, product19, product20, product21, product22, product23]
 
 
 def undo_products():
