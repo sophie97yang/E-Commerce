@@ -150,7 +150,7 @@ const CreateProductForm = () => {
     <>
 
       <h1 className="add-product-title">Add a Product</h1>
-      <img src={babyCheese} alt='baby-cheese' id='add-prod-img'></img>
+      {/* <img src={babyCheese} alt='baby-cheese' id='add-prod-img'></img> */}
     <div className="create-product-container">
 
       <form className="product-form" onSubmit={handleSubmit} encType="multipart/form-data">
@@ -251,7 +251,7 @@ const CreateProductForm = () => {
             type="file"
             accept="image/*"
             onChange={(e) => setPreview_img(e.target.files[0])}
-            className=""
+            className="create-product-image"
           />
 
         {errors.preview_img && (
@@ -267,7 +267,7 @@ const CreateProductForm = () => {
             type="file"
             accept="image/*"
             onChange={(e) => setProduct_image1(e.target.files[0])}
-            className=""
+            className="create-product-image"
           />
           {errors.product_image1 && (
             <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image1}</p>
@@ -280,7 +280,7 @@ const CreateProductForm = () => {
             type="file"
             accept="image/*"
             onChange={(e) => setProduct_image2(e.target.files[0])}
-            className=""
+            className="create-product-image"
           />
           {errors.product_image2 && (
             <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image2}</p>
@@ -293,7 +293,7 @@ const CreateProductForm = () => {
             type="file"
             accept="image/*"
             onChange={(e) => setProduct_image3(e.target.files[0])}
-            className=""
+            className="create-product-image"
           />
           {errors.product_image3 && (
             <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image3}</p>
@@ -306,7 +306,7 @@ const CreateProductForm = () => {
             type="file"
             accept="image/*"
             onChange={(e) => setProduct_image4(e.target.files[0])}
-            className=""
+            className="create-product-image"
           />
           {errors.product_image4 && (
             <p style={{ fontSize: "10px", color: "red" }}>*{errors.product_image4}</p>

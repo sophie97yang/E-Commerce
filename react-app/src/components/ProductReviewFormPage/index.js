@@ -83,7 +83,7 @@ function CreateReviewForm() {
         >
         <div>
         <h1 className="h1Review">Add a Review</h1>
-        <img src={critic} alt='critic' className="remy"></img>
+        {/* <img src={critic} alt='critic' className="remy"></img> */}
           {/* <label className="label">Rating</label>
           <input
             type="text"

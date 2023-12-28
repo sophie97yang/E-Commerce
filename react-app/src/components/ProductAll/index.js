@@ -295,9 +295,9 @@ const ProductAll = () => {
                         <img src={product.preview_image} alt="product" className="product-img" />
                       </div>
                       <div className="product-summary">
-                        <li>{product.name}</li>
+                        <li id='name-details'>{product.name}</li>
                         <li>${product.price}</li>
-                        <li>{product.rating_sum ? `${product.average_rating} ${product.reviews.length}` : "No Reviews Yet"}</li>
+                        <li id='review-details'>{product.rating_sum ? `${product.average_rating} ${product.reviews.length}` : "No Reviews Yet"}</li>
                       </div>
                     </Link>
                     {product.available ? <div>{!member || !(member?.seller && product.seller.id === member.id) ? <button onClick={() => { handleAddCart(product.id) }}>Add to Cart</button> : <></>}</div> : <div className='out-of-stock'><p>Out of Stock</p></div>}

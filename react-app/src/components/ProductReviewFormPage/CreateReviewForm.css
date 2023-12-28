@@ -10,14 +10,14 @@
     margin-top: 25px;
     margin-bottom: 25px;
     text-align: center;
-    font-family: 'Pacifico', cursive;
+    /* font-family: 'Pacifico', cursive; */
     color: goldenrod;
     font-size: 40px;
 }
 
 .create-review-field{
     width: 600px;
-    height: 600px;
+    min-height: 600px;
     padding: 20px;
 }
 
@@ -37,4 +37,11 @@
 .create-review-field img {
     width:150px;
     margin-left:100px;
+}
+
+.create-review-field .label {
+    font-size:16px;
+}
+.create-review-field input, .create-review-field textarea {
+    border-color:grey;
 }

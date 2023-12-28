@@ -26,7 +26,7 @@ html {
   color: gold;
   background-color: white;
   padding: 20px;
-  font-family: 'Pacifico', cursive;
+  /* font-family: 'Pacifico', cursive; */
   font-size: 50px;
   text-shadow:
     -1px -1px 0 #000,
@@ -118,7 +118,7 @@ html {
   text-align: center;
   background-color: gold;
   cursor: url('../../assets/images/cheeseFinger.png'), pointer;
-  font-family: 'Pacifico', cursive;
+  /* font-family: 'Pacifico', cursive; */
 }
 
 .box img {
@@ -261,3 +261,15 @@ html {
     width: 100%;
   }
 } */
+
+@media screen and (max-width:820px) {
+.tom-img, .jerry-img {
+  display:none;
+}
+}
+
+@media screen and (max-width:430px) {
+  #footer-media {
+    display:none;
+  }
+}
