@@ -70,8 +70,8 @@ function Navigation({ isLoaded }) {
 					<SearchBar />
 				</div>
 				<div className='drop-down-box'>
-					<div>
-						<p>Hello, {sessionUser ? sessionUser.first_name : 'Sign In'}</p>
+					<div className='keep-width'>
+						<p id='hello-name'>Hello, {sessionUser ? sessionUser.first_name : 'Sign In'}</p>
 						<p>Accounts and Lists</p>
 					</div>
 					<div className='drop-down'>

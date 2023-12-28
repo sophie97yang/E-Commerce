@@ -186,3 +186,21 @@ main {
     border:none;
     font-size:40px;
 }
+
+@media screen and (max-width:430px) {
+    .products-list>div {
+        width:45%;
+    }
+    .products-list {
+        gap:5px;
+    }
+    #review-details {
+        min-height:40px;
+    }
+}
+
+@media screen and (max-width:950px) {
+    #name-details {
+        min-height:40px;
+    }
+}

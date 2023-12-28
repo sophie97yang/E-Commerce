@@ -67,6 +67,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding:10px;
 }
 
 /* button.actionButton {
@@ -277,8 +278,8 @@ button:hover {
     .product-images-box,
     .product-details {
         width: 100%;
-        padding-right: 0;
-        padding-left: 0;
+        /* padding-right: 0;
+        padding-left: 0; */
     }
 
     .product-reviews {
@@ -308,4 +309,20 @@ button:hover {
 #flex-display-pd {
     display:flex;
     flex-direction:column;
+}
+
+@media screen and (max-width:430px) {
+    .Carousel-img {
+        max-width:388px;
+        padding:5px;
+    }
+
+}
+
+@media screen and (max-width:375px) {
+    .Carousel-img {
+        max-width:333px;
+        padding:5px;
+    }
+
 }

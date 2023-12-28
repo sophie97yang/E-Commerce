@@ -12,14 +12,16 @@
 .order-details-bar{
     padding: 10px;
     background-color: rgb(233, 233, 233);
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     margin-top: 5px;
 }
 
 
 .order-product-details{
     border: 1px solid lightgrey;
-    border-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     margin-bottom: 15px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -88,7 +90,7 @@
 .buy-again-button{
     background-color: #f0c14b;
     color:black;
-    border-radius: 15px;
+    border-radius: 5px;
     border: none;
     cursor: url('../../assets/images/cheeseFinger.png'), pointer;
 
@@ -98,4 +100,23 @@
 
 .return_button_hidden {
     display:none;
+}
+
+@media screen and (max-width:768px) {
+#orders-container-media {
+    width:80%;
+    margin:0px auto;
+}
+.order-block-2 {
+    flex-direction:column;
+    height:100%;
+    align-items:center;
+}
+
+.main-content {
+    overflow:scroll;
+}
+#order-block-middle-media {
+    align-items:center;
+}
 }

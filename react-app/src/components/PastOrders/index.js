@@ -17,7 +17,7 @@ function PastOrders() {
 
 
     return (
-        <div className="orders-container">
+        <div className="orders-container" id='orders-container-media'>
             <h2 className="yourOrdersTitle">Your Orders</h2>
             <h4 className="howManyOrders">{past_orders.length} {past_orders.length === 1 ? 'Order' : 'Orders'}</h4>
             {

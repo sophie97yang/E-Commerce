@@ -85,12 +85,12 @@ function ShoppingCart() {
     return (
       <>
         <h2 className="shoppingcart-h2">Shopping Cart</h2>
-
-      <div className="shopping-cart">
-        <div className='shopping-cart-items'>
-          {cart && cart.length ?  <div className='breadcrumbs'id='cart-breadcrumb'>
+        {cart && cart.length ?  <div className='breadcrumbs'id='cart-breadcrumb'>
               <p><Link to='/products'>All Products</Link> {">"} {sessionUser.first_name}'s Cart </p>
             </div> : ""}
+      <div className="shopping-cart">
+        <div className='shopping-cart-items'>
+
         {cart && cart.length ? (
           cart.map((product) => (
             <div key={product.id} className="cart-container">

@@ -62,7 +62,7 @@ function SearchBar() {
     return (
         <div>
         <div className='search_bar'>
-            <select value={select} onChange={handleSelectChange}>
+            <select value={select} onChange={handleSelectChange} id='select-search'>
             <option value='All'>All</option>
                 {
                     [...categories].map(category => (

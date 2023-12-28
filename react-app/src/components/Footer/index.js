@@ -7,9 +7,9 @@ import logo from '../Navigation/parmazon-logo.png';
 function Footer() {
 
   return (
-    <footer>
+    <footer id='footer-media'>
       <div id="footer-left">
-        <div>Our Githubs</div>
+        {/* <div>Our Githubs</div> */}
         <div id="github-links">
           <div className="githubs">
             <a href="https://github.com/sophie97yang"><i className="fa-brands fa-square-github"></i> Sophie Yang</a>
@@ -38,7 +38,7 @@ Checkout our portfolios!
 </div>
 
 
-<a href="https://sophie97yang.github.io/" className="p-link"><i className="fa-brands fa-square-odnoklassniki" ></i> Sophie Yang</a>  <a href="https://pingno.github.io/" className="p-link"><i className="fa-brands fa-square-odnoklassniki"></i> Peang Ngo </a>  <a href="https://314pdinh.github.io" className="p-link"><i className="fa-brands fa-square-odnoklassniki"></i> Peter Dinh </a>  <a href="" className="p-link"><i className="fa-brands fa-square-odnoklassniki"></i> Yosef Latif </a> 
+<a href="https://sophie97yang.github.io/" className="p-link"><i className="fa-brands fa-square-odnoklassniki" ></i> Sophie Yang</a>  <a href="https://pingno.github.io/" className="p-link"><i className="fa-brands fa-square-odnoklassniki"></i> Peang Ngo </a>  <a href="https://314pdinh.github.io" className="p-link"><i className="fa-brands fa-square-odnoklassniki"></i> Peter Dinh </a>  <a href="" className="p-link"><i className="fa-brands fa-square-odnoklassniki"></i> Yosef Latif </a>
 
 
 
@@ -46,7 +46,7 @@ Checkout our portfolios!
 
 
       <div id="footer-right">
-        <div>Our LinkedIns</div>
+        {/* <div>Our LinkedIns</div> */}
         <div id="linkedin-links">
           <div className="linkedins">
             <a href="https://www.linkedin.com/in/sophie-yang-bb9758156/"><i className="fa-brands fa-linkedin" style={{ color: "#0047c2" }}></i> Sophie Yang</a>

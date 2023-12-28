@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 .yourOrdersTitle{
-    font-family: 'Pacifico', cursive;
+    /* font-family: 'Pacifico', cursive; */
     color: gold;
     margin-bottom: 20px;
     font-size: 60px;
@@ -50,10 +50,23 @@ h4 {
     text-align: center;
     color: white;
     padding: 10px 20px;
+    font-size:16px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: normal;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    margin: 4px;
+    border: none;
+    background-color: #f0c14b;
+    cursor: url('../../assets/images/cheeseFinger.png'), pointer;
+    outline: none;
 }
 
 /* Apply common styles to all buttons with the same class */
-.order-block-right button,
+/* .order-block-right button, */
 .order-block-middle .buy-again-button,.return_button {
     display: inline-block;
     text-align: center;
@@ -86,21 +99,28 @@ h4 {
 }
 
 
-.order-block-right,
+.order-block-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .order-block-middle {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+
 }
 
 /* Apply flexbox to buttons to center text vertically */
-.order-block-right button,
+/* .order-block-right button,
 .order-block-middle .buy-again-button {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .return_button_hidden {
     display:none;

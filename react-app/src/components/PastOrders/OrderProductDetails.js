@@ -115,7 +115,7 @@ function OrderProductDetails({ product, date }) {
           </Link>
         </div>
 
-        <div className="order-block-middle">
+        <div className="order-block-middle" id='order-block-middle-media'>
           <Link
             to={`/products/${product.product.id}`}
             className="product-name-link"
