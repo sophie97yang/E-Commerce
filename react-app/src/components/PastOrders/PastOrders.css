@@ -134,3 +134,14 @@ h4 {
     color: white;
     padding: 10px 20px;
 }
+.hidden{
+    display:none;
+}
+#no-purchase >h4 {
+    font-weight:200;
+    font-size:130%
+}
+
+#no-purchase button {
+    height:50px;
+}

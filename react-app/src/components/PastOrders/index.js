@@ -19,13 +19,13 @@ function PastOrders() {
     return (
         <div className="orders-container" id='orders-container-media'>
             <h2 className="yourOrdersTitle">Your Orders</h2>
-            <h4 className="howManyOrders">{past_orders.length} {past_orders.length === 1 ? 'Order' : 'Orders'}</h4>
+            <h4 className={past_orders.length?"howManyOrders":"hidden"}>{past_orders.length} {past_orders.length === 1 ? 'Order' : 'Orders'}</h4>
             {
                 !past_orders.length && (
                     <div id='no-purchase'>
-                    <h4>Looks like you have not made any purchases...</h4>
-                    <img src={lonelyCheese} alt='cheese'></img>
-                    <Link to='/products'>Let's Change That</Link>
+                    <h4>You have not made any purchases recently</h4>
+                    {/* <img src={lonelyCheese} alt='cheese'></img> */}
+                    <Link to='/products'><button>Let's Change That</button></Link>
                     </div>
                 )
             }
