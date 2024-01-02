@@ -79,7 +79,7 @@ function SearchBar() {
             <button className="searchBarButton" onClick={handleClick}><i className="fa-solid fa-magnifying-glass"/></button>
         </div>
 
-        <ul className={`search_results ${hidden ? 'hidden':''}`}>
+        <ul className={hidden ? 'hidden':'search_results'}>
             {searchResults?.map((result) => (
                 <button key={result.id} className='search-list-item'
                 onClick={(e)=>{
