@@ -23,6 +23,7 @@ import AboutUs from "./components/AboutUs";
 import CustomerReviews from "./components/CustomerReviews";
 import { getAllProducts } from "./store/products";
 import SearchResults from "./components/ProductAll/SearchResults";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-
+      <ScrollToTop />
       <div className="main-content">
       {isLoaded && (
         <Switch>
