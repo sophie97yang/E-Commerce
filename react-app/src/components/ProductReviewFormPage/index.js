@@ -9,8 +9,8 @@ import StarRating from './StarRating';
 function CreateReviewForm() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const member = useSelector((state) => state.session.member); // session.member?
-  const products = useSelector((state) => state.session.products);
+  const member = useSelector((state) => state.session.member);
+  const products = useSelector((state) => state.products.products);
   const {id}= useParams();
 
   const [rating, setRating] = useState(0);
@@ -24,10 +24,15 @@ function CreateReviewForm() {
   const [errors, setErrors] = useState({});
 
   const [disabled,setDisabled] = useState(true);
+  const [product,setProduct] =useState();
 
   useEffect(()=> {
     dispatch(getAllProducts()).catch(res => res)
   },[dispatch])
+
+  useEffect(()=> {
+    if (products && !product) setProduct(products[id])
+  },[products])
 
   useEffect(()=> {
     if (!headline || !content || !review_image) setDisabled(true);
@@ -82,7 +87,7 @@ function CreateReviewForm() {
         encType="multipart/form-data"
         >
         <div>
-        <h1 className="h1Review">Add a Review</h1>
+        <h1 className="h1Review">Add a Review <br></br> for {product?.name}</h1>
         {/* <img src={critic} alt='critic' className="remy"></img> */}
           {/* <label className="label">Rating</label>
           <input

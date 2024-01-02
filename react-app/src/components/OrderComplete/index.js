@@ -49,17 +49,19 @@ const OrderComplete = () => {
 
             <div className='ty-order-info'>
             <p>Your Order: <span id='transaction_product_list'>{product_list}</span> will be shipped to {member.first_name} {member.last_name} - by {seller_list}</p>
-            <Link to='/orders/past'>You can check your order status here</Link>
+            <Link to='/orders/past'><button>Check your order status</button></Link>
             </div>
 
             <h4>Here are some products you may like:</h4>
                 <div class='recommendations'>
                     <p>Based on your recent order of {recommendations[0].name}, we recommend:</p>
+                    <div id='rec-list'>
                     {recommendations[0].products.map(product=> (
 
                         <Link to={`/products/${product.id}`}><img alt={product.name} src={product.preview_image} className="thank-you-product"></img></Link>
 
                     ))}
+                    </div>
                 </div>
 
                 </div>

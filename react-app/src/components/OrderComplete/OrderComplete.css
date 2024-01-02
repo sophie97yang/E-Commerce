@@ -1,7 +1,7 @@
 .thank-you-block{
     margin: 25px;
     color:#ff9900;
-    font-size:30px
+    font-size:30px;
 }
 .thank-you-block img {
     width:50px;
@@ -59,4 +59,11 @@
     margin:10px;
     border:1px solid #232f3e;
     padding:5px;
+}
+
+#rec-list {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    align-items: center;
 }

@@ -163,7 +163,7 @@ function ShoppingCart() {
                       <div><h4>Your Balance After Checkout</h4><p>{(sessionUser.account_balance-total).toFixed(2)}</p></div>
                       <button onClick={handleTransaction} className='complete-transaction-button' disabled={disabled}>Checkout</button>
                       {cartErr.length ?<p id='cart-error'>{cartErr.join(',')} {cartErr.length===1? 'is':'are'} out of stock. Please remove from cart before proceeding.</p>: ''}
-                      </div></div>: <p className="empty-cart-container"><Link to='/products' className="empty-cart-link">Browse our lovely selection of cheeses</Link></p>
+                      </div></div>: <button className="empty-cart-container"><Link to='/products' className="empty-cart-link">Browse our lovely selection of cheeses</Link></button>
       }
 
       </div>

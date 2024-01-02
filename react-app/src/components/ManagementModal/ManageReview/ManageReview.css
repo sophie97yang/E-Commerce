@@ -25,3 +25,12 @@
     background-color:  #f0c14b;
     cursor: url('../../../assets/images/cheeseFinger.png'), pointer;
 }
+
+#close-modal-review {
+    border:none;
+}
+
+#close-modal-review:hover {
+    color:black;
+    background-color:transparent;
+}
