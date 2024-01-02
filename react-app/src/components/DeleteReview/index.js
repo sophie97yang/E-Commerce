@@ -23,6 +23,7 @@ const DeleteReview = ({ review }) => {
 
   return (
     <div className='delete-modal'>
+      <button onClick={closeModal} className='close-modal' id='close-modal-delete-review'><i className="fa-solid fa-xmark fa-lg"></i></button>
       <h2>Confirm Delete</h2>
       <p>Are you sure you want to delete this review? This action cannot be undone.</p>
       <button onClick={handleDelete} className="delete-review-button">Yes,delete my review.</button>

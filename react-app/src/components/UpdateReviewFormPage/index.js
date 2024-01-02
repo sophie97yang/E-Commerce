@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom";
 import { editReview,getAllProducts } from "../../store/products";
 import { useModal } from "../../context/Modal";
+import './UpdateReview.css'
 
 
-export function UpdateReviewForm({review}) {
+export function UpdateReviewForm({review,modal}) {
 const dispatch = useDispatch();
 const history = useHistory();
 const member = useSelector((state) => state.session.member);
@@ -73,10 +74,11 @@ useEffect(()=> {
 
 return (
     <div className="create-review-container">
-      
+      {modal ? <button onClick={closeModal} className='close-modal' id='close-modal-edit-review'><i className="fa-solid fa-xmark fa-lg"></i></button>:""}
       <form onSubmit={handleSubmit}
       className="create-review-field"
         encType="multipart/form-data"
+        id='edit-review'
         >
         <div>
         <h1>Update Your Review</h1>
@@ -142,9 +144,14 @@ return (
         </div> */}
 
         <div className="create-review-button">
-          <button type="submit" disabled={disabled}>Update Review</button>
+        <button onClick={(e)=> {
+          e.preventDefault();
+          closeModal();
+          }} id='cancel-review-edit'>Cancel</button>
+        <button type="submit" disabled={disabled}>Update Review</button>
         </div>
       </form>
+
     </div>
   );
 

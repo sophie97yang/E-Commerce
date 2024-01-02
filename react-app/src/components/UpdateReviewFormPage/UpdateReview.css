@@ -1,0 +1,21 @@
+#close-modal-edit-review {
+    border:none;
+}
+
+#close-modal-edit-review:hover {
+    color:black;
+    background-color:transparent;
+}
+#edit-review {
+    padding:30px;
+}
+
+#cancel-review-edit {
+    background-color:#ccc;
+    height:50px;
+    border:none;
+    font-size:20px;
+}
+#edit-review h1 {
+    margin-bottom:20px;
+}

@@ -8,7 +8,6 @@ import './returnModal.css';
 function HandleReturn({ product }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-  console.log(product);
 
   useEffect(() => {
     dispatch(getAllProducts()).catch((res) => res);
@@ -26,6 +25,7 @@ function HandleReturn({ product }) {
   };
   return (
     <div className='return-modal'>
+      <button onClick={closeModal} className='close-modal' id='close-modal-return'><i className="fa-solid fa-xmark fa-lg"></i></button>
       {!product.returned ? (
         <>
           <p>
@@ -36,6 +36,7 @@ function HandleReturn({ product }) {
             Why are you returning this?
             <input type="text" />
           </label>
+          <button onClick={closeModal} id='cancel-return'>Cancel</button>
           <button onClick={handleReturn}>Confirm Return </button>
         </>
       ) : (

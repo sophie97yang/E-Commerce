@@ -13,3 +13,13 @@
 .delete-modal >h2{
     padding:20px 0px;
 }
+
+#close-modal-delete-review {
+    border:none;
+}
+
+
+#close-modal-delete-review:hover {
+    color:black;
+    background-color:transparent;
+}

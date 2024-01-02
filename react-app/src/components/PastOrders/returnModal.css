@@ -38,3 +38,16 @@
 .return-modal button:hover {
     background-color: #45a049;
 }
+
+.close-modal,#close-modal-return {
+    position:absolute;
+    top:-5px;
+    left:0px;
+    background-color:transparent;
+    color:black;
+    width:15px;
+}
+#cancel-return {
+    background-color:#ccc;
+    color:black;
+}
