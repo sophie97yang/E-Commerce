@@ -63,7 +63,11 @@ function AccountPage() {
         </a>
       </div>
 
-      <div id="account-orders-container">
+
+
+    <div id='account-block-2'>
+
+    <div id="account-orders-container">
         {orders.length ? (
           <>
             <div className="header-your-orders-text">Your Past Orders</div>
@@ -74,6 +78,7 @@ function AccountPage() {
                     <img
                       src={product.product.preview_image}
                       alt={product.product.name}
+                      className="carousel-image"
                     />
                     <p className="legend">
                       <NavLink to={`/products/${product.product.id}`}>
@@ -87,11 +92,11 @@ function AccountPage() {
           </>
         ) : (
           <div className="noContentText">
-            <h2 className="header-your-orders-text">You have no past orders</h2>
+            {/* <h2 className="header-your-orders-text">You have no past orders</h2>
             <Link to="/products" className="your-orders-text">
               {" "}
               Let's Change That
-            </Link>
+            </Link> */}
           </div>
         )}
       </div>
@@ -114,11 +119,11 @@ function AccountPage() {
           </>
         ) : (
           <div className="noContentText">
-            <h2 className="header-your-orders-text">You have no wishlist</h2>
+            {/* <h2 className="header-your-orders-text">You have no wishlist</h2>
             <Link to="/products" className="your-orders-text">
               {" "}
               Let's Change That
-            </Link>
+            </Link> */}
           </div>
         )}
       </div>
@@ -142,14 +147,25 @@ function AccountPage() {
           </Carousel>
           </> :
           <div className="noContentText">
-          <h2 className="header-your-orders-text">You are selling no products</h2>
+          {/* <h2 className="header-your-orders-text">You are selling no products</h2>
           <Link to="/products/new" className="your-orders-text">
             {" "}
             Let's Change That
-          </Link>
+          </Link> */}
         </div>}
         </div>
       )}
+
+
+    </div>
+
+
+
+
+
+
+
+
     </div>
   );
 }

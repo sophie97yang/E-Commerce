@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
 import { getAllProducts } from '../../store/products';
 import customerRevImg from '../../assets/images/customerReviewsImg.png';
-import tom from '../../assets/images/TomCat.png';
-import jerry from '../../assets/images/jerryMouse.png';
+// import tom from '../../assets/images/TomCat.png';
+// import jerry from '../../assets/images/jerryMouse.png';
 import returnImg from '../../assets/images/freeReturn.png';
 import cheeseHeaven from '../../assets/images/cheeseHeaven.png';
 import cheeseSell from '../../assets/images/cheeseSell.png';
@@ -19,11 +19,14 @@ function LandingPage() {
   // const [products, setProducts] = useState([]);
   const [backgroundImage, setBackgroundImage] = useState('');
   const history = useHistory();
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useSelector((state) => state.session.member);
   const currentUserRole = currentUser?.seller;
   const dispatch = useDispatch();
   const products = useSelector(state => state.products.products);
-
+  let userProducts = [];
+  currentUser?.orders.forEach(order=> {
+    userProducts = [...userProducts,...order.products]
+  })
 
   useEffect(() => {
     dispatch(getAllProducts())
@@ -98,7 +101,6 @@ function LandingPage() {
     // },
   ];
 
-
   return (
     <div className="landing-page" >
       {/* style={{ backgroundImage: `url(${backgroundImage})` }} */}
@@ -106,11 +108,11 @@ function LandingPage() {
 
       <div className='image-header-landing'>
 
-        <div className="image-landing">
+        {/* <div className="image-landing">
           <img className="jerry-img" src={jerry} alt="jerry" />
-        </div>
+        </div> */}
 
-        <Carousel className="product-carousel">
+        {/* <Carousel className="product-carousel">
           {Object.values(products).map((product, index) => (
             <div key={index}>
               <img src={product.preview_image} alt={product.name} />
@@ -121,11 +123,39 @@ function LandingPage() {
             </div>
 
           ))}
-        </Carousel>
-
-        <div className="image-landing">
-          <img className="tom-img" src={tom} alt="tom" />
+        </Carousel> */}
+        <div className='explore-products'>
+          <h2>Explore our Products</h2>
+          <div className='products-grid'>
+          {Object.values(products).slice(0,4).map((product,index)=> (
+            <Link to={`/products/${product.id}`} key={index}><img src={product.preview_image} alt={product.name} key={index}></img></Link>
+          ))}
+          </div>
         </div>
+        {userProducts.length ?
+        <div className='buy-again'>
+          <h2>Buy it Again</h2>
+          <div className='buy-again-grid'>
+          {userProducts.slice(0,4).map((product,index)=> (
+            <Link to={`/products/${product.product.id}`} key={index}><img src={product.product.preview_image} alt={product.product.name} key={index}></img></Link>
+          ))}
+          </div>
+        </div>
+        :
+        <div className='buy-again'>
+          <h2>Explore our Accessories</h2>
+          <div className='buy-again-grid'>
+            {Object.values(products).filter(product=>product.category==='Accessories').map((product,index)=> (
+              <Link to={`/products/${product.id}`} key={index}><img src={product.preview_image} alt={product.name} key={index}></img></Link>
+            ))}
+
+          </div>
+        </div>
+}
+
+        {/* <div className="image-landing">
+          <img className="tom-img" src={tom} alt="tom" />
+        </div> */}
 
       </div>
 
