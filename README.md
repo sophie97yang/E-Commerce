@@ -7,7 +7,7 @@ Parmazon Prime, your ultimate online marketplace, redefines the e-commerce exper
 
 ## Index
 
-[Feature List](https://github.com/sophie97yang/Parmazon-Prime/wiki/Features-List) | [Database Scheme](https://github.com/sophie97yang/Parmazon-Prime/wiki/Database-Schema) | [API Documentation](https://github.com/sophie97yang/Parmazon-Prime/wiki/API-Documentation) | [https://github.com/sophie97yang/Parmazon-Prime/wiki/User's-Stories](https://github.com/sophie97yang/Parmazon-Prime/wiki/API-Documentation) | 
+[Feature List](https://github.com/sophie97yang/Parmazon-Prime/wiki/Features-List) | [Database Scheme](https://github.com/sophie97yang/Parmazon-Prime/wiki/Database-Schema) | [API Documentation](https://github.com/sophie97yang/Parmazon-Prime/wiki/API-Documentation) | [User's-Stories](https://github.com/sophie97yang/Parmazon-Prime/wiki/API-Documentation) | 
 
 
 ## Getting started
