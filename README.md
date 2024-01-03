@@ -26,3 +26,9 @@ Parmazon Prime, your ultimate online marketplace, redefines the e-commerce exper
 ## About Our Site
 If you are interestied in checkout out our site, please create a membership by signing up! You are also able to login as a demo member or seller.
 <img width="1381" alt="Screenshot 2023-11-28 at 10 19 27 AM" src="https://github.com/sophie97yang/Parmazon-Prime/assets/129304831/9356b862-15d4-462d-b534-27347e0ef2d1">
+
+## Connect with us on ![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)
+  - [Sophie Yang](https://www.linkedin.com/in/sophie-yang-bb9758156/)
+  - [Peang Ngo](https://www.linkedin.com/in/peang-ngo-840860112/)
+  - [Peter Dinh](https://www.linkedin.com/in/peter-dinh-66f/)
+  - [Yoseph Latif](https://www.linkedin.com/in/yoseph-latif/)
