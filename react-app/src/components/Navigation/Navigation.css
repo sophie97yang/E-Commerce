@@ -42,7 +42,9 @@ nav li:hover {
   cursor: url('../../assets/images/cheeseFinger.png'), pointer;
 
 }
-
+.login-signup-div {
+  text-align: center;
+}
 .login-signup-div:hover {
   border:none;
 }

@@ -135,7 +135,6 @@ const ProductAll = () => {
               const res = await dispatch(removeFromWishlist(productId));
               if (!res.errors) break;
               else {
-                console.log(res);
                 break;
               }
             }
@@ -156,7 +155,6 @@ const ProductAll = () => {
               const res = await dispatch(removeFromWishlist(productId));
               if (!res.errors) break;
               else {
-                console.log(res);
                 break;
               }
             }
@@ -275,6 +273,7 @@ const ProductAll = () => {
         <div className="product-right">
           <div className="product-right-inner-square">
             <h1>Cheese Collection</h1>
+            <p>Ordered by: <span>Quantity - Highest to Lowest</span></p>
           </div>
           {member && member.seller ? <button onClick={
             (e) => {
@@ -287,7 +286,7 @@ const ProductAll = () => {
 
         {productList?.length ?
            <ul className="products-list">
-              {productList.map((product) => (
+              {productList.sort((prod1,prod2)=>-(prod1.available-prod2.available)).map((product) => (
                 <div key={product.id} title={product.name} className={!product.available ? 'product_hidden' : ''}>
                   <div className="product-ind-box">
                     <Link to={`/products/${product.id}`}>

@@ -37,8 +37,6 @@ function Wishlist() {
     if (!res.errors) {
       dispatch(authenticate())
       history.push('/orders')
-    } else {
-      console.log(res.errors);
     }
   }
 

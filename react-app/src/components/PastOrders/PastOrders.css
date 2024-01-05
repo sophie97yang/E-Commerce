@@ -145,3 +145,7 @@ h4 {
 #no-purchase button {
     height:50px;
 }
+
+#orders-container-media>p>span {
+    color:#ff9900;
+}

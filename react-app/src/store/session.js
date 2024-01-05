@@ -176,7 +176,6 @@ export const deleteFromCart = (productId) => async(dispatch) => {
 	if (response.ok) {
 		const {cart} = await response.json();
 		dispatch(updateCart(cart));
-		console.log(cart);
 		return cart
 	} else {
 		const data = await response.json();

@@ -81,7 +81,6 @@ function LoginFormPage() {
       email: "givemecheese@gmail.com",
       password: "geniusmouse123"
     })).catch(async (res) => {
-      console.log(res)
       const data = await res.json();
       if (data && data.errors) {
         setErrors(data.errors);

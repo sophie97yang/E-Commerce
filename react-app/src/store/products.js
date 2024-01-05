@@ -59,7 +59,6 @@ export const getAllProducts = () => async (dispatch) => {
         return products
     } else {
        const data = await res.json();
-       console.log(data)
        return data
     }
 
@@ -102,12 +101,11 @@ export const updateProduct = (formData, productId) => async(dispatch) => {
 
         if(res.ok) {
             const product = await res.json();
-            console.log('this is the dataproduct', product)
             dispatch(editProduct(product))
             return product
         } else {
             const data = await res.json();
-            console.log("There was an error updating product",data)
+
             return data;
         }
     } catch (error) {
@@ -193,7 +191,7 @@ export const deleteReview = (productId,reviewId) => async (dispatch) => {
     const res = await fetch(`/api/reviews/${reviewId}/delete`, {
         method: "DELETE"
     }).catch((res)=>{
-        console.log(res)
+        return res
     })
 
     const data = await res.json();
@@ -219,7 +217,6 @@ export const editImage = (formData,productId) => async (dispatch) => {
         return product
     } else {
         const data = await res.json();
-        console.log("There was an error updating product",data)
         return data;
     }
 }

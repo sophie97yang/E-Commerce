@@ -189,7 +189,7 @@ def seed_products():
         origin_city="Alsace",
         origin_state="France",
         available=15,
-        preview_image="https://www.tastingtable.com/img/gallery/munster-and-muenster-cheese-have-more-differences-than-just-spelling/intro-1695967633.jpg",
+        preview_image="https://store.pagelsponderosa.com/wp-content/uploads/2020/08/Muenster-Block-resized-scaled.jpg",
         product_image1="https://pearlvalleycheese.com/cdn/shop/products/muenster-cheese_800x.jpg?v=1676473673",
         product_image2="https://colosse.com/wp-content/uploads/2016/03/muenster-stock.jpg",
         product_image3="https://store.pagelsponderosa.com/wp-content/uploads/2020/08/Muenster-Block-resized-scaled.jpg",

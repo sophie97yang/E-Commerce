@@ -9,6 +9,7 @@ main {
 
 .product-left {
     width: 35%;
+    overflow-y: scroll;
 }
 
 .product-right {
@@ -203,4 +204,9 @@ main {
     #name-details {
         min-height:40px;
     }
+}
+
+
+.product-right-inner-square span {
+    color:#ff9900;
 }

@@ -20,6 +20,7 @@ function PastOrders() {
         <div className="orders-container" id='orders-container-media'>
             <h2 className="yourOrdersTitle">Your Orders</h2>
             <h4 className={past_orders.length?"howManyOrders":"hidden"}>{past_orders.length} {past_orders.length === 1 ? 'Order' : 'Orders'}</h4>
+            {past_orders.length && <p>Ordered by:<span> Purchase Date - Most to Least Recent</span></p>}
             {
                 !past_orders.length && (
                     <div id='no-purchase'>
@@ -29,7 +30,7 @@ function PastOrders() {
                     </div>
                 )
             }
-            {past_orders && past_orders.map(order => (
+            {past_orders && past_orders.sort((ord1,ord2)=> -(new Date(ord1.purchase_date)-new Date(ord2.purchase_date))).map(order => (
                 <div key={order.id}>
                     <OrderDetails order={order}/>
                 </div>

@@ -18,7 +18,7 @@ const DeleteReview = ({ review }) => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-      dispatch(deleteReview(review.product_id,review.id)).catch(res => console.log(res)).then(closeModal);
+      dispatch(deleteReview(review.product_id,review.id)).catch(res => res).then(closeModal);
     }
 
   return (
