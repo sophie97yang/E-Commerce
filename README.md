@@ -69,7 +69,8 @@ We look forward to implementing these in the near future:
   - by best seller
   - by date
 - Keep track of Best Sellers
-- Advancing Package Tracker feature 
+- Advancing Package Tracker feature (integrating Google Cloud feature)
+- Integrating OAuth 
 ## Connect with us on ![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)
   - [Sophie Yang](https://www.linkedin.com/in/sophie-yang-bb9758156/)
   - [Peang Ngo](https://www.linkedin.com/in/peang-ngo-840860112/)
