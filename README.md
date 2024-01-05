@@ -58,13 +58,18 @@ Parmazon Prime, your ultimate online marketplace, redefines the e-commerce exper
 https://github.com/sophie97yang/Parmazon-Prime/assets/129304831/c0cd3108-a42a-4f9d-a54a-990015a577c2
 
 
-## About Our Site
+## How to utilize Parmazon
 If you are interested in checking out our site, please create a membership by signing up! You are also able to log in as a demo member or seller.
-<img width="1381" alt="Screenshot 2023-11-28 at 10 19 27 AM" src="https://github.com/sophie97yang/Parmazon-Prime/assets/129304831/9356b862-15d4-462d-b534-27347e0ef2d1">
 
 ## Future Implementation 
 We look forward to implementing these in the near future:
-
+- Paginate Products List
+- Offer different ways users want to filter a product, their reviews, their past orders
+  - by category
+  - by best seller
+  - by date
+- Keep track of Best Sellers
+- Advancing Package Tracker feature 
 ## Connect with us on ![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)
   - [Sophie Yang](https://www.linkedin.com/in/sophie-yang-bb9758156/)
   - [Peang Ngo](https://www.linkedin.com/in/peang-ngo-840860112/)
