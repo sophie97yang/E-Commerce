@@ -64,7 +64,7 @@ function Navigation({ isLoaded }) {
 					{sessionUser ? <p><i className="fa-solid fa-location-dot"/> {sessionUser.city}, {sessionUser.state}</p> : <button className="locationButton" onClick={(e) => {
 						e.preventDefault();
 						history.push('/signup')
-					}}>Sign up to Set Location</button>}
+					}}>Sign up to Set </button>}
 				</div>
 				<div className="search_bar_nav_component">
 					<SearchBar />
