@@ -11,18 +11,16 @@ function RemoveFromCart({product}) {
         const shopping_cart= member?.orders.filter(order=> order.purchased===false)[0]
         //IF SHOPPING CART HAS MORE THAN ONE PRODUCT(DO NOT NEED TO DELETE FULL ORDER)
         if (shopping_cart.products.length>1) {
-        const res = dispatch(deleteFromCart(product.product.id)).catch(res=>console.log(res))
+        const res = dispatch(deleteFromCart(product.product.id)).catch(res=>res)
         if (!res.errors) {
             dispatch(authenticate())
         }else {
-            console.log(res.errors);
         }
         } else {
-            const res = dispatch(deleteCart(shopping_cart,product.product.id)).catch(res=>console.log(res))
+            const res = dispatch(deleteCart(shopping_cart,product.product.id)).catch(res=>res)
             if (!res.errors) {
                 dispatch(authenticate())
             }else {
-                console.log(res.errors);
             }
         }
 }

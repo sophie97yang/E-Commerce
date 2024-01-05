@@ -44,7 +44,6 @@ function ShoppingCart() {
       }
     },[cart])
 
-    console.log(cart);
     //calculate total price of cart
     let total=0;
     cart?.forEach(product=> total+=(product.product.price*product.quantity))
@@ -59,15 +58,11 @@ function ShoppingCart() {
 
         if (!res.errors) {
             dispatch(authenticate())
-        }else {
-            console.log(res.errors);
         }
         } else {
             const res = await dispatch(addToWishlist(product.product.id)).then(dispatch(deleteCart(shopping_cart,product.product.id))).catch(res=>res)
             if (!res.errors) {
                 dispatch(authenticate())
-            }else {
-                console.log(res.errors);
             }
         }
     }

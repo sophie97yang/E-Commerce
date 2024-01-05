@@ -111,7 +111,6 @@ const ProductDetails = () => {
               const res = await dispatch(removeFromWishlist(id));
               if (!res.errors) break;
               else {
-                console.log(res);
                 break;
               }
             }
@@ -132,7 +131,6 @@ const ProductDetails = () => {
               const res = await dispatch(removeFromWishlist(id));
               if (!res.errors) break;
               else {
-                console.log(res);
                 break;
               }
             }
@@ -171,21 +169,17 @@ const ProductDetails = () => {
           let product = shopping_cart.products[i];
           if (product.product.id === parseInt(id)) {
             if (shopping_cart.products.length > 1) {
-              const res = dispatch(deleteFromCart(parseInt(id))).catch((res) =>
-                console.log(res)
-              );
+              const res = dispatch(deleteFromCart(parseInt(id))).catch((res) =>res);
               if (!res.errors) break;
               else {
-                console.log(res);
                 break;
               }
             } else {
               const res = dispatch(
                 deleteCart(shopping_cart, parseInt(id))
-              ).catch((res) => console.log(res));
+              ).catch((res) => res);
               if (!res.errors) break;
               else {
-                console.log(res);
                 break;
               }
             }
@@ -195,7 +189,7 @@ const ProductDetails = () => {
       dispatch(authenticate());
       history.push("/orders");
     } else {
-      console.log("Failed to add item to wishlist", res);
+      console.log("Failed to add item to wishlist");
     }
   };
 
@@ -214,30 +208,30 @@ const ProductDetails = () => {
 
 
 
-  const hasReviewed = product.reviews.some(review => 
+  const hasReviewed = product.reviews.some(review =>
     String(review.member.id) === String(member?.id)
   );
-  
-  console.log("Has reviewed:", hasReviewed);
-  
-  
 
-  
 
-  const hasPurchased = member?.orders.some(order => 
-    order.purchased && order.products.some(orderDetail => 
+
+
+
+
+
+  const hasPurchased = member?.orders.some(order =>
+    order.purchased && order.products.some(orderDetail =>
       String(orderDetail.product.id) === String(id)
     )
   );
-  
-  
+
+
 
   const handleReviewClick = () => {
     if (!member) {
       alert("It would brie a gouda idea to SIGN UP first");
       return;
     }
-  
+
 
 
 
@@ -245,7 +239,7 @@ const ProductDetails = () => {
       alert("You have already reviewed this product.");
       return;
     }
-  
+
 
 
 
@@ -253,7 +247,7 @@ const ProductDetails = () => {
       alert("You need to purchase this product before reviewing it.");
       return;
     }
-  
+
     // Redirect to the review submission page... make sure route is correct
     history.push(`/products/${id}/reviews/new`);
   };

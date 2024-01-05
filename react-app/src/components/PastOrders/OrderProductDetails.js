@@ -39,7 +39,6 @@ function OrderProductDetails({ product, date }) {
               );
               if (!res.errors) break;
               else {
-                console.log(res);
                 break;
               }
             }
@@ -62,7 +61,6 @@ function OrderProductDetails({ product, date }) {
               );
               if (!res.errors) break;
               else {
-                console.log(res);
                 break;
               }
             }

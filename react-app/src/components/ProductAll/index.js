@@ -135,7 +135,6 @@ const ProductAll = () => {
               const res = await dispatch(removeFromWishlist(productId));
               if (!res.errors) break;
               else {
-                console.log(res);
                 break;
               }
             }
@@ -156,7 +155,6 @@ const ProductAll = () => {
               const res = await dispatch(removeFromWishlist(productId));
               if (!res.errors) break;
               else {
-                console.log(res);
                 break;
               }
             }

@@ -47,7 +47,6 @@ const UpdateProductForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(category);
 
     let errorList = {};
 
