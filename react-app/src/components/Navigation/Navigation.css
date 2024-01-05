@@ -307,9 +307,6 @@ nav .searchBarButton{
 
 .locationButton {
   text-overflow: ellipsis;
-  overflow-x:hidden;
-  padding:5px;
-  overflow-y:visible;
 }
 
 @media screen and (max-width: 970px) {
