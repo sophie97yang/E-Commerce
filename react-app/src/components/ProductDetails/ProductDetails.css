@@ -326,3 +326,12 @@ button:hover {
     }
 
 }
+
+.reviewsTop p {
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+
+.reviewsTop span {
+    color:#FF9900;
+}

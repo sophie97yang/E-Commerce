@@ -476,6 +476,7 @@ const ProductDetails = () => {
             <div className="product-reviews">
               <div className="reviewsTop">
                 <h2>Reviews</h2>
+                <p>Ordered by:<span> Date - Most to Least Recent</span></p>
                 <h4>
                   {product.rating_sum
                     ? ` ${product.average_rating} ${(
@@ -495,7 +496,7 @@ const ProductDetails = () => {
               <RatingDistribution ratings={ratingsDistribution} />
               <div>
                 {product.reviews ? (
-                  product.reviews.map((review) => (
+                  product.reviews.sort((rev1,rev2)=>-(new Date(rev1)-new Date(rev2))).map((review) => (
                     <div key={review.id} className="product-detail-review">
                       {review.review_image ? (
                         <img
