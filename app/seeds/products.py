@@ -198,7 +198,7 @@ def seed_products():
 
 
     product10 = Product(
-        name= "Meunster Cheese",
+        name= "Havarti Cheese",
         seller=3,
         description= "Havarti cheese is a semi-soft Danish cheese that is known for its creamy texture and mild, buttery flavor. It has small, irregular openings or eyes throughout the cheese, and its texture can range from smooth to slightly crumbly depending on the variety. Havarti is often enjoyed as a table cheese, sandwich cheese, or used in various culinary applications.",
         price= 7.95,
@@ -206,7 +206,7 @@ def seed_products():
         origin_city="Havarthigaard",
         origin_state="Denmark",
         available=20,
-        preview_image="https://frankenmuthcheesehaus.com/cdn/shop/files/HavartiHerbsandSpices1090_934x700.jpg?v=1682553006",
+        preview_image="https://blog.wisconsincheeseman.com/wp-content/uploads/sites/10/2019/08/Dill-Havarti-Cheese.jpg",
         product_image1="https://fromagination.com/wp-content/uploads/2023/10/Roth-Dill-Havarti.a.650x464.72res.jpg",
         product_image2="https://www.piast.com/cdn/shop/products/HavartiCheese_1245x700.jpg?v=1609931934",
         product_image3="https://blog.wisconsincheeseman.com/wp-content/uploads/sites/10/2019/08/Dill-Havarti-Cheese.jpg",
