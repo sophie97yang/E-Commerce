@@ -2,13 +2,12 @@
 
 [Parmazon](https://parmazon-prime.onrender.com) is a website clone, inspired by Amazon, developed with React, Redux, JavaScript, Python, PostgreSQL, and Flask.
 
-## About US
+## About Parmazon
 Parmazon Prime, your ultimate online marketplace, redefines the e-commerce experience with a delightful fusion of premium products, user-friendly design, and a touch of humor. Specializing in a diverse selection of quality cheeses, Parmazon Prime caters to enthusiasts seeking a superlative culinary adventure. From exploring an extensive cheese collection to providing a platform for cheese sellers, Parmazon Prime brings together a community that shares a passion for all things cheesy. Our founders, Sophie, Peang, Peter, and Yoseph, envisioned a platform where every purchase is a celebration of flavor and fun. Join us at Parmazon Prime and savor the cheesy goodness crafted by our creators!
 
 ## Index
 
-[Feature List](https://github.com/sophie97yang/Parmazon-Prime/wiki/Features-List) | [Database Schema](https://github.com/sophie97yang/Parmazon-Prime/wiki/Database-Schema) | [API Documentation](https://github.com/sophie97yang/Parmazon-Prime/wiki/API-Documentation) | [User's-Stories](https://github.com/sophie97yang/Parmazon-Prime/wiki/API-Documentation) | 
-
+[Feature List](https://github.com/sophie97yang/Parmazon-Prime/wiki/Features-List) | [Database Schema](https://github.com/sophie97yang/Parmazon-Prime/wiki/Database-Schema) | [API Documentation](https://github.com/sophie97yang/Parmazon-Prime/wiki/API-Documentation) | [User's-Stories](https://github.com/sophie97yang/Parmazon-Prime/wiki/User's-Stories) | [Wireframes] (https://docs.google.com/presentation/d/1JTCx5V3KThPFnepnDJD642OPPX2vSBidG9al-1wTF8s/edit#slide=id.g29ca361abb9_0_21)
 
 ## Installation Instructions
 
