@@ -261,7 +261,8 @@ html {
 .explore-products,.buy-again {
   padding:10px;
   min-width:350px;
-  min-height:350px;
+  min-height:400px;
+  max-height:400px;
   box-sizing:border-box;
   background-color:white;
 }
