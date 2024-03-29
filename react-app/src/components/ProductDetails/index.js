@@ -471,7 +471,6 @@ const ProductDetails = () => {
                   </div>
                 )}
               </div>
-            </div>
 
             <div className="product-reviews">
               <div className="reviewsTop">
@@ -531,11 +530,13 @@ const ProductDetails = () => {
                 ) : (
                   <></>
                 )}
+                 </div>
               </div>
             </div>
           </div>
         )}
       </div>
+
     </>
   );
 };
