@@ -18,15 +18,6 @@ def get_all_products():
     print(list_dict_products)
     return {"products":list_dict_products}
 
-
-# #get product description
-# @product_routes.route('/<int:id>')
-# def get_product_details(id):
-#     product = Product.query.get(id)
-#     if product is None:
-#         return {"message": "Product doesn't exist"}, 404
-#     return {"product":product.to_dict_descriptive()}
-
 #create a product
 @login_required
 @product_routes.route('/new',methods=['POST'])
@@ -51,7 +42,6 @@ def create_new_product():
                 available=data["available"]
             )
 
-    # mod 6 aws references
             preview_image = form.data["preview_image"]
             preview_image.filename = get_unique_filename(preview_image.filename)
             uploadPreviewImage = upload_file_to_s3(preview_image)
@@ -72,6 +62,7 @@ def create_new_product():
                     return uploadProductImage1
                 else:
                     newProduct.product_image1 = uploadProductImage1["url"]
+
             product_image2 = form.data["product_image2"]
             if product_image2:
                 product_image2.filename = get_unique_filename(product_image2.filename)
@@ -139,9 +130,7 @@ def update_product(id):
     #seller,origin_city,origin_state comes from current_user
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    # imported current_user, no need to create variablee
     # current_user=0
-    # remember, if you have an if statement, you must have an else statement as will.
     if form.validate_on_submit():
         data = form.data
 
@@ -194,12 +183,6 @@ def add_product_review(id):
     if product.seller== current_user.id:
         return {"message":"Forbidden"},403
 
-    # existing_review = Review.query.filter_by(product_id=id, member_id=current_user.id).first()
-    # if existing_review:
-    #     return {"message": "You have already left a review for this product"}, 400
-    #what if user has already left a review? redirect them to updating their review?
-    #I guess they can leave multiple reviews
-    #else proceed with creating a review
     form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
